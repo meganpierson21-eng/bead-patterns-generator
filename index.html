@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beaded Earring Pattern Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overscroll-behavior: none;
+        }
+        .bead {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid #d1d5db; /* gray-300 */
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        .bead:hover {
+            transform: scale(1.1);
+        }
+        .tool-btn.selected {
+            border-color: #3b82f6; /* blue-500 */
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+        }
+        .color-swatch {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #e5e7eb;
+            transition: all 0.2s;
+        }
+        .color-swatch:hover {
+            transform: scale(1.1);
+        }
+        .color-swatch.selected {
+             border-color: #3b82f6;
+        }
+        .ruler-mark {
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            color: #6b7280; /* gray-500 */
+            font-size: 12px;
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        input[type="color"] {
+        	-webkit-appearance: none;
+        	border: none;
+        	width: 56px;
+        	height: 56px;
+            cursor: pointer;
+        }
+        input[type="color"]::-webkit-color-swatch-wrapper {
+        	padding: 0;
+        }
+        input[type="color"]::-webkit-color-swatch {
+        	border: 1px solid #d1d5db;
+        	border-radius: 0.5rem; /* rounded-lg */
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9; /* slate-100 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8; /* slate-400 */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b; /* slate-500 */
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-700">Beaded Earring Pattern Generator</h1>
+            <p class="text-slate-500 mt-2">Design your own fringe earring patterns with ease.</p>
+        </header>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+
+            <!-- Controls Panel -->
+            <aside class="w-full lg:w-1/3 xl:w-1/4 bg-white p-6 rounded-2xl shadow-lg">
+                <div class="space-y-6">
+                    <!-- Color Tools -->
+                    <div>
+                        <h2 class="text-lg font-semibold mb-3">1. Select a Color</h2>
+                        <div class="flex items-center gap-4">
+                            <input type="color" id="color-picker" value="#000000">
+                            <div class="flex flex-col gap-3">
+                                <button id="eyedropper-btn" title="Eyedropper" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.5 3.5L8 13H4v-4L11.5 2z"/><path d="M18 6 22 10"/><path d="M14 16.5 19 21.5"/></svg>
+                                </button>
+                                <button id="eraser-btn" title="Eraser" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0 0 2.828l3.986 3.986a2 2 0 0 0 2.828 0zM2 22l5.5-5.5"/><path d="m15 5 6 6"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="color-palette" class="grid grid-cols-7 gap-2 mt-4">
+                            <!-- Common colors will be injected here -->
+                        </div>
+                    </div>
+
+                    <!-- Pattern Settings -->
+                    <div>
+                        <h2 class="text-lg font-semibold mb-3">2. Adjust Pattern Settings</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="top-style" class="block text-sm font-medium text-slate-600">Top Style</label>
+                                <select id="top-style" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                    <option value="single" selected>Single Brick (Wide)</option>
+                                    <option value="double">Double Brick (Tall)</option>
+                                    <option value="none">Loom</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="fringe-width" id="fringe-width-label" class="block text-sm font-medium text-slate-600">Top Width (at base)</label>
+                                <input type="number" id="fringe-width" value="11" min="2" max="25" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                            </div>
+                            <div>
+                                <label for="fringe-length" class="block text-sm font-medium text-slate-600">Max Fringe Length</label>
+                                <input type="number" id="fringe-length" value="20" min="5" max="50" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                            </div>
+                            <div>
+                                <label for="fringe-shape" class="block text-sm font-medium text-slate-600">Fringe Shape</label>
+                                <select id="fringe-shape" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                    <option value="rectangle" selected>Rectangle</option>
+                                    <option value="v-shape">V-Shape</option>
+                                    <option value="chevron">Chevron (Inverted V)</option>
+                                </select>
+                            </div>
+                            <button id="apply-settings" class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition">
+                                Apply Settings
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div>
+                        <h2 class="text-lg font-semibold mb-3">3. Actions</h2>
+                        <div class="grid grid-cols-2 gap-3">
+                             <button id="undo-btn" class="w-full bg-gray-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition">
+                                Undo
+                            </button>
+                             <button id="clear-pattern" class="w-full bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition">
+                                Clear
+                            </button>
+                        </div>
+                         <button id="print-pattern" class="w-full bg-sky-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition mt-3">
+                                Print Pattern
+                            </button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Pattern Display -->
+            <main class="w-full lg:w-2/3 xl:w-3/4 bg-white p-4 sm:p-6 rounded-2xl shadow-lg overflow-x-auto">
+                <div id="pattern-container" class="inline-block">
+                    <!-- Pattern will be generated here by JS -->
+                </div>
+            </main>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- STATE & CONFIG ---
+            const commonColors = [
+                '#000000', '#FFFFFF', '#A9A9A9', '#FF0000', '#FFA500', '#FFFF00', '#008000', 
+                '#0000FF', '#800080', '#FFC0CB', '#964B00', '#40E0D0', '#FFD700', '#C0C0C0'
+            ];
+            const eraserColor = 'eraser';
+            const whiteRgb = 'rgb(255, 255, 255)';
+            let activeTool = 'paint'; // 'paint', 'eraser', 'eyedropper'
+            let isPainting = false;
+            let history = [];
+
+            // --- DOM ELEMENTS ---
+            const patternContainer = document.getElementById('pattern-container');
+            const colorPicker = document.getElementById('color-picker');
+            const paletteContainer = document.getElementById('color-palette');
+            const eraserBtn = document.getElementById('eraser-btn');
+            const eyedropperBtn = document.getElementById('eyedropper-btn');
+            const topStyleSelect = document.getElementById('top-style');
+            const fringeWidthInput = document.getElementById('fringe-width');
+            const fringeWidthLabel = document.getElementById('fringe-width-label');
+            const fringeLengthInput = document.getElementById('fringe-length');
+            const fringeShapeSelect = document.getElementById('fringe-shape');
+            const applySettingsBtn = document.getElementById('apply-settings');
+            const clearBtn = document.getElementById('clear-pattern');
+            const printBtn = document.getElementById('print-pattern');
+            const undoBtn = document.getElementById('undo-btn');
+
+            // --- FUNCTIONS ---
+
+            function setupPalette() {
+                paletteContainer.innerHTML = '';
+                commonColors.forEach(color => {
+                    const swatch = document.createElement('div');
+                    swatch.className = 'color-swatch';
+                    swatch.style.backgroundColor = color;
+                    swatch.dataset.color = color;
+                    paletteContainer.appendChild(swatch);
+                });
+            }
+
+            function setActiveTool(tool) {
+                activeTool = tool;
+                // Update UI to show which tool is active
+                eraserBtn.classList.toggle('selected', tool === 'eraser');
+                eyedropperBtn.classList.toggle('selected', tool === 'eyedropper');
+                document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+
+                if (tool === 'paint') {
+                    const currentHex = colorPicker.value.toUpperCase();
+                    const matchingSwatch = document.querySelector(`.color-swatch[data-color="${currentHex}"]`);
+                    if(matchingSwatch) {
+                        matchingSwatch.classList.add('selected');
+                    }
+                }
+                 patternContainer.style.cursor = tool === 'eyedropper' ? 'copy' : 'pointer';
+            }
+
+            function updateUndoButtonState() {
+                undoBtn.disabled = history.length === 0;
+            }
+
+            function recordAction(bead, oldColor, newColor) {
+                if (oldColor === newColor) return;
+                history.push({ bead, oldColor, newColor });
+                updateUndoButtonState();
+            }
+            
+            function generatePattern() {
+                patternContainer.innerHTML = '';
+                history = []; 
+                updateUndoButtonState();
+
+                const topStyle = topStyleSelect.value;
+                const fringeWidth = parseInt(fringeWidthInput.value);
+                const fringeLength = parseInt(fringeLengthInput.value);
+                const fringeShape = fringeShapeSelect.value;
+
+                if (isNaN(fringeWidth) || isNaN(fringeLength) || fringeWidth < 2 || fringeLength < 1) {
+                    patternContainer.innerHTML = '<p class="text-red-500">Please enter valid numbers. Width must be at least 2.</p>';
+                    return;
+                }
+
+                const mainFlexContainer = document.createElement('div');
+                mainFlexContainer.style.display = 'flex';
+                mainFlexContainer.style.gap = '8px';
+
+                const rulerContainer = document.createElement('div');
+                rulerContainer.style.display = 'flex';
+                rulerContainer.style.flexDirection = 'column';
+
+                const beadGridContainer = document.createElement('div');
+                beadGridContainer.style.display = 'flex';
+                beadGridContainer.style.flexDirection = 'column';
+                beadGridContainer.style.alignItems = 'center';
+                
+                if (topStyle !== 'none') {
+                    if (topStyle === 'single') {
+                        for (let numBeads = 2; numBeads <= fringeWidth; numBeads++) {
+                            const row = document.createElement('div');
+                            row.style.display = 'flex';
+                            rulerContainer.appendChild(createRulerMark(''));
+                            for (let j = 0; j < numBeads; j++) {
+                                row.appendChild(createBead());
+                            }
+                            beadGridContainer.appendChild(row);
+                        }
+                    } else { // double
+                        for (let numBeads = 2; numBeads <= fringeWidth; numBeads++) {
+                            for(let k=0; k<2; k++) {
+                                const row = document.createElement('div');
+                                row.style.display = 'flex';
+                                rulerContainer.appendChild(createRulerMark(''));
+                                for (let j = 0; j < numBeads; j++) {
+                                    row.appendChild(createBead());
+                                }
+                                beadGridContainer.appendChild(row);
+                            }
+                        }
+                    }
+                    const spacer = document.createElement('div');
+                    spacer.style.height = '10px';
+                    beadGridContainer.appendChild(spacer);
+                    const rulerSpacer = document.createElement('div');
+                    rulerSpacer.style.height = '10px';
+                    rulerContainer.appendChild(rulerSpacer);
+                }
+
+                for (let i = 0; i < fringeLength; i++) {
+                    const row = document.createElement('div');
+                    row.style.display = 'flex';
+                    const label = (i + 1) % 5 === 0 ? (i + 1) : '-';
+                    rulerContainer.appendChild(createRulerMark(label));
+                    for (let j = 0; j < fringeWidth; j++) {
+                        const bead = createBead();
+                        let isVisible = true;
+                        if (fringeShape !== 'rectangle') {
+                            const centerColumnIndex = Math.floor(fringeWidth / 2);
+                            const distFromCenter = Math.abs(j - centerColumnIndex);
+                            let columnLength = fringeLength;
+                            if (fringeShape === 'v-shape') {
+                                columnLength = fringeLength - (centerColumnIndex - distFromCenter);
+                            } else if (fringeShape === 'chevron') {
+                                columnLength = fringeLength - distFromCenter;
+                            }
+                            if (i >= columnLength) isVisible = false;
+                        }
+                        if (!isVisible) {
+                            bead.style.visibility = 'hidden';
+                            bead.classList.remove('bead');
+                        }
+                        row.appendChild(bead);
+                    }
+                    beadGridContainer.appendChild(row);
+                }
+                
+                mainFlexContainer.appendChild(rulerContainer);
+                mainFlexContainer.appendChild(beadGridContainer);
+                patternContainer.appendChild(mainFlexContainer);
+            }
+
+            function createBead() {
+                const bead = document.createElement('div');
+                bead.className = 'bead bg-white';
+                bead.style.backgroundColor = 'white';
+                return bead;
+            }
+
+            function createRulerMark(text) {
+                const mark = document.createElement('div');
+                mark.className = 'ruler-mark';
+                mark.textContent = text;
+                return mark;
+            }
+
+            function handleBeadInteraction(e) {
+                if (!e.target.classList.contains('bead')) return;
+                const bead = e.target;
+
+                if (activeTool === 'eyedropper') {
+                    const pickedColor = bead.style.backgroundColor;
+                    colorPicker.value = rgbToHex(pickedColor);
+                    setActiveTool('paint');
+                } else { // paint or eraser
+                    const oldColor = bead.style.backgroundColor;
+                    const newColor = activeTool === 'eraser' ? 'white' : colorPicker.value;
+                    
+                    if (oldColor !== newColor) {
+                       bead.style.backgroundColor = newColor;
+                       recordAction(bead, oldColor, newColor);
+                    }
+                }
+            }
+            
+            function clearPattern() {
+                const beads = document.querySelectorAll('.bead');
+                const changes = [];
+                beads.forEach(bead => {
+                    if (bead.style.visibility !== 'hidden' && bead.style.backgroundColor !== 'white') {
+                       changes.push({bead: bead, oldColor: bead.style.backgroundColor, newColor: 'white'});
+                    }
+                });
+                if (changes.length > 0) history.push(changes);
+                beads.forEach(bead => {
+                    bead.style.backgroundColor = 'white';
+                });
+                updateUndoButtonState();
+            }
+
+            function handleUndo() {
+                if (history.length === 0) return;
+                const lastAction = history.pop();
+                if (Array.isArray(lastAction)) {
+                    lastAction.forEach(change => {
+                        change.bead.style.backgroundColor = change.oldColor;
+                    });
+                } else {
+                    const { bead, oldColor } = lastAction;
+                    bead.style.backgroundColor = oldColor;
+                }
+                updateUndoButtonState();
+            }
+
+            function printPattern() {
+                const printWindow = window.open('', '_blank');
+                const patternHTML = patternContainer.innerHTML;
+                const usedColors = new Set();
+                document.querySelectorAll('.bead').forEach(bead => {
+                    if (bead.style.visibility !== 'hidden' && bead.style.backgroundColor && bead.style.backgroundColor !== 'white' && bead.style.backgroundColor !== whiteRgb) {
+                        usedColors.add(bead.style.backgroundColor);
+                    }
+                });
+                let paletteHTML = '';
+                usedColors.forEach(color => {
+                    paletteHTML += `<div style="display: flex; align-items: center; margin-bottom: 4px;">
+                                       <div style="width: 24px; height: 24px; border-radius: 50%; background-color: ${color}; border: 1px solid #ccc; margin-right: 8px;"></div>
+                                       <span>${rgbToHex(color).toUpperCase()}</span>
+                                    </div>`;
+                });
+                if (paletteHTML === '') paletteHTML = '<p>No custom colors used.</p>';
+                printWindow.document.write(`
+                    <html><head><title>Earring Pattern</title>
+                    <style>
+                        body { font-family: sans-serif; }
+                        #pattern-area > div { display: flex !important; gap: 8px; }
+                        .bead { width: 15px; height: 15px; border-radius: 50%; border: 1px solid #ccc; }
+                        div:not(.bead) { visibility: visible !important; }
+                        .ruler-mark { height: 15px; display: flex; align-items: center; justify-content: center; width: 24px; font-size: 10px; color: #333; }
+                        div[style*="display: flex"] { display: flex !important; }
+                        div[style*="align-items: center"] { align-items: center !important; }
+                        @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } #controls { display: none; } }
+                    </style></head><body class="p-8">
+                        <h1 class="text-2xl font-bold mb-4">Beaded Earring Pattern</h1>
+                        <div class="mb-8" id="pattern-area">${patternHTML}</div>
+                        <h2 class="text-xl font-bold mb-2">Color Key</h2>
+                        <div id="controls">${paletteHTML}</div>
+                        <script>
+                            document.querySelectorAll('.bead').forEach(b => b.style.cursor = 'default');
+                            setTimeout(() => { window.print(); window.close(); }, 500);
+                        <\/script>
+                    </body></html>`);
+                printWindow.document.close();
+            }
+
+            function handleTopStyleChange() {
+                 if (topStyleSelect.value === 'none') {
+                    fringeWidthLabel.textContent = 'Fringe Width';
+                } else {
+                    fringeWidthLabel.textContent = 'Top Width (at base)';
+                }
+            }
+            
+            function rgbToHex(rgb) {
+                if (rgb.startsWith('#')) return rgb;
+                let [r, g, b] = rgb.match(/\d+/g).map(Number);
+                return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+            }
+
+            // --- EVENT LISTENERS ---
+            applySettingsBtn.addEventListener('click', generatePattern);
+            clearBtn.addEventListener('click', clearPattern);
+            undoBtn.addEventListener('click', handleUndo);
+            printBtn.addEventListener('click', printPattern);
+            topStyleSelect.addEventListener('change', handleTopStyleChange);
+
+            colorPicker.addEventListener('input', (e) => {
+                setActiveTool('paint');
+            });
+            
+            eraserBtn.addEventListener('click', () => setActiveTool('eraser'));
+            eyedropperBtn.addEventListener('click', () => setActiveTool('eyedropper'));
+
+            paletteContainer.addEventListener('click', (e) => {
+                if(e.target.classList.contains('color-swatch')) {
+                    colorPicker.value = e.target.dataset.color;
+                    setActiveTool('paint');
+                }
+            });
+
+            patternContainer.addEventListener('mousedown', e => {
+                isPainting = true;
+                handleBeadInteraction(e);
+            });
+            patternContainer.addEventListener('mouseover', e => {
+                if (isPainting && activeTool !== 'eyedropper') {
+                    handleBeadInteraction(e);
+                }
+            });
+            document.addEventListener('mouseup', () => {
+                isPainting = false;
+            });
+            patternContainer.addEventListener('dragstart', e => e.preventDefault());
+
+            // --- INITIALIZATION ---
+            setupPalette();
+            generatePattern();
+            handleTopStyleChange();
+            setActiveTool('paint');
+        });
+    </script>
+</body>
+</html>
