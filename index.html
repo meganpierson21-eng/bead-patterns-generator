@@ -477,10 +477,7 @@
             }
             
             function preparePrintArea() {
-                // 1. Clone the pattern into the hidden print area
                 patternCloneForPrint.innerHTML = patternContainer.innerHTML;
-                
-                // 2. Generate the color key for printing
                 const usedColors = new Set();
                 document.querySelectorAll('.bead').forEach(bead => {
                     if (bead.style.visibility !== 'hidden' && bead.style.backgroundColor && bead.style.backgroundColor !== 'white' && bead.style.backgroundColor !== whiteRgb) {
@@ -503,24 +500,41 @@
                 window.print();
             }
 
-            function saveAsImage() {
+            async function saveAsImage() {
                 preparePrintArea();
+                saveImageBtn.textContent = 'Saving...';
+                saveImageBtn.disabled = true;
+
                 // Temporarily show the print area off-screen for capture
                 printArea.classList.remove('hidden');
                 printArea.style.position = 'absolute';
                 printArea.style.left = '-9999px';
+                
+                try {
+                    // Add a small delay to ensure rendering is complete
+                    await new Promise(resolve => setTimeout(resolve, 100));
 
-                html2canvas(printArea).then(canvas => {
+                    const canvas = await html2canvas(printArea, {
+                        useCORS: true, // Helps with external resources like fonts
+                        backgroundColor: '#ffffff', // Explicitly set background
+                        logging: false // Turn off console logs from the library
+                    });
+                    
                     const link = document.createElement('a');
                     link.download = 'bead-pattern.png';
                     link.href = canvas.toDataURL('image/png');
                     link.click();
-
-                    // Hide the print area again
+                } catch (error) {
+                    console.error('Oops, something went wrong!', error);
+                    alert('Sorry, could not save the image. Please try again.');
+                } finally {
+                    // Hide the print area again and restore button
                     printArea.classList.add('hidden');
                     printArea.style.position = '';
                     printArea.style.left = '';
-                });
+                    saveImageBtn.textContent = 'Save as Image';
+                    saveImageBtn.disabled = false;
+                }
             }
 
             function handleTopStyleChange() {
