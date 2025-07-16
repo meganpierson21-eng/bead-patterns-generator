@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beaded Earring Pattern Generator</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -96,11 +97,7 @@
                 display: block !important;
             }
             main {
-                box-shadow: none !important;
-                border: none !important;
-                width: 100% !important;
-                padding: 0 !important;
-                margin: 0 !important;
+                display: none !important;
             }
             /* Ensure colors are printed */
             * {
@@ -195,37 +192,43 @@
                     <!-- Actions -->
                     <div>
                         <h2 class="text-lg font-semibold mb-3">3. Actions</h2>
-                        <div class="grid grid-cols-2 gap-3">
-                             <button id="undo-btn" class="w-full bg-gray-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition">
-                                Undo
+                        <div class="space-y-3">
+                            <div class="grid grid-cols-2 gap-3">
+                                 <button id="undo-btn" class="w-full bg-gray-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition">
+                                    Undo
+                                </button>
+                                 <button id="clear-pattern" class="w-full bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition">
+                                    Clear
+                                </button>
+                            </div>
+                            <button id="save-image-btn" class="w-full bg-emerald-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition">
+                                Save as Image
                             </button>
-                             <button id="clear-pattern" class="w-full bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition">
-                                Clear
-                            </button>
+                             <button id="print-pattern-btn" class="w-full bg-sky-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition">
+                                    Print / PDF
+                                </button>
                         </div>
-                         <button id="print-pattern" class="w-full bg-sky-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition mt-3">
-                                Print Pattern
-                            </button>
                     </div>
                 </div>
             </aside>
+
+            <!-- Main pattern display area -->
+            <main class="w-full lg:w-2/3 xl:w-3/4 bg-white p-4 sm:p-6 rounded-2xl shadow-lg overflow-x-auto">
+                <div id="pattern-container" class="inline-block">
+                    <!-- Pattern will be generated here by JS -->
+                </div>
+            </main>
         </div>
     </div>
 
-    <!-- This section is only for displaying the pattern for printing -->
-    <div id="print-area" class="hidden print-only m-8">
+    <!-- This section is only for displaying the pattern for printing/saving -->
+    <div id="print-area" class="hidden print-only m-8 bg-white p-4">
         <h1 class="text-2xl font-bold mb-4">Beaded Earring Pattern</h1>
         <div id="pattern-clone-for-print" class="mb-8"></div>
         <h2 class="text-xl font-bold mb-2">Color Key</h2>
         <div id="color-key-for-print"></div>
     </div>
 
-    <!-- Main pattern display area -->
-    <main class="w-full lg:w-2/3 xl:w-3/4 bg-white p-4 sm:p-6 rounded-2xl shadow-lg overflow-x-auto no-print">
-        <div id="pattern-container" class="inline-block">
-            <!-- Pattern will be generated here by JS -->
-        </div>
-    </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -256,8 +259,10 @@
             const fringeShapeSelect = document.getElementById('fringe-shape');
             const applySettingsBtn = document.getElementById('apply-settings');
             const clearBtn = document.getElementById('clear-pattern');
-            const printBtn = document.getElementById('print-pattern');
+            const printBtn = document.getElementById('print-pattern-btn');
+            const saveImageBtn = document.getElementById('save-image-btn');
             const undoBtn = document.getElementById('undo-btn');
+            const printArea = document.getElementById('print-area');
             const patternCloneForPrint = document.getElementById('pattern-clone-for-print');
             const colorKeyForPrint = document.getElementById('color-key-for-print');
 
@@ -470,8 +475,8 @@
                 }
                 updateUndoButtonState();
             }
-
-            function printPattern() {
+            
+            function preparePrintArea() {
                 // 1. Clone the pattern into the hidden print area
                 patternCloneForPrint.innerHTML = patternContainer.innerHTML;
                 
@@ -491,9 +496,31 @@
                 });
                 if (paletteHTML === '') paletteHTML = '<p>No custom colors used.</p>';
                 colorKeyForPrint.innerHTML = paletteHTML;
+            }
 
-                // 3. Trigger the browser's print dialog
+            function printPattern() {
+                preparePrintArea();
                 window.print();
+            }
+
+            function saveAsImage() {
+                preparePrintArea();
+                // Temporarily show the print area off-screen for capture
+                printArea.classList.remove('hidden');
+                printArea.style.position = 'absolute';
+                printArea.style.left = '-9999px';
+
+                html2canvas(printArea).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = 'bead-pattern.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+
+                    // Hide the print area again
+                    printArea.classList.add('hidden');
+                    printArea.style.position = '';
+                    printArea.style.left = '';
+                });
             }
 
             function handleTopStyleChange() {
@@ -514,6 +541,7 @@
             clearBtn.addEventListener('click', clearPattern);
             undoBtn.addEventListener('click', handleUndo);
             printBtn.addEventListener('click', printPattern);
+            saveImageBtn.addEventListener('click', saveAsImage);
             topStyleSelect.addEventListener('change', handleTopStyleChange);
 
             colorPicker.addEventListener('input', (e) => { setActiveTool('paint'); });
