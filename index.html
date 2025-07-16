@@ -128,15 +128,31 @@
                                     <option value="none">Loom</option>
                                 </select>
                             </div>
-                            <div>
-                                <label for="fringe-width" id="fringe-width-label" class="block text-sm font-medium text-slate-600">Top Width (at base)</label>
-                                <input type="number" id="fringe-width" value="11" min="2" max="25" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                             <div id="loom-shape-container" class="hidden">
+                                <label for="loom-shape" class="block text-sm font-medium text-slate-600">Loom Shape</label>
+                                <select id="loom-shape" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                    <option value="rectangle" selected>Straight (Rectangle)</option>
+                                    <option value="pointed">Pointed Ends</option>
+                                </select>
                             </div>
                             <div>
-                                <label for="fringe-length" class="block text-sm font-medium text-slate-600">Max Fringe Length</label>
-                                <input type="number" id="fringe-length" value="20" min="5" max="50" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                <label for="bead-size" class="block text-sm font-medium text-slate-600">Bead Size</label>
+                                <select id="bead-size" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                    <option value="22">15/0 (Tiny)</option>
+                                    <option value="16" selected>11/0 (Standard)</option>
+                                    <option value="12">8/0 (Large)</option>
+                                    <option value="8">6/0 (Extra Large)</option>
+                                </select>
                             </div>
                             <div>
+                                <label for="width-input" id="width-label" class="block text-sm font-medium text-slate-600">Width (beads)</label>
+                                <input type="number" id="width-input" value="11" min="2" max="25" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                            </div>
+                            <div>
+                                <label for="length-input" class="block text-sm font-medium text-slate-600">Length (inches)</label>
+                                <input type="number" id="length-input" value="2" min="0.5" max="8" step="0.1" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                            </div>
+                            <div id="fringe-shape-container">
                                 <label for="fringe-shape" class="block text-sm font-medium text-slate-600">Fringe Shape</label>
                                 <select id="fringe-shape" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                     <option value="rectangle" selected>Rectangle</option>
@@ -185,7 +201,6 @@
                 '#000000', '#FFFFFF', '#A9A9A9', '#FF0000', '#FFA500', '#FFFF00', '#008000', 
                 '#0000FF', '#800080', '#FFC0CB', '#964B00', '#40E0D0', '#FFD700', '#C0C0C0'
             ];
-            const eraserColor = 'eraser';
             const whiteRgb = 'rgb(255, 255, 255)';
             let activeTool = 'paint'; // 'paint', 'eraser', 'eyedropper'
             let isPainting = false;
@@ -198,9 +213,13 @@
             const eraserBtn = document.getElementById('eraser-btn');
             const eyedropperBtn = document.getElementById('eyedropper-btn');
             const topStyleSelect = document.getElementById('top-style');
-            const fringeWidthInput = document.getElementById('fringe-width');
-            const fringeWidthLabel = document.getElementById('fringe-width-label');
-            const fringeLengthInput = document.getElementById('fringe-length');
+            const loomShapeContainer = document.getElementById('loom-shape-container');
+            const loomShapeSelect = document.getElementById('loom-shape');
+            const beadSizeSelect = document.getElementById('bead-size');
+            const widthInput = document.getElementById('width-input');
+            const widthLabel = document.getElementById('width-label');
+            const lengthInput = document.getElementById('length-input');
+            const fringeShapeContainer = document.getElementById('fringe-shape-container');
             const fringeShapeSelect = document.getElementById('fringe-shape');
             const applySettingsBtn = document.getElementById('apply-settings');
             const clearBtn = document.getElementById('clear-pattern');
@@ -222,7 +241,6 @@
 
             function setActiveTool(tool) {
                 activeTool = tool;
-                // Update UI to show which tool is active
                 eraserBtn.classList.toggle('selected', tool === 'eraser');
                 eyedropperBtn.classList.toggle('selected', tool === 'eyedropper');
                 document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
@@ -253,11 +271,15 @@
                 updateUndoButtonState();
 
                 const topStyle = topStyleSelect.value;
-                const fringeWidth = parseInt(fringeWidthInput.value);
-                const fringeLength = parseInt(fringeLengthInput.value);
+                const widthInBeads = parseInt(widthInput.value);
+                const lengthInInches = parseFloat(lengthInput.value);
+                const beadsPerInch = parseInt(beadSizeSelect.value);
                 const fringeShape = fringeShapeSelect.value;
+                const loomShape = loomShapeSelect.value;
 
-                if (isNaN(fringeWidth) || isNaN(fringeLength) || fringeWidth < 2 || fringeLength < 1) {
+                const fringeLengthInBeads = Math.round(lengthInInches * beadsPerInch);
+
+                if (isNaN(widthInBeads) || isNaN(fringeLengthInBeads) || widthInBeads < 2 || fringeLengthInBeads < 1) {
                     patternContainer.innerHTML = '<p class="text-red-500">Please enter valid numbers. Width must be at least 2.</p>';
                     return;
                 }
@@ -277,24 +299,20 @@
                 
                 if (topStyle !== 'none') {
                     if (topStyle === 'single') {
-                        for (let numBeads = 2; numBeads <= fringeWidth; numBeads++) {
+                        for (let numBeads = 2; numBeads <= widthInBeads; numBeads++) {
                             const row = document.createElement('div');
                             row.style.display = 'flex';
                             rulerContainer.appendChild(createRulerMark(''));
-                            for (let j = 0; j < numBeads; j++) {
-                                row.appendChild(createBead());
-                            }
+                            for (let j = 0; j < numBeads; j++) { row.appendChild(createBead()); }
                             beadGridContainer.appendChild(row);
                         }
                     } else { // double
-                        for (let numBeads = 2; numBeads <= fringeWidth; numBeads++) {
+                        for (let numBeads = 2; numBeads <= widthInBeads; numBeads++) {
                             for(let k=0; k<2; k++) {
                                 const row = document.createElement('div');
                                 row.style.display = 'flex';
                                 rulerContainer.appendChild(createRulerMark(''));
-                                for (let j = 0; j < numBeads; j++) {
-                                    row.appendChild(createBead());
-                                }
+                                for (let j = 0; j < numBeads; j++) { row.appendChild(createBead()); }
                                 beadGridContainer.appendChild(row);
                             }
                         }
@@ -307,30 +325,50 @@
                     rulerContainer.appendChild(rulerSpacer);
                 }
 
-                for (let i = 0; i < fringeLength; i++) {
+                for (let i = 0; i < fringeLengthInBeads; i++) {
                     const row = document.createElement('div');
                     row.style.display = 'flex';
                     const label = (i + 1) % 5 === 0 ? (i + 1) : '-';
                     rulerContainer.appendChild(createRulerMark(label));
-                    for (let j = 0; j < fringeWidth; j++) {
-                        const bead = createBead();
-                        let isVisible = true;
-                        if (fringeShape !== 'rectangle') {
-                            const centerColumnIndex = Math.floor(fringeWidth / 2);
-                            const distFromCenter = Math.abs(j - centerColumnIndex);
-                            let columnLength = fringeLength;
-                            if (fringeShape === 'v-shape') {
-                                columnLength = fringeLength - (centerColumnIndex - distFromCenter);
-                            } else if (fringeShape === 'chevron') {
-                                columnLength = fringeLength - distFromCenter;
+
+                    if (topStyle === 'none') {
+                        let numBeadsInRow = widthInBeads;
+                        if (loomShape === 'pointed') {
+                            const minBeads = widthInBeads % 2 === 0 ? 2 : 1;
+                            const taperRows = Math.floor((widthInBeads - minBeads) / 2);
+
+                            if (i < taperRows) { // Top taper
+                                numBeadsInRow = minBeads + (i * 2);
+                            } else if (i >= fringeLengthInBeads - taperRows) { // Bottom taper
+                                const bottomRowIndex = fringeLengthInBeads - 1 - i;
+                                numBeadsInRow = minBeads + (bottomRowIndex * 2);
                             }
-                            if (i >= columnLength) isVisible = false;
+                            // Ensure we don't exceed max width in the tapers
+                            if (numBeadsInRow > widthInBeads) numBeadsInRow = widthInBeads;
                         }
-                        if (!isVisible) {
-                            bead.style.visibility = 'hidden';
-                            bead.classList.remove('bead');
+                        for (let j = 0; j < numBeadsInRow; j++) { row.appendChild(createBead()); }
+
+                    } else { // Fringe for brick stitch tops
+                        for (let j = 0; j < widthInBeads; j++) {
+                            const bead = createBead();
+                            let isVisible = true;
+                            if (fringeShape !== 'rectangle') {
+                                const centerColumnIndex = Math.floor(widthInBeads / 2);
+                                const distFromCenter = Math.abs(j - centerColumnIndex);
+                                let columnLength = fringeLengthInBeads;
+                                if (fringeShape === 'v-shape') {
+                                    columnLength = fringeLengthInBeads - (centerColumnIndex - distFromCenter);
+                                } else if (fringeShape === 'chevron') {
+                                    columnLength = fringeLengthInBeads - distFromCenter;
+                                }
+                                if (i >= columnLength) isVisible = false;
+                            }
+                            if (!isVisible) {
+                                bead.style.visibility = 'hidden';
+                                bead.classList.remove('bead');
+                            }
+                            row.appendChild(bead);
                         }
-                        row.appendChild(bead);
                     }
                     beadGridContainer.appendChild(row);
                 }
@@ -360,12 +398,13 @@
 
                 if (activeTool === 'eyedropper') {
                     const pickedColor = bead.style.backgroundColor;
-                    colorPicker.value = rgbToHex(pickedColor);
-                    setActiveTool('paint');
-                } else { // paint or eraser
+                    if (pickedColor !== whiteRgb && pickedColor !== 'white') {
+                        colorPicker.value = rgbToHex(pickedColor);
+                        setActiveTool('paint');
+                    }
+                } else {
                     const oldColor = bead.style.backgroundColor;
                     const newColor = activeTool === 'eraser' ? 'white' : colorPicker.value;
-                    
                     if (oldColor !== newColor) {
                        bead.style.backgroundColor = newColor;
                        recordAction(bead, oldColor, newColor);
@@ -382,9 +421,7 @@
                     }
                 });
                 if (changes.length > 0) history.push(changes);
-                beads.forEach(bead => {
-                    bead.style.backgroundColor = 'white';
-                });
+                beads.forEach(bead => { bead.style.backgroundColor = 'white'; });
                 updateUndoButtonState();
             }
 
@@ -392,9 +429,7 @@
                 if (history.length === 0) return;
                 const lastAction = history.pop();
                 if (Array.isArray(lastAction)) {
-                    lastAction.forEach(change => {
-                        change.bead.style.backgroundColor = change.oldColor;
-                    });
+                    lastAction.forEach(change => { change.bead.style.backgroundColor = change.oldColor; });
                 } else {
                     const { bead, oldColor } = lastAction;
                     bead.style.backgroundColor = oldColor;
@@ -435,26 +470,22 @@
                         <div class="mb-8" id="pattern-area">${patternHTML}</div>
                         <h2 class="text-xl font-bold mb-2">Color Key</h2>
                         <div id="controls">${paletteHTML}</div>
-                        <script>
-                            document.querySelectorAll('.bead').forEach(b => b.style.cursor = 'default');
-                            setTimeout(() => { window.print(); window.close(); }, 500);
-                        <\/script>
+                        <script> document.querySelectorAll('.bead').forEach(b => b.style.cursor = 'default'); setTimeout(() => { window.print(); window.close(); }, 500); <\/script>
                     </body></html>`);
                 printWindow.document.close();
             }
 
             function handleTopStyleChange() {
-                 if (topStyleSelect.value === 'none') {
-                    fringeWidthLabel.textContent = 'Fringe Width';
-                } else {
-                    fringeWidthLabel.textContent = 'Top Width (at base)';
-                }
+                const isLoom = topStyleSelect.value === 'none';
+                loomShapeContainer.classList.toggle('hidden', !isLoom);
+                fringeShapeContainer.classList.toggle('hidden', isLoom);
+                widthLabel.textContent = isLoom ? 'Width (beads)' : 'Top Width (beads)';
             }
             
             function rgbToHex(rgb) {
-                if (rgb.startsWith('#')) return rgb;
+                if (!rgb || !rgb.startsWith('rgb')) return rgb;
                 let [r, g, b] = rgb.match(/\d+/g).map(Number);
-                return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+                return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
             }
 
             // --- EVENT LISTENERS ---
@@ -464,10 +495,7 @@
             printBtn.addEventListener('click', printPattern);
             topStyleSelect.addEventListener('change', handleTopStyleChange);
 
-            colorPicker.addEventListener('input', (e) => {
-                setActiveTool('paint');
-            });
-            
+            colorPicker.addEventListener('input', (e) => { setActiveTool('paint'); });
             eraserBtn.addEventListener('click', () => setActiveTool('eraser'));
             eyedropperBtn.addEventListener('click', () => setActiveTool('eyedropper'));
 
@@ -487,9 +515,7 @@
                     handleBeadInteraction(e);
                 }
             });
-            document.addEventListener('mouseup', () => {
-                isPainting = false;
-            });
+            document.addEventListener('mouseup', () => { isPainting = false; });
             patternContainer.addEventListener('dragstart', e => e.preventDefault());
 
             // --- INITIALIZATION ---
