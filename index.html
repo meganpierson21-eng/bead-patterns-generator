@@ -82,11 +82,37 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #64748b; /* slate-500 */
         }
+
+        /* Print-specific styles */
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            main {
+                box-shadow: none !important;
+                border: none !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            /* Ensure colors are printed */
+            * {
+               -webkit-print-color-adjust: exact !important;
+               print-color-adjust: exact !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800">
 
-    <div class="container mx-auto p-4 md:p-8">
+    <div class="container mx-auto p-4 md:p-8 no-print">
         <header class="text-center mb-8">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-700">Beaded Earring Pattern Generator</h1>
             <p class="text-slate-500 mt-2">Design your own fringe earring patterns with ease.</p>
@@ -183,16 +209,23 @@
                     </div>
                 </div>
             </aside>
-
-            <!-- Pattern Display -->
-            <main class="w-full lg:w-2/3 xl:w-3/4 bg-white p-4 sm:p-6 rounded-2xl shadow-lg overflow-x-auto">
-                <div id="pattern-container" class="inline-block">
-                    <!-- Pattern will be generated here by JS -->
-                </div>
-            </main>
-
         </div>
     </div>
+
+    <!-- This section is only for displaying the pattern for printing -->
+    <div id="print-area" class="hidden print-only m-8">
+        <h1 class="text-2xl font-bold mb-4">Beaded Earring Pattern</h1>
+        <div id="pattern-clone-for-print" class="mb-8"></div>
+        <h2 class="text-xl font-bold mb-2">Color Key</h2>
+        <div id="color-key-for-print"></div>
+    </div>
+
+    <!-- Main pattern display area -->
+    <main class="w-full lg:w-2/3 xl:w-3/4 bg-white p-4 sm:p-6 rounded-2xl shadow-lg overflow-x-auto no-print">
+        <div id="pattern-container" class="inline-block">
+            <!-- Pattern will be generated here by JS -->
+        </div>
+    </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -225,6 +258,8 @@
             const clearBtn = document.getElementById('clear-pattern');
             const printBtn = document.getElementById('print-pattern');
             const undoBtn = document.getElementById('undo-btn');
+            const patternCloneForPrint = document.getElementById('pattern-clone-for-print');
+            const colorKeyForPrint = document.getElementById('color-key-for-print');
 
             // --- FUNCTIONS ---
 
@@ -343,7 +378,6 @@
                                 const bottomRowIndex = fringeLengthInBeads - 1 - i;
                                 numBeadsInRow = minBeads + (bottomRowIndex * 2);
                             }
-                            // Ensure we don't exceed max width in the tapers
                             if (numBeadsInRow > widthInBeads) numBeadsInRow = widthInBeads;
                         }
                         for (let j = 0; j < numBeadsInRow; j++) { row.appendChild(createBead()); }
@@ -438,8 +472,10 @@
             }
 
             function printPattern() {
-                const printWindow = window.open('', '_blank');
-                const patternHTML = patternContainer.innerHTML;
+                // 1. Clone the pattern into the hidden print area
+                patternCloneForPrint.innerHTML = patternContainer.innerHTML;
+                
+                // 2. Generate the color key for printing
                 const usedColors = new Set();
                 document.querySelectorAll('.bead').forEach(bead => {
                     if (bead.style.visibility !== 'hidden' && bead.style.backgroundColor && bead.style.backgroundColor !== 'white' && bead.style.backgroundColor !== whiteRgb) {
@@ -454,25 +490,10 @@
                                     </div>`;
                 });
                 if (paletteHTML === '') paletteHTML = '<p>No custom colors used.</p>';
-                printWindow.document.write(`
-                    <html><head><title>Earring Pattern</title>
-                    <style>
-                        body { font-family: sans-serif; }
-                        #pattern-area > div { display: flex !important; gap: 8px; }
-                        .bead { width: 15px; height: 15px; border-radius: 50%; border: 1px solid #ccc; }
-                        div:not(.bead) { visibility: visible !important; }
-                        .ruler-mark { height: 15px; display: flex; align-items: center; justify-content: center; width: 24px; font-size: 10px; color: #333; }
-                        div[style*="display: flex"] { display: flex !important; }
-                        div[style*="align-items: center"] { align-items: center !important; }
-                        @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } #controls { display: none; } }
-                    </style></head><body class="p-8">
-                        <h1 class="text-2xl font-bold mb-4">Beaded Earring Pattern</h1>
-                        <div class="mb-8" id="pattern-area">${patternHTML}</div>
-                        <h2 class="text-xl font-bold mb-2">Color Key</h2>
-                        <div id="controls">${paletteHTML}</div>
-                        <script> document.querySelectorAll('.bead').forEach(b => b.style.cursor = 'default'); setTimeout(() => { window.print(); window.close(); }, 500); <\/script>
-                    </body></html>`);
-                printWindow.document.close();
+                colorKeyForPrint.innerHTML = paletteHTML;
+
+                // 3. Trigger the browser's print dialog
+                window.print();
             }
 
             function handleTopStyleChange() {
