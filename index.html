@@ -94,6 +94,11 @@
             background: #64748b; /* slate-500 */
         }
 
+        /* Custom notification message box */
+        #message-box {
+            transition: transform 0.4s ease-in-out;
+        }
+
         /* Print-specific styles */
         @media print {
             body {
@@ -160,45 +165,10 @@
 
         <div class="flex flex-col lg:flex-row gap-8">
 
-            <!-- Controls Panel -->
-            <aside class="w-full lg:w-1/3 xl:w-1/4 bg-white p-6 rounded-2xl shadow-lg">
+            <!-- Left Controls Panel -->
+            <aside class="w-full lg:w-1/4 bg-white p-6 rounded-2xl shadow-lg">
                 <div class="space-y-6">
-                    <!-- Color Tools -->
-                    <div class="bg-white rounded-2xl">
-                        <div class="flex justify-between items-center mb-3">
-                            <h2 class="text-lg font-semibold">Color Tools</h2>
-                            <div>
-                                 <label for="palette-select" class="text-sm font-medium text-slate-600 sr-only">Color Palette:</label>
-                                 <select id="palette-select" class="rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                     <option value="default" selected>Designer's Default</option>
-                                     <option value="michaels">Michaels</option>
-                                     <option value="toho">Toho</option>
-                                     <option value="miyuki">Miyuki</option>
-                                 </select>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4 flex-wrap">
-                            <input type="color" id="color-picker" value="#000000">
-                            <div class="flex gap-3">
-                                 <button id="mirror-btn" title="Mirror Mode" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V2M6 12H2M18 12h4"/></svg>
-                                </button>
-                                 <button id="replace-color-btn" title="Replace Color" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                                </button>
-                                <button id="eyedropper-btn" title="Eyedropper" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.5 3.5L8 13H4v-4L11.5 2z"/><path d="M18 6 22 10"/><path d="M14 16.5 19 21.5"/></svg>
-                                </button>
-                                <button id="eraser-btn" title="Eraser" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0 0 2.828l3.986 3.986a2 2 0 0 0 2.828 0zM2 22l5.5-5.5"/><path d="m15 5 6 6"/></svg>
-                                </button>
-                            </div>
-                        </div>
-                         <div id="color-palette" class="flex gap-2 flex-wrap mt-4">
-                            <!-- Common colors will be injected here -->
-                        </div>
-                    </div>
-                    <!-- Image Mapper -->
+                     <!-- Image Mapper -->
                     <div>
                         <h2 class="text-lg font-semibold mb-3">Image Reference</h2>
                         <div class="space-y-2">
@@ -263,17 +233,11 @@
                             </button>
                         </div>
                     </div>
-
-                    <!-- Bead Count Results -->
-                    <div id="bead-count-container" class="hidden">
-                        <h2 class="text-lg font-semibold mb-3">Bead Count</h2>
-                        <div id="bead-count-results" class="mt-4 text-sm space-y-2"></div>
-                    </div>
                 </div>
             </aside>
 
             <!-- Main Work Area -->
-            <main class="w-full lg:w-2/3 xl:w-3/4 bg-white p-4 sm:p-6 rounded-2xl shadow-lg overflow-x-auto flex gap-4">
+            <main class="w-full lg:w-1/2 bg-white p-4 sm:p-6 rounded-2xl shadow-lg overflow-x-auto flex gap-4">
                 <div id="pattern-container" class="inline-block">
                     <!-- Pattern will be generated here by JS -->
                 </div>
@@ -281,6 +245,52 @@
                      <img id="image-preview" class="max-w-xs h-auto rounded-lg sticky top-4"/>
                 </div>
             </main>
+            
+            <!-- Right Controls Panel -->
+            <aside class="w-full lg:w-1/4 bg-white p-6 rounded-2xl shadow-lg">
+                <div class="space-y-6">
+                    <!-- Color Tools -->
+                    <div class="bg-white rounded-2xl">
+                        <div class="flex justify-between items-center mb-3">
+                            <h2 class="text-lg font-semibold">Color Tools</h2>
+                            <div>
+                                 <label for="palette-select" class="text-sm font-medium text-slate-600 sr-only">Color Palette:</label>
+                                 <select id="palette-select" class="rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                     <option value="default" selected>Designer's Default</option>
+                                     <option value="michaels">Michaels</option>
+                                     <option value="toho">Toho</option>
+                                     <option value="miyuki">Miyuki</option>
+                                 </select>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 flex-wrap">
+                            <input type="color" id="color-picker" value="#000000">
+                            <div class="flex gap-3">
+                                <button id="mirror-btn" title="Mirror Mode" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V2M6 12H2M18 12h4"/></svg>
+                                </button>
+                                <button id="replace-color-btn" title="Replace Color" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                                </button>
+                                <button id="eyedropper-btn" title="Eyedropper" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.5 3.5L8 13H4v-4L11.5 2z"/><path d="M18 6 22 10"/><path d="M14 16.5 19 21.5"/></svg>
+                                </button>
+                                <button id="eraser-btn" title="Eraser" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0 0 2.828l3.986 3.986a2 2 0 0 0 2.828 0zM2 22l5.5-5.5"/><path d="m15 5 6 6"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                         <div id="color-palette" class="flex gap-2 flex-wrap mt-4">
+                            <!-- Common colors will be injected here -->
+                        </div>
+                    </div>
+                     <!-- Bead Count Results -->
+                    <div id="bead-count-container" class="hidden">
+                        <h2 class="text-lg font-semibold mb-3">Bead Count</h2>
+                        <div id="bead-count-results" class="mt-4 text-sm space-y-2"></div>
+                    </div>
+                </div>
+            </aside>
         </div>
     </div>
 
@@ -290,6 +300,11 @@
         <div id="pattern-clone-for-print" class="mb-8"></div>
         <h2 class="text-xl font-bold mb-2">Color Key</h2>
         <div id="color-key-for-print"></div>
+    </div>
+
+    <!-- Message Box for non-blocking notifications -->
+    <div id="message-box" class="hidden fixed top-5 right-5 text-white py-2 px-4 rounded-lg shadow-lg z-50 transform translate-x-full">
+        <span id="message-box-text"></span>
     </div>
 
 
@@ -372,8 +387,22 @@
             const printArea = document.getElementById('print-area');
             const patternCloneForPrint = document.getElementById('pattern-clone-for-print');
             const colorKeyForPrint = document.getElementById('color-key-for-print');
+            const messageBox = document.getElementById('message-box');
+            const messageBoxText = document.getElementById('message-box-text');
 
             // --- FUNCTIONS ---
+
+            function showMessage(message, isError = true) {
+                messageBox.classList.toggle('bg-red-600', isError);
+                messageBox.classList.toggle('bg-green-600', !isError);
+                messageBoxText.textContent = message;
+                
+                messageBox.classList.remove('hidden', 'translate-x-full');
+                
+                setTimeout(() => {
+                    messageBox.classList.add('translate-x-full');
+                }, 3000);
+            }
 
             function populatePalette() {
                 const selectedPalette = paletteSelect.value;
@@ -388,13 +417,13 @@
                 });
                 customColors.forEach(color => {
                      if (!Object.values(palettes).flat().some(p => p.hex.toUpperCase() === color.toUpperCase())) {
-                        const swatch = document.createElement('div');
-                        swatch.className = 'color-swatch custom-swatch';
-                        swatch.style.backgroundColor = color;
-                        swatch.dataset.color = color;
-                        swatch.title = 'Custom Color';
-                        paletteContainer.appendChild(swatch);
-                    }
+                         const swatch = document.createElement('div');
+                         swatch.className = 'color-swatch custom-swatch';
+                         swatch.style.backgroundColor = color;
+                         swatch.dataset.color = color;
+                         swatch.title = 'Custom Color';
+                         paletteContainer.appendChild(swatch);
+                     }
                 });
             }
 
@@ -757,8 +786,8 @@
                 let paletteHTML = '';
                 usedColors.forEach(color => {
                     paletteHTML += `<div style="display: flex; align-items: center; margin-bottom: 4px;">
-                                       <div style="width: 24px; height: 24px; border-radius: 50%; background-color: ${color}; border: 1px solid #ccc; margin-right: 8px;"></div>
-                                       <span>${rgbToHex(color).toUpperCase()}</span>
+                                        <div style="width: 24px; height: 24px; border-radius: 50%; background-color: ${color}; border: 1px solid #ccc; margin-right: 8px;"></div>
+                                        <span>${rgbToHex(color).toUpperCase()}</span>
                                     </div>`;
                 });
                 if (paletteHTML === '') paletteHTML = '<p>No custom colors used.</p>';
@@ -805,12 +834,12 @@
                     link.click();
                 } catch (error) {
                     console.error('Error saving image:', error);
-                    alert('Sorry, could not save the image. Please try again.');
+                    showMessage('Sorry, could not save the image.');
                 } finally {
                     printArea.classList.add('hidden');
                     printArea.style.position = '';
                     printArea.style.left = '';
-                    saveImageBtn.textContent = 'Image';
+                    saveImageBtn.textContent = 'Export as Image';
                     saveImageBtn.disabled = false;
                 }
             }
@@ -916,7 +945,7 @@
                     updateUndoButtonState();
 
                 } catch (err) {
-                    alert('Could not load the file. It might be corrupted or not a valid pattern file.');
+                    showMessage('Could not load file. It might be invalid.');
                     console.error("Error loading project:", err);
                 }
             }
@@ -928,16 +957,19 @@
                 const url = new URL(window.location.href);
                 url.hash = base64Str;
                 
-                navigator.clipboard.writeText(url.toString()).then(() => {
-                    const originalText = shareBtn.textContent;
-                    shareBtn.textContent = 'Copied!';
-                    setTimeout(() => {
-                        shareBtn.textContent = originalText;
-                    }, 2000);
-                }, (err) => {
-                    alert('Could not copy link to clipboard.');
-                    console.error('Clipboard error:', err);
-                });
+                // Use the 'copy' command as a fallback for iframe restrictions
+                try {
+                    const tempInput = document.createElement('textarea');
+                    tempInput.value = url.toString();
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempInput);
+                    showMessage('Share link copied to clipboard!', false);
+                } catch (err) {
+                     showMessage('Could not copy link to clipboard.');
+                     console.error('Clipboard error:', err);
+                }
             }
 
             function loadFromURL() {
@@ -969,11 +1001,11 @@
             shareBtn.addEventListener('click', shareProject);
             loadProjectInput.addEventListener('change', (e) => {
                  const file = e.target.files[0];
-                if (!file) return;
-                const reader = new FileReader();
-                reader.onload = (event) => loadProject(JSON.parse(event.target.result));
-                reader.readAsText(file);
-                e.target.value = null;
+                 if (!file) return;
+                 const reader = new FileReader();
+                 reader.onload = (event) => loadProject(JSON.parse(event.target.result));
+                 reader.readAsText(file);
+                 e.target.value = null;
             });
             topStyleSelect.addEventListener('change', handleTopStyleChange);
             lengthUnitSelect.addEventListener('change', handleLengthUnitChange);
