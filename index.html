@@ -6,11 +6,17 @@
     <title>Bead Pattern Designer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
             overscroll-behavior: none;
+            background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAHgAtoDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAECA//EABwQAQEBAQEBAQEBAAAAAAAAAAABEQISIUExQf/EABgBAQEBAQEAAAAAAAAAAAAAAAABAgME/8QAGBEBAQEBAQAAAAAAAAAAAAAAAAERAgP/2gAMAwEAAhEDEQA/APgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
         .bead {
             width: 20px;
@@ -98,12 +104,22 @@
         #message-box {
             transition: transform 0.4s ease-in-out;
         }
+        
+        #zoom-container {
+            overflow: hidden;
+            cursor: grab;
+        }
+        #pattern-container {
+            transition: transform 0.2s ease-out;
+        }
+
 
         /* Print-specific styles */
         @media print {
             body {
                 padding: 0;
                 margin: 0;
+                background-image: none !important;
             }
             .no-print {
                 display: none !important;
@@ -122,7 +138,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-800">
+<body class="text-slate-800">
 
     <!-- Header and Menu Bar -->
     <header class="bg-white shadow-md p-2 sticky top-0 z-20 no-print">
@@ -136,6 +152,7 @@
                     <button id="share-btn" class="menu-item">Share</button>
                     <hr class="my-1">
                     <button id="save-image-btn" class="menu-item">Export as Image</button>
+                    <button id="save-svg-btn" class="menu-item">Export as SVG</button>
                     <button id="print-pattern-btn" class="menu-item">Export as PDF</button>
                 </div>
             </div>
@@ -158,7 +175,7 @@
     </header>
 
     <div class="container mx-auto p-4 md:p-8 no-print">
-        <header class="text-center mb-8">
+        <header class="text-center mb-8 bg-white/70 backdrop-blur-sm p-4 rounded-xl">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-700">Bead Pattern Designer</h1>
             <p class="text-slate-500 mt-2">Design brick stitch, loom, and fringe patterns with ease.</p>
         </header>
@@ -166,7 +183,7 @@
         <div class="flex flex-col lg:flex-row gap-8">
 
             <!-- Left Controls Panel -->
-            <aside class="w-full lg:w-1/4 bg-white p-6 rounded-2xl shadow-lg">
+            <aside class="w-full lg:w-1/4 bg-white/70 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
                 <div class="space-y-6">
                      <!-- Image Mapper -->
                     <div>
@@ -174,6 +191,7 @@
                         <div class="space-y-2">
                             <label for="image-uploader" class="block text-sm font-medium text-slate-600">Upload an image to use as a reference.</label>
                             <input type="file" id="image-uploader" accept="image/*" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"/>
+                            <button id="generate-palette-btn" class="hidden w-full bg-slate-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-slate-600 transition mt-2">Generate Palette</button>
                         </div>
                     </div>
 
@@ -182,11 +200,13 @@
                         <h2 class="text-lg font-semibold mb-3">Pattern Settings</h2>
                         <div class="space-y-4">
                             <div>
-                                <label for="top-style" class="block text-sm font-medium text-slate-600">Top Style</label>
-                                <select id="top-style" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                    <option value="single" selected>Single Brick (Wide)</option>
-                                    <option value="double">Double Brick (Tall)</option>
-                                    <option value="none">Loom</option>
+                                <label for="stitch-type" class="block text-sm font-medium text-slate-600">Stitch Type</label>
+                                <select id="stitch-type" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                    <option value="single-brick" selected>Single Brick</option>
+                                    <option value="double-brick">Double Brick</option>
+                                    <option value="loom">Loom</option>
+                                    <option value="peyote-even">Peyote (Even Count)</option>
+                                    <option value="peyote-odd">Peyote (Odd Count)</option>
                                 </select>
                             </div>
                              <div id="loom-shape-container" class="hidden">
@@ -207,7 +227,7 @@
                             </div>
                             <div>
                                 <label for="width-input" id="width-label" class="block text-sm font-medium text-slate-600">Width (beads)</label>
-                                <input type="number" id="width-input" value="11" min="2" max="25" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                <input type="number" id="width-input" value="11" min="2" max="50" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             </div>
                              <div>
                                 <label for="length-unit" class="block text-sm font-medium text-slate-600">Length Unit</label>
@@ -237,9 +257,19 @@
             </aside>
 
             <!-- Main Work Area -->
-            <main class="w-full lg:w-1/2 bg-white p-4 sm:p-6 rounded-2xl shadow-lg overflow-x-auto flex gap-4">
-                <div id="pattern-container" class="inline-block">
-                    <!-- Pattern will be generated here by JS -->
+            <main class="w-full lg:w-1/2 flex flex-col gap-2">
+                <div class="w-full bg-white/70 backdrop-blur-sm p-2 rounded-2xl shadow-lg flex items-center justify-center gap-4">
+                    <span class="text-sm font-medium">Zoom:</span>
+                    <button id="zoom-out-btn" class="tool-btn p-1 rounded-md border border-slate-300 hover:bg-slate-100">&minus;</button>
+                    <button id="zoom-reset-btn" class="tool-btn px-2 py-1 text-sm rounded-md border border-slate-300 hover:bg-slate-100">100%</button>
+                    <button id="zoom-in-btn" class="tool-btn p-1 rounded-md border border-slate-300 hover:bg-slate-100">+</button>
+                </div>
+                <div id="zoom-container" class="flex-grow bg-white/70 backdrop-blur-sm p-4 sm:p-6 rounded-2xl shadow-lg overflow-auto">
+                    <div id="pattern-wrapper">
+                        <div id="pattern-container" class="inline-block">
+                            <!-- Pattern will be generated here by JS -->
+                        </div>
+                    </div>
                 </div>
                 <div id="image-preview-container" class="hidden">
                      <img id="image-preview" class="max-w-xs h-auto rounded-lg sticky top-4"/>
@@ -247,10 +277,15 @@
             </main>
             
             <!-- Right Controls Panel -->
-            <aside class="w-full lg:w-1/4 bg-white p-6 rounded-2xl shadow-lg">
+            <aside class="w-full lg:w-1/4 bg-white/70 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
                 <div class="space-y-6">
                     <!-- Color Tools -->
-                    <div class="bg-white rounded-2xl">
+                    <div class="rounded-2xl">
+                         <h2 class="text-lg font-semibold mb-3">Symmetry Tools</h2>
+                         <div class="flex gap-3 mb-4">
+                            <button id="mirror-v-btn" title="Vertical Mirror" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors flex-1">Vertical</button>
+                            <button id="mirror-h-btn" title="Horizontal Mirror" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors flex-1">Horizontal</button>
+                         </div>
                         <div class="flex justify-between items-center mb-3">
                             <h2 class="text-lg font-semibold">Color Tools</h2>
                             <div>
@@ -266,8 +301,8 @@
                         <div class="flex items-center gap-4 flex-wrap">
                             <input type="color" id="color-picker" value="#000000">
                             <div class="flex gap-3">
-                                <button id="mirror-btn" title="Mirror Mode" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V2M6 12H2M18 12h4"/></svg>
+                                <button id="gradient-btn" title="Gradient Fill" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="grad"><stop offset="0%" stop-color="white"/><stop offset="100%" stop-color="black"/></linearGradient></defs><rect x="4" y="4" width="16" height="16" rx="2" ry="2" fill="url(#grad)"/></svg>
                                 </button>
                                 <button id="replace-color-btn" title="Replace Color" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
@@ -278,6 +313,15 @@
                                 <button id="eraser-btn" title="Eraser" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0 0 2.828l3.986 3.986a2 2 0 0 0 2.828 0zM2 22l5.5-5.5"/><path d="m15 5 6 6"/></svg>
                                 </button>
+                            </div>
+                        </div>
+                        <div id="gradient-colors" class="hidden mt-2 space-y-2">
+                            <label class="block text-sm font-medium text-slate-600">Click a swatch, then pick a color from the palette.</label>
+                            <div class="flex items-center gap-2">
+                                <div class="text-sm font-medium">Start:</div>
+                                <div id="gradient-start-swatch" class="w-8 h-8 rounded-md border-2 border-slate-500 cursor-pointer" style="background-color: #FFFFFF;"></div>
+                                <div class="text-sm font-medium ml-4">End:</div>
+                                <div id="gradient-end-swatch" class="w-8 h-8 rounded-md border-2 border-transparent cursor-pointer" style="background-color: #000000;"></div>
                             </div>
                         </div>
                          <div id="color-palette" class="flex gap-2 flex-wrap mt-4">
@@ -298,8 +342,9 @@
     <div id="print-area" class="hidden print-only m-8 bg-white p-4">
         <h1 class="text-2xl font-bold mb-4">Bead Pattern Designer</h1>
         <div id="pattern-clone-for-print" class="mb-8"></div>
-        <h2 class="text-xl font-bold mb-2">Color Key</h2>
+        <h2 class="text-xl font-bold mb-2">Color Key & Word Chart</h2>
         <div id="color-key-for-print"></div>
+        <div id="word-chart-for-print" class="mt-4 text-xs"></div>
     </div>
 
     <!-- Message Box for non-blocking notifications -->
@@ -347,6 +392,9 @@
             let history = [];
             let uploadedImageSrc = null;
             let customColors = new Set();
+            let zoomState = { scale: 1, panX: 0, panY: 0, isPanning: false, startX: 0, startY: 0 };
+            let gradientState = { startBead: null, selecting: 'start', startColor: '#FFFFFF', endColor: '#000000' };
+
 
             // --- DOM ELEMENTS ---
             const patternContainer = document.getElementById('pattern-container');
@@ -356,11 +404,17 @@
             const eraserBtn = document.getElementById('eraser-btn');
             const eyedropperBtn = document.getElementById('eyedropper-btn');
             const replaceColorBtn = document.getElementById('replace-color-btn');
-            const mirrorBtn = document.getElementById('mirror-btn');
+            const gradientBtn = document.getElementById('gradient-btn');
+            const gradientColorsContainer = document.getElementById('gradient-colors');
+            const gradientStartSwatch = document.getElementById('gradient-start-swatch');
+            const gradientEndSwatch = document.getElementById('gradient-end-swatch');
+            const mirrorVBtn = document.getElementById('mirror-v-btn');
+            const mirrorHBtn = document.getElementById('mirror-h-btn');
             const imageUploader = document.getElementById('image-uploader');
+            const generatePaletteBtn = document.getElementById('generate-palette-btn');
             const imagePreviewContainer = document.getElementById('image-preview-container');
             const imagePreview = document.getElementById('image-preview');
-            const topStyleSelect = document.getElementById('top-style');
+            const stitchTypeSelect = document.getElementById('stitch-type');
             const loomShapeContainer = document.getElementById('loom-shape-container');
             const loomShapeSelect = document.getElementById('loom-shape');
             const beadSizeContainer = document.getElementById('bead-size-container');
@@ -380,6 +434,7 @@
             const beadCountResults = document.getElementById('bead-count-results');
             const printBtn = document.getElementById('print-pattern-btn');
             const saveImageBtn = document.getElementById('save-image-btn');
+            const saveSvgBtn = document.getElementById('save-svg-btn');
             const saveProjectBtn = document.getElementById('save-project-btn');
             const loadProjectInput = document.getElementById('load-project-input');
             const shareBtn = document.getElementById('share-btn');
@@ -387,8 +442,13 @@
             const printArea = document.getElementById('print-area');
             const patternCloneForPrint = document.getElementById('pattern-clone-for-print');
             const colorKeyForPrint = document.getElementById('color-key-for-print');
+            const wordChartForPrint = document.getElementById('word-chart-for-print');
             const messageBox = document.getElementById('message-box');
             const messageBoxText = document.getElementById('message-box-text');
+            const zoomContainer = document.getElementById('zoom-container');
+            const zoomInBtn = document.getElementById('zoom-in-btn');
+            const zoomOutBtn = document.getElementById('zoom-out-btn');
+            const zoomResetBtn = document.getElementById('zoom-reset-btn');
 
             // --- FUNCTIONS ---
 
@@ -442,7 +502,8 @@
                 eraserBtn.classList.toggle('selected', tool === 'eraser');
                 eyedropperBtn.classList.toggle('selected', tool === 'eyedropper');
                 replaceColorBtn.classList.toggle('selected', tool === 'replace');
-                mirrorBtn.classList.toggle('selected', tool === 'mirror');
+                gradientBtn.classList.toggle('selected', tool === 'gradient');
+                gradientColorsContainer.classList.toggle('hidden', tool !== 'gradient');
                 document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
 
                 if (tool === 'paint') {
@@ -451,22 +512,20 @@
                     if(matchingSwatch) {
                         matchingSwatch.classList.add('selected');
                     }
+                } else if (tool === 'gradient') {
+                    gradientState.selecting = 'start';
+                    gradientStartSwatch.style.borderColor = '#3b82f6'; // blue-500
+                    gradientEndSwatch.style.borderColor = 'transparent';
                 }
                 let newCursor = 'pointer';
                 if (tool === 'eyedropper') newCursor = 'copy';
-                if (tool === 'replace') newCursor = 'crosshair';
+                if (tool === 'replace' || tool === 'gradient') newCursor = 'crosshair';
                 patternContainer.style.cursor = newCursor;
                 imagePreview.style.cursor = newCursor;
             }
 
             function updateUndoButtonState() {
                 undoBtn.disabled = history.length === 0;
-            }
-
-            function recordAction(bead, oldColor, newColor) {
-                if (oldColor === newColor) return;
-                history.push({ bead, oldColor, newColor });
-                updateUndoButtonState();
             }
             
             function getExistingPatternData() {
@@ -486,25 +545,40 @@
 
                 patternContainer.innerHTML = '';
                 
-                const topStyle = topStyleSelect.value;
+                const stitchType = stitchTypeSelect.value;
                 const widthInBeads = parseInt(widthInput.value);
                 const lengthUnit = lengthUnitSelect.value;
                 const lengthValue = parseFloat(lengthInput.value);
                 const beadsPerInch = parseInt(beadSizeSelect.value);
                 const fringeShape = fringeShapeSelect.value;
                 const loomShape = loomShapeSelect.value;
+                const isPeyote = stitchType.startsWith('peyote');
 
-                let fringeLengthInBeads;
+                let lengthInBeads;
                 if (lengthUnit === 'inches') {
-                    fringeLengthInBeads = Math.round(lengthValue * beadsPerInch);
+                    lengthInBeads = Math.round(lengthValue * beadsPerInch);
                 } else {
-                    fringeLengthInBeads = parseInt(lengthValue);
+                    lengthInBeads = parseInt(lengthValue);
                 }
 
-                if (isNaN(widthInBeads) || isNaN(fringeLengthInBeads) || widthInBeads < 2 || fringeLengthInBeads < 1) {
+                if (isNaN(widthInBeads) || isNaN(lengthInBeads) || widthInBeads < 2 || lengthInBeads < 1) {
                     patternContainer.innerHTML = '<p class="text-red-500">Please enter valid numbers. Width must be at least 2.</p>';
                     return;
                 }
+                
+                if (stitchType === 'peyote-even' && widthInBeads % 2 !== 0) {
+                     showMessage('Even count peyote requires an even width.');
+                     widthInput.value = widthInBeads + 1;
+                     generatePattern(existingData);
+                     return;
+                }
+                 if (stitchType === 'peyote-odd' && widthInBeads % 2 === 0) {
+                     showMessage('Odd count peyote requires an odd width.');
+                     widthInput.value = widthInBeads + 1;
+                     generatePattern(existingData);
+                     return;
+                }
+
 
                 const mainFlexContainer = document.createElement('div');
                 mainFlexContainer.style.display = 'flex';
@@ -521,8 +595,8 @@
                 beadGridContainer.style.flexDirection = 'column';
                 beadGridContainer.style.alignItems = 'center';
                 
-                if (topStyle !== 'none') {
-                    if (topStyle === 'single') {
+                if (stitchType === 'single-brick' || stitchType === 'double-brick') {
+                    if (stitchType === 'single-brick') {
                         for (let numBeads = 2; numBeads <= widthInBeads; numBeads++) {
                             const row = document.createElement('div');
                             row.style.display = 'flex';
@@ -549,13 +623,25 @@
                     rulerContainer.appendChild(rulerSpacer);
                 }
 
-                for (let i = 0; i < fringeLengthInBeads; i++) {
+                for (let i = 0; i < lengthInBeads; i++) {
                     const row = document.createElement('div');
                     row.style.display = 'flex';
                     const label = (i + 1) % 5 === 0 ? (i + 1) : '-';
                     rulerContainer.appendChild(createRulerMark(label));
+                    
+                    if(isPeyote) {
+                         const numBeadsInRow = (i % 2 === 0) ? widthInBeads : widthInBeads - 1;
+                         if (stitchType === 'peyote-odd') {
+                            // Odd count peyote alternates full and short rows
+                            const beadsThisRow = (i % 2 === 0) ? Math.ceil(widthInBeads / 2) : Math.floor(widthInBeads / 2);
+                            row.style.marginLeft = (i % 2 !== 0) ? '12px' : '0';
+                            for (let j = 0; j < beadsThisRow; j++) { row.appendChild(createBead()); }
+                         } else { // Even count
+                            row.style.marginLeft = (i % 2 !== 0) ? '12px' : '0';
+                            for (let j = 0; j < widthInBeads / 2; j++) { row.appendChild(createBead()); }
+                         }
 
-                    if (topStyle === 'none') {
+                    } else if (stitchType === 'loom') {
                         let numBeadsInRow = widthInBeads;
                         if (loomShape === 'pointed') {
                             const minBeads = widthInBeads % 2 === 0 ? 2 : 1;
@@ -563,8 +649,8 @@
 
                             if (i < taperRows) { // Top taper
                                 numBeadsInRow = minBeads + (i * 2);
-                            } else if (i >= fringeLengthInBeads - taperRows) { // Bottom taper
-                                const bottomRowIndex = fringeLengthInBeads - 1 - i;
+                            } else if (i >= lengthInBeads - taperRows) { // Bottom taper
+                                const bottomRowIndex = lengthInBeads - 1 - i;
                                 numBeadsInRow = minBeads + (bottomRowIndex * 2);
                             }
                             if (numBeadsInRow > widthInBeads) numBeadsInRow = widthInBeads;
@@ -578,11 +664,11 @@
                             if (fringeShape !== 'rectangle') {
                                 const centerColumnIndex = Math.floor(widthInBeads / 2);
                                 const distFromCenter = Math.abs(j - centerColumnIndex);
-                                let columnLength = fringeLengthInBeads;
+                                let columnLength = lengthInBeads;
                                 if (fringeShape === 'v-shape') {
-                                    columnLength = fringeLengthInBeads - (centerColumnIndex - distFromCenter);
+                                    columnLength = lengthInBeads - (centerColumnIndex - distFromCenter);
                                 } else if (fringeShape === 'chevron') {
-                                    columnLength = fringeLengthInBeads - distFromCenter;
+                                    columnLength = lengthInBeads - distFromCenter;
                                 }
                                 if (i >= columnLength) isVisible = false;
                             }
@@ -634,12 +720,14 @@
                 if (!e.target.classList.contains('bead')) return;
                 const bead = e.target;
                 
-                const isMirrorMode = mirrorBtn.classList.contains('selected');
+                const isMirrorV = mirrorVBtn.classList.contains('selected');
+                const isMirrorH = mirrorHBtn.classList.contains('selected');
                 const newColor = activeTool === 'eraser' ? 'white' : colorPicker.value;
 
-                function applyColor(targetBead) {
-                    if (!targetBead) return null;
+                function applyColor(targetBead, color) {
+                    if (!targetBead || targetBead.style.visibility === 'hidden') return null;
                     const oldColor = targetBead.style.backgroundColor;
+                    const newColor = color || (activeTool === 'eraser' ? 'white' : colorPicker.value);
                     if (oldColor !== newColor) {
                         targetBead.style.backgroundColor = newColor;
                         return {bead: targetBead, oldColor, newColor};
@@ -671,20 +759,42 @@
                     }
                     setActiveTool('paint');
 
-                } else { // paint, eraser, or mirror
+                } else if (activeTool === 'gradient') {
+                    if (!gradientState.startBead) {
+                        gradientState.startBead = bead;
+                        showMessage('Gradient start point selected. Click an end point.', false);
+                    } else {
+                        applyGradient(gradientState.startBead, bead);
+                        gradientState.startBead = null;
+                    }
+                } else { // paint or eraser
                     const changes = [];
                     const originalChange = applyColor(bead);
                     if(originalChange) changes.push(originalChange);
+                    
+                    const row = bead.parentElement;
+                    const allRows = Array.from(row.parentElement.children);
+                    const rowIndex = allRows.indexOf(row);
+                    const beadsInRow = Array.from(row.children);
+                    const beadIndex = beadsInRow.indexOf(bead);
 
-                    if (isMirrorMode) {
-                        const row = bead.parentElement;
-                        const beadsInRow = Array.from(row.children);
-                        const beadIndex = beadsInRow.indexOf(bead);
+                    if (isMirrorV) {
                         const mirrorIndex = (beadsInRow.length - 1) - beadIndex;
                         if (beadIndex !== mirrorIndex) {
                            const mirrorBead = beadsInRow[mirrorIndex];
                            const mirrorChange = applyColor(mirrorBead);
                            if(mirrorChange) changes.push(mirrorChange);
+                        }
+                    }
+                    if (isMirrorH) {
+                        const mirrorRowIndex = (allRows.length - 1) - rowIndex;
+                        if(rowIndex !== mirrorRowIndex) {
+                            const mirrorRow = allRows[mirrorRowIndex];
+                            if(mirrorRow && mirrorRow.children[beadIndex]){
+                                const mirrorBead = mirrorRow.children[beadIndex];
+                                const mirrorChange = applyColor(mirrorBead);
+                                if(mirrorChange) changes.push(mirrorChange);
+                            }
                         }
                     }
                     
@@ -777,26 +887,173 @@
 
             function preparePrintArea() {
                 patternCloneForPrint.innerHTML = patternContainer.innerHTML;
-                const usedColors = new Set();
+                const usedColors = new Map();
+                let colorIndex = 0;
+                
                 document.querySelectorAll('.bead').forEach(bead => {
-                    if (bead.style.visibility !== 'hidden' && bead.style.backgroundColor && bead.style.backgroundColor !== 'white' && bead.style.backgroundColor !== whiteRgb) {
-                        usedColors.add(bead.style.backgroundColor);
+                    const color = bead.style.backgroundColor;
+                    if (bead.style.visibility !== 'hidden' && color && color !== 'white' && color !== whiteRgb) {
+                        if (!usedColors.has(color)) {
+                            usedColors.set(color, String.fromCharCode(65 + colorIndex++)); // A, B, C...
+                        }
                     }
                 });
+
                 let paletteHTML = '';
-                usedColors.forEach(color => {
+                usedColors.forEach((symbol, color) => {
                     paletteHTML += `<div style="display: flex; align-items: center; margin-bottom: 4px;">
                                         <div style="width: 24px; height: 24px; border-radius: 50%; background-color: ${color}; border: 1px solid #ccc; margin-right: 8px;"></div>
-                                        <span>${rgbToHex(color).toUpperCase()}</span>
+                                        <span>(${symbol}) ${rgbToHex(color).toUpperCase()}</span>
                                     </div>`;
                 });
                 if (paletteHTML === '') paletteHTML = '<p>No custom colors used.</p>';
                 colorKeyForPrint.innerHTML = paletteHTML;
+
+                // --- WORD CHART GENERATION ---
+                const stitchType = stitchTypeSelect.value;
+                const beadGrid = patternCloneForPrint.querySelector('.bead-grid-container');
+                const domRows = Array.from(beadGrid.children);
+                
+                const spacerIndex = domRows.findIndex(row => row.style.height === '10px');
+                const mainBodyDomRows = spacerIndex !== -1 ? domRows.slice(0, spacerIndex) : domRows;
+                const fringeDomRows = spacerIndex !== -1 ? domRows.slice(spacerIndex + 1) : [];
+                
+                let wordChartHTML = '';
+
+                // Generate Main Body Chart
+                if(mainBodyDomRows.length > 0) {
+                    let logicalRows = [];
+                     if (stitchType.startsWith('peyote')) {
+                        const width = parseInt(widthInput.value);
+                        const height = mainBodyDomRows.length;
+                        const tempGrid = Array(height).fill(null).map(() => Array(width).fill(null));
+
+                        mainBodyDomRows.forEach((row, rowIndex) => {
+                            const beads = Array.from(row.querySelectorAll('.bead-slot'));
+                            beads.forEach((bead, beadIndex) => {
+                                const colIndex = (rowIndex % 2 === 0) ? beadIndex * 2 : beadIndex * 2 + 1;
+                                if (colIndex < width) {
+                                    tempGrid[rowIndex][colIndex] = bead.style.backgroundColor;
+                                }
+                            });
+                        });
+                        
+                        logicalRows = tempGrid.map(row => row.filter(color => color !== null));
+                        
+                        if (stitchType === 'peyote-odd') {
+                            logicalRows.forEach((row, index) => {
+                                if ((index + 1) % 2 === 0) {
+                                    row.reverse();
+                                }
+                            });
+                        }
+                    } else { // Brick and Loom
+                        mainBodyDomRows.forEach(row => {
+                            const beads = Array.from(row.querySelectorAll('.bead-slot:not([style*="visibility: hidden"])'));
+                            logicalRows.push(beads.map(bead => bead.style.backgroundColor));
+                        });
+                    }
+                    
+                    wordChartHTML += '<h3>Body Chart</h3>';
+                    let rowCounter = 1;
+                    logicalRows.forEach(row => {
+                         if (row.length === 0) return;
+                        let rowText = `<b>Row ${rowCounter}:</b> `;
+                        let currentSymbol = null;
+                        let count = 0;
+                        
+                        row.forEach((color) => {
+                            const symbol = usedColors.get(color) || '-';
+                            if (symbol !== currentSymbol) {
+                                if (count > 0) rowText += `(${currentSymbol})x${count}, `;
+                                currentSymbol = symbol;
+                                count = 1;
+                            } else {
+                                count++;
+                            }
+                        });
+                        if (count > 0) rowText += `(${currentSymbol})x${count}`;
+                        wordChartHTML += `<p>${rowText}</p>`;
+                        rowCounter++;
+                    });
+                }
+
+                // Generate Fringe Chart
+                if(fringeDomRows.length > 0) {
+                    wordChartHTML += '<h3 class="mt-4">Fringe Chart</h3>';
+                    const fringeGrid = fringeDomRows.map(row => 
+                        Array.from(row.querySelectorAll('.bead-slot')).map(bead => 
+                            bead.style.visibility !== 'hidden' ? bead.style.backgroundColor : null
+                        )
+                    );
+
+                    if (fringeGrid.length > 0) {
+                        const numCols = fringeGrid[0].length;
+                        for (let c = 0; c < numCols; c++) {
+                            let colText = `<b>Fringe ${c + 1}:</b> `;
+                            let currentSymbol = null;
+                            let count = 0;
+                            for (let r = 0; r < fringeGrid.length; r++) {
+                                const color = fringeGrid[r][c];
+                                if (color === null) continue;
+                                
+                                const symbol = usedColors.get(color) || '-';
+                                if (symbol !== currentSymbol) {
+                                    if (count > 0) colText += `(${currentSymbol})x${count}, `;
+                                    currentSymbol = symbol;
+                                    count = 1;
+                                } else {
+                                    count++;
+                                }
+                            }
+                            if (count > 0) colText += `(${currentSymbol})x${count}`;
+                            wordChartHTML += `<p>${colText}</p>`;
+                        }
+                    }
+                }
+                
+                wordChartForPrint.innerHTML = wordChartHTML;
             }
 
-            function printPattern() {
+            async function printPattern() {
                 preparePrintArea();
-                window.print();
+                printBtn.textContent = 'Exporting...';
+                printBtn.disabled = true;
+
+                printArea.classList.remove('hidden');
+                printArea.style.position = 'absolute';
+                printArea.style.left = '-9999px';
+                
+                try {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+
+                    const { jsPDF } = window.jspdf;
+                    const canvas = await html2canvas(printArea, {
+                        scale: 2,
+                        useCORS: true,
+                        backgroundColor: '#ffffff'
+                    });
+                    
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF({
+                        orientation: 'portrait',
+                        unit: 'px',
+                        format: [canvas.width, canvas.height]
+                    });
+                    
+                    pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+                    pdf.save(`bead-pattern_${getFormattedTimestamp()}.pdf`);
+
+                } catch (error) {
+                    console.error('Error exporting PDF:', error);
+                    showMessage('Sorry, could not export the PDF.');
+                } finally {
+                    printArea.classList.add('hidden');
+                    printArea.style.position = '';
+                    printArea.style.left = '';
+                    printBtn.textContent = 'Export as PDF';
+                    printBtn.disabled = false;
+                }
             }
 
             function getFormattedTimestamp() {
@@ -843,12 +1100,46 @@
                     saveImageBtn.disabled = false;
                 }
             }
+            
+            function saveAsSVG() {
+                const beadGrid = patternContainer.querySelector('.bead-grid-container');
+                if (!beadGrid) return;
+                
+                const beadSize = 20;
+                let svgContent = '';
+                const gridRect = beadGrid.getBoundingClientRect();
 
-            function handleTopStyleChange() {
-                const isLoom = topStyleSelect.value === 'none';
+                const rows = beadGrid.querySelectorAll('div[style*="display: flex"]');
+                rows.forEach(row => {
+                    const beads = row.querySelectorAll('.bead-slot');
+                    beads.forEach(bead => {
+                        if (bead.style.visibility !== 'hidden' && bead.style.backgroundColor !== 'white' && bead.style.backgroundColor !== whiteRgb) {
+                           const beadRect = bead.getBoundingClientRect();
+                           const x = beadRect.left - gridRect.left;
+                           const y = beadRect.top - gridRect.top;
+                           svgContent += `<circle cx="${x + beadSize / 2}" cy="${y + beadSize / 2}" r="${beadSize / 2 - 1}" fill="${rgbToHex(bead.style.backgroundColor)}" stroke="#d1d5db" stroke-width="1" />\n`;
+                        }
+                    });
+                });
+                
+                const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${gridRect.width}" height="${gridRect.height}">${svgContent}</svg>`;
+                const dataBlob = new Blob([svg], {type: 'image/svg+xml'});
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.download = `bead-pattern_${getFormattedTimestamp()}.svg`;
+                link.href = url;
+                link.click();
+                URL.revokeObjectURL(url);
+            }
+
+            function handleStitchTypeChange() {
+                const stitchType = stitchTypeSelect.value;
+                const isLoom = stitchType === 'loom';
+                const isBrick = stitchType.includes('brick');
+                
                 loomShapeContainer.classList.toggle('hidden', !isLoom);
-                fringeShapeContainer.classList.toggle('hidden', isLoom);
-                widthLabel.textContent = isLoom ? 'Width (beads)' : 'Top Width (beads)';
+                fringeShapeContainer.classList.toggle('hidden', !isBrick);
+                widthLabel.textContent = isBrick ? 'Top Width (beads)' : 'Width (beads)';
             }
 
             function handleLengthUnitChange() {
@@ -870,6 +1161,21 @@
                 let [r, g, b] = rgb.match(/\d+/g).map(Number);
                 return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
             }
+            
+            function hexToRgb(hex) {
+                let r = 0, g = 0, b = 0;
+                if (hex.length == 4) {
+                    r = "0x" + hex[1] + hex[1];
+                    g = "0x" + hex[2] + hex[2];
+                    b = "0x" + hex[3] + hex[3];
+                } else if (hex.length == 7) {
+                    r = "0x" + hex[1] + hex[2];
+                    g = "0x" + hex[3] + hex[4];
+                    b = "0x" + hex[5] + hex[6];
+                }
+                return [parseInt(r), parseInt(g), parseInt(b)];
+            }
+
 
             function sampleColorFromImage(e) {
                 const img = imagePreview;
@@ -891,11 +1197,45 @@
                 addCustomColor(colorPicker.value);
                 setActiveTool('paint');
             }
+            
+            function generatePaletteFromImage() {
+                if (!uploadedImageSrc) return;
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const data = imageData.data;
+                    const colorCounts = {};
+                    
+                    // Simple color bucketing to quantize colors
+                    for (let i = 0; i < data.length; i += 4) {
+                        const r = Math.round(data[i] / 32) * 32;
+                        const g = Math.round(data[i + 1] / 32) * 32;
+                        const b = Math.round(data[i + 2] / 32) * 32;
+                        const key = `${r},${g},${b}`;
+                        colorCounts[key] = (colorCounts[key] || 0) + 1;
+                    }
+                    
+                    const sortedColors = Object.keys(colorCounts).sort((a, b) => colorCounts[b] - colorCounts[a]);
+                    const topColors = sortedColors.slice(0, 10); // Get top 10 colors
+                    
+                    topColors.forEach(key => {
+                        const [r, g, b] = key.split(',');
+                        addCustomColor(rgbToHex(`rgb(${r}, ${g}, ${b})`));
+                    });
+                    showMessage('Palette generated from image!', false);
+                };
+                img.src = uploadedImageSrc;
+            }
 
             function getProjectData() {
                  return {
                     settings: {
-                        topStyle: topStyleSelect.value,
+                        stitchType: stitchTypeSelect.value,
                         loomShape: loomShapeSelect.value,
                         beadSize: beadSizeSelect.value,
                         width: widthInput.value,
@@ -923,7 +1263,7 @@
             function loadProject(projectData) {
                 try {
                     // Restore settings
-                    topStyleSelect.value = projectData.settings.topStyle;
+                    stitchTypeSelect.value = projectData.settings.stitchType;
                     loomShapeSelect.value = projectData.settings.loomShape;
                     beadSizeSelect.value = projectData.settings.beadSize;
                     widthInput.value = projectData.settings.width;
@@ -936,7 +1276,7 @@
                     populatePalette();
 
                     // Update UI based on restored settings
-                    handleTopStyleChange();
+                    handleStitchTypeChange();
                     handleLengthUnitChange();
 
                     // Generate the grid and apply colors
@@ -957,7 +1297,6 @@
                 const url = new URL(window.location.href);
                 url.hash = base64Str;
                 
-                // Use the 'copy' command as a fallback for iframe restrictions
                 try {
                     const tempInput = document.createElement('textarea');
                     tempInput.value = url.toString();
@@ -981,22 +1320,96 @@
                         loadProject(projectData);
                     } catch (e) {
                         console.error("Could not load project from URL hash:", e);
-                        // If loading from URL fails, generate a default pattern
                         generatePattern();
                     }
                 } else {
                      generatePattern();
                 }
             }
+            
+            function updateZoom() {
+                patternContainer.style.transform = `scale(${zoomState.scale}) translate(${zoomState.panX}px, ${zoomState.panY}px)`;
+            }
+            
+            function applyGradient(startBead, endBead) {
+                const startColor = hexToRgb(gradientState.startColor);
+                const endColor = hexToRgb(gradientState.endColor);
+                const changes = [];
+
+                const getBeadCoords = (bead) => {
+                    const row = bead.parentElement;
+                    const allRows = Array.from(row.parentElement.children);
+                    const rowIndex = allRows.indexOf(row);
+                    const beadsInRow = Array.from(row.children);
+                    const colIndex = beadsInRow.indexOf(bead);
+                    return { row: rowIndex, col: colIndex, bead: bead };
+                };
+                
+                const paletteColors = Array.from(document.querySelectorAll('.color-swatch')).map(swatch => hexToRgb(swatch.dataset.color));
+
+                const colorDistance = (rgb1, rgb2) => {
+                    return Math.sqrt(Math.pow(rgb1[0] - rgb2[0], 2) + Math.pow(rgb1[1] - rgb2[1], 2) + Math.pow(rgb1[2] - rgb2[2], 2));
+                };
+
+                const findClosestPaletteColor = (targetRgb) => {
+                    let closestColor = null;
+                    let minDistance = Infinity;
+                    paletteColors.forEach(paletteRgb => {
+                        const distance = colorDistance(targetRgb, paletteRgb);
+                        if (distance < minDistance) {
+                            minDistance = distance;
+                            closestColor = paletteRgb;
+                        }
+                    });
+                    return `rgb(${closestColor[0]}, ${closestColor[1]}, ${closestColor[2]})`;
+                };
+
+
+                const start = getBeadCoords(startBead);
+                const end = getBeadCoords(endBead);
+
+                const dx = end.col - start.col;
+                const dy = end.row - start.row;
+                const steps = Math.max(Math.abs(dx), Math.abs(dy));
+
+                for (let i = 0; i <= steps; i++) {
+                    const t = i / steps;
+                    const r = Math.round(startColor[0] + t * (endColor[0] - startColor[0]));
+                    const g = Math.round(startColor[1] + t * (endColor[1] - startColor[1]));
+                    const b = Math.round(startColor[2] + t * (endColor[2] - startColor[2]));
+                    
+                    const targetRow = Math.round(start.row + t * dy);
+                    const targetCol = Math.round(start.col + t * dx);
+                    
+                    const allRows = Array.from(patternContainer.querySelector('.bead-grid-container').children);
+                    const rowEl = allRows[targetRow];
+                    if (rowEl) {
+                        const beadEl = rowEl.children[targetCol];
+                        if (beadEl && beadEl.classList.contains('bead-slot')) {
+                            const oldColor = beadEl.style.backgroundColor;
+                            const newColor = findClosestPaletteColor([r, g, b]);
+                            beadEl.style.backgroundColor = newColor;
+                            changes.push({ bead: beadEl, oldColor, newColor });
+                        }
+                    }
+                }
+                
+                if (changes.length > 0) {
+                    history.push(changes);
+                    updateUndoButtonState();
+                }
+            }
+
 
             // --- EVENT LISTENERS ---
-            applySettingsBtn.addEventListener('click', generatePattern);
+            applySettingsBtn.addEventListener('click', () => generatePattern());
             clearBtn.addEventListener('click', clearPattern);
             undoBtn.addEventListener('click', handleUndo);
             trimBtn.addEventListener('click', trimEmptyRows);
             beadCountBtn.addEventListener('click', generateBeadCount);
             printBtn.addEventListener('click', printPattern);
             saveImageBtn.addEventListener('click', saveAsImage);
+            saveSvgBtn.addEventListener('click', saveAsSVG);
             saveProjectBtn.addEventListener('click', saveProject);
             shareBtn.addEventListener('click', shareProject);
             loadProjectInput.addEventListener('change', (e) => {
@@ -1007,7 +1420,7 @@
                  reader.readAsText(file);
                  e.target.value = null;
             });
-            topStyleSelect.addEventListener('change', handleTopStyleChange);
+            stitchTypeSelect.addEventListener('change', handleStitchTypeChange);
             lengthUnitSelect.addEventListener('change', handleLengthUnitChange);
             paletteSelect.addEventListener('change', populatePalette);
 
@@ -1019,10 +1432,13 @@
                         uploadedImageSrc = event.target.result;
                         imagePreview.src = uploadedImageSrc;
                         imagePreviewContainer.classList.remove('hidden');
+                        generatePaletteBtn.classList.remove('hidden');
                     };
                     reader.readAsDataURL(file);
                 }
             });
+            
+            generatePaletteBtn.addEventListener('click', generatePaletteFromImage);
             
             imagePreview.addEventListener('click', (e) => {
                 if (activeTool === 'eyedropper') {
@@ -1030,19 +1446,43 @@
                 }
             });
 
-            colorPicker.addEventListener('change', (e) => { // Use 'change' to fire when picker is closed
+            colorPicker.addEventListener('change', (e) => {
                 setActiveTool('paint');
                 addCustomColor(e.target.value);
             });
             eraserBtn.addEventListener('click', () => setActiveTool('eraser'));
             eyedropperBtn.addEventListener('click', () => setActiveTool('eyedropper'));
             replaceColorBtn.addEventListener('click', () => setActiveTool('replace'));
-            mirrorBtn.addEventListener('click', (e) => e.currentTarget.classList.toggle('selected'));
+            gradientBtn.addEventListener('click', () => setActiveTool('gradient'));
+            mirrorVBtn.addEventListener('click', (e) => e.currentTarget.classList.toggle('selected'));
+            mirrorHBtn.addEventListener('click', (e) => e.currentTarget.classList.toggle('selected'));
+
+            gradientStartSwatch.addEventListener('click', () => {
+                gradientState.selecting = 'start';
+                gradientStartSwatch.style.borderColor = '#3b82f6';
+                gradientEndSwatch.style.borderColor = 'transparent';
+            });
+            gradientEndSwatch.addEventListener('click', () => {
+                gradientState.selecting = 'end';
+                gradientEndSwatch.style.borderColor = '#3b82f6';
+                gradientStartSwatch.style.borderColor = 'transparent';
+            });
 
             paletteContainer.addEventListener('click', (e) => {
                 if(e.target.classList.contains('color-swatch')) {
-                    colorPicker.value = e.target.dataset.color;
-                    setActiveTool('paint');
+                    const selectedColor = e.target.dataset.color;
+                    if (activeTool === 'gradient') {
+                        if (gradientState.selecting === 'start') {
+                            gradientState.startColor = selectedColor;
+                            gradientStartSwatch.style.backgroundColor = selectedColor;
+                        } else {
+                            gradientState.endColor = selectedColor;
+                            gradientEndSwatch.style.backgroundColor = selectedColor;
+                        }
+                    } else {
+                        colorPicker.value = selectedColor;
+                        setActiveTool('paint');
+                    }
                 }
             });
 
@@ -1051,7 +1491,7 @@
                 handleBeadInteraction(e);
             });
             patternContainer.addEventListener('mouseover', e => {
-                if (isPainting && activeTool !== 'eyedropper' && activeTool !== 'replace') {
+                if (isPainting && activeTool !== 'eyedropper' && activeTool !== 'replace' && activeTool !== 'gradient') {
                     handleBeadInteraction(e);
                 }
             });
@@ -1060,26 +1500,67 @@
 
             document.querySelectorAll('[data-menu]').forEach(menuContainer => {
                 const button = menuContainer.querySelector('.menu-button');
-                const menu = menuContainer.querySelector('.hidden');
+                const menu = menuContainer.querySelector('div');
+
                 button.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    // Close other menus
-                    document.querySelectorAll('[data-menu] .hidden').forEach(m => {
-                        if (m !== menu) m.classList.add('hidden');
-                    });
-                    menu.classList.toggle('hidden');
+                    const isCurrentlyHidden = menu.classList.contains('hidden');
+                    
+                    document.querySelectorAll('[data-menu] > div').forEach(m => m.classList.add('hidden'));
+
+                    if (isCurrentlyHidden) {
+                        menu.classList.remove('hidden');
+                    }
                 });
             });
 
             document.addEventListener('click', () => {
-                 document.querySelectorAll('[data-menu] .hidden').forEach(m => m.classList.add('hidden'));
+                 document.querySelectorAll('[data-menu] > div').forEach(m => m.classList.add('hidden'));
+            });
+
+            // Zoom and Pan Listeners
+            zoomInBtn.addEventListener('click', () => {
+                zoomState.scale = Math.min(3, zoomState.scale + 0.2);
+                updateZoom();
+            });
+            zoomOutBtn.addEventListener('click', () => {
+                zoomState.scale = Math.max(0.2, zoomState.scale - 0.2);
+                updateZoom();
+            });
+            zoomResetBtn.addEventListener('click', () => {
+                zoomState.scale = 1;
+                zoomState.panX = 0;
+                zoomState.panY = 0;
+                updateZoom();
+            });
+            zoomContainer.addEventListener('mousedown', (e) => {
+                if (e.target.closest('.bead')) return; // Don't pan when clicking a bead
+                zoomState.isPanning = true;
+                zoomContainer.style.cursor = 'grabbing';
+                zoomState.startX = e.clientX - zoomState.panX;
+                zoomState.startY = e.clientY - zoomState.panY;
+            });
+            zoomContainer.addEventListener('mousemove', (e) => {
+                if (!zoomState.isPanning) return;
+                e.preventDefault();
+                zoomState.panX = e.clientX - zoomState.startX;
+                zoomState.panY = e.clientY - zoomState.startY;
+                updateZoom();
+            });
+            zoomContainer.addEventListener('mouseup', () => {
+                zoomState.isPanning = false;
+                zoomContainer.style.cursor = 'grab';
+            });
+            zoomContainer.addEventListener('mouseleave', () => {
+                zoomState.isPanning = false;
+                zoomContainer.style.cursor = 'grab';
             });
 
 
             // --- INITIALIZATION ---
             populatePalette();
-            loadFromURL(); // Load from URL hash first
-            handleTopStyleChange();
+            loadFromURL();
+            handleStitchTypeChange();
             handleLengthUnitChange();
             setActiveTool('paint');
         });
