@@ -158,7 +158,7 @@
                                     <option value="pointed">Pointed Ends</option>
                                 </select>
                             </div>
-                            <div>
+                            <div id="bead-size-container">
                                 <label for="bead-size" class="block text-sm font-medium text-slate-600">Bead Size</label>
                                 <select id="bead-size" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                     <option value="22">15/0 (Tiny)</option>
@@ -171,9 +171,16 @@
                                 <label for="width-input" id="width-label" class="block text-sm font-medium text-slate-600">Width (beads)</label>
                                 <input type="number" id="width-input" value="11" min="2" max="25" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             </div>
+                             <div>
+                                <label for="length-unit" class="block text-sm font-medium text-slate-600">Length Unit</label>
+                                <select id="length-unit" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                    <option value="inches" selected>Inches</option>
+                                    <option value="beads">Beads</option>
+                                </select>
+                            </div>
                             <div>
-                                <label for="length-input" class="block text-sm font-medium text-slate-600">Length (inches)</label>
-                                <input type="number" id="length-input" value="2" min="0.5" max="8" step="0.1" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                <label for="length-input" id="length-label" class="block text-sm font-medium text-slate-600">Length (inches)</label>
+                                <input type="number" id="length-input" value="2" min="0.5" max="50" step="0.1" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             </div>
                             <div id="fringe-shape-container">
                                 <label for="fringe-shape" class="block text-sm font-medium text-slate-600">Fringe Shape</label>
@@ -238,7 +245,7 @@
                 '#0000FF', '#800080', '#FFC0CB', '#964B00', '#40E0D0', '#FFD700', '#C0C0C0'
             ];
             const whiteRgb = 'rgb(255, 255, 255)';
-            let activeTool = 'paint'; // 'paint', 'eraser', 'eyedropper'
+            let activeTool = 'paint';
             let isPainting = false;
             let history = [];
 
@@ -251,10 +258,13 @@
             const topStyleSelect = document.getElementById('top-style');
             const loomShapeContainer = document.getElementById('loom-shape-container');
             const loomShapeSelect = document.getElementById('loom-shape');
+            const beadSizeContainer = document.getElementById('bead-size-container');
             const beadSizeSelect = document.getElementById('bead-size');
             const widthInput = document.getElementById('width-input');
             const widthLabel = document.getElementById('width-label');
+            const lengthUnitSelect = document.getElementById('length-unit');
             const lengthInput = document.getElementById('length-input');
+            const lengthLabel = document.getElementById('length-label');
             const fringeShapeContainer = document.getElementById('fringe-shape-container');
             const fringeShapeSelect = document.getElementById('fringe-shape');
             const applySettingsBtn = document.getElementById('apply-settings');
@@ -312,12 +322,18 @@
 
                 const topStyle = topStyleSelect.value;
                 const widthInBeads = parseInt(widthInput.value);
-                const lengthInInches = parseFloat(lengthInput.value);
+                const lengthUnit = lengthUnitSelect.value;
+                const lengthValue = parseFloat(lengthInput.value);
                 const beadsPerInch = parseInt(beadSizeSelect.value);
                 const fringeShape = fringeShapeSelect.value;
                 const loomShape = loomShapeSelect.value;
 
-                const fringeLengthInBeads = Math.round(lengthInInches * beadsPerInch);
+                let fringeLengthInBeads;
+                if (lengthUnit === 'inches') {
+                    fringeLengthInBeads = Math.round(lengthValue * beadsPerInch);
+                } else {
+                    fringeLengthInBeads = parseInt(lengthValue);
+                }
 
                 if (isNaN(widthInBeads) || isNaN(fringeLengthInBeads) || widthInBeads < 2 || fringeLengthInBeads < 1) {
                     patternContainer.innerHTML = '<p class="text-red-500">Please enter valid numbers. Width must be at least 2.</p>';
@@ -500,35 +516,43 @@
                 window.print();
             }
 
+            function getFormattedTimestamp() {
+                const d = new Date();
+                const year = d.getFullYear();
+                const month = (d.getMonth() + 1).toString().padStart(2, '0');
+                const day = d.getDate().toString().padStart(2, '0');
+                const hour = d.getHours().toString().padStart(2, '0');
+                const minute = d.getMinutes().toString().padStart(2, '0');
+                return `${year}${month}${day}_${hour}${minute}`;
+            }
+
             async function saveAsImage() {
                 preparePrintArea();
                 saveImageBtn.textContent = 'Saving...';
                 saveImageBtn.disabled = true;
 
-                // Temporarily show the print area off-screen for capture
                 printArea.classList.remove('hidden');
                 printArea.style.position = 'absolute';
                 printArea.style.left = '-9999px';
                 
                 try {
-                    // Add a small delay to ensure rendering is complete
                     await new Promise(resolve => setTimeout(resolve, 100));
 
                     const canvas = await html2canvas(printArea, {
-                        useCORS: true, // Helps with external resources like fonts
-                        backgroundColor: '#ffffff', // Explicitly set background
-                        logging: false // Turn off console logs from the library
+                        useCORS: true, 
+                        backgroundColor: '#ffffff',
+                        logging: false
                     });
                     
                     const link = document.createElement('a');
-                    link.download = 'bead-pattern.png';
+                    const timestamp = getFormattedTimestamp();
+                    link.download = `bead-pattern_${timestamp}.png`;
                     link.href = canvas.toDataURL('image/png');
                     link.click();
                 } catch (error) {
-                    console.error('Oops, something went wrong!', error);
+                    console.error('Error saving image:', error);
                     alert('Sorry, could not save the image. Please try again.');
                 } finally {
-                    // Hide the print area again and restore button
                     printArea.classList.add('hidden');
                     printArea.style.position = '';
                     printArea.style.left = '';
@@ -542,6 +566,21 @@
                 loomShapeContainer.classList.toggle('hidden', !isLoom);
                 fringeShapeContainer.classList.toggle('hidden', isLoom);
                 widthLabel.textContent = isLoom ? 'Width (beads)' : 'Top Width (beads)';
+            }
+
+            function handleLengthUnitChange() {
+                const unit = lengthUnitSelect.value;
+                if (unit === 'inches') {
+                    lengthLabel.textContent = 'Length (inches)';
+                    lengthInput.step = '0.1';
+                    lengthInput.value = '2';
+                    beadSizeContainer.classList.remove('hidden');
+                } else { // beads
+                    lengthLabel.textContent = 'Length (beads)';
+                    lengthInput.step = '1';
+                    lengthInput.value = '30';
+                    beadSizeContainer.classList.add('hidden');
+                }
             }
             
             function rgbToHex(rgb) {
@@ -557,6 +596,7 @@
             printBtn.addEventListener('click', printPattern);
             saveImageBtn.addEventListener('click', saveAsImage);
             topStyleSelect.addEventListener('change', handleTopStyleChange);
+            lengthUnitSelect.addEventListener('change', handleLengthUnitChange);
 
             colorPicker.addEventListener('input', (e) => { setActiveTool('paint'); });
             eraserBtn.addEventListener('click', () => setActiveTool('eraser'));
@@ -585,6 +625,7 @@
             setupPalette();
             generatePattern();
             handleTopStyleChange();
+            handleLengthUnitChange();
             setActiveTool('paint');
         });
     </script>
