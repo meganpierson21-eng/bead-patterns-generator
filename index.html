@@ -50,7 +50,7 @@
             color: #6b7280; /* gray-500 */
             font-size: 12px;
         }
-        button:disabled {
+        button:disabled, .menu-item.disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
@@ -68,6 +68,16 @@
         	border: 1px solid #d1d5db;
         	border-radius: 0.5rem; /* rounded-lg */
         }
+        .menu-item {
+            display: block;
+            width: 100%;
+            padding: 0.5rem 1rem;
+            text-align: left;
+        }
+         .menu-item:hover:not(.disabled) {
+            background-color: #f3f4f6;
+        }
+
         /* Custom scrollbar for better aesthetics */
         ::-webkit-scrollbar {
             width: 8px;
@@ -109,6 +119,39 @@
 </head>
 <body class="bg-slate-100 text-slate-800">
 
+    <!-- Header and Menu Bar -->
+    <header class="bg-white shadow-md p-2 sticky top-0 z-20 no-print">
+        <div class="container mx-auto flex items-center gap-2">
+            <div class="relative" data-menu="file-menu">
+                <button class="menu-button px-3 py-1 rounded-md hover:bg-slate-100">File</button>
+                <div id="file-menu" class="hidden absolute top-full left-0 mt-1 w-48 bg-white rounded-md shadow-lg border border-slate-200 py-1">
+                    <button id="save-project-btn" class="menu-item">Save Project</button>
+                    <label for="load-project-input" class="menu-item cursor-pointer">Load Project</label>
+                    <input type="file" id="load-project-input" class="hidden" accept=".beadpattern">
+                    <button id="share-btn" class="menu-item">Share</button>
+                    <hr class="my-1">
+                    <button id="save-image-btn" class="menu-item">Export as Image</button>
+                    <button id="print-pattern-btn" class="menu-item">Export as PDF</button>
+                </div>
+            </div>
+            <div class="relative" data-menu="edit-menu">
+                <button class="menu-button px-3 py-1 rounded-md hover:bg-slate-100">Edit</button>
+                <div id="edit-menu" class="hidden absolute top-full left-0 mt-1 w-48 bg-white rounded-md shadow-lg border border-slate-200 py-1">
+                    <button id="undo-btn" class="menu-item">Undo</button>
+                    <hr class="my-1">
+                    <button id="clear-pattern" class="menu-item">Clear Pattern</button>
+                    <button id="trim-btn" class="menu-item">Trim Empty Rows</button>
+                </div>
+            </div>
+             <div class="relative" data-menu="view-menu">
+                <button class="menu-button px-3 py-1 rounded-md hover:bg-slate-100">View</button>
+                <div id="view-menu" class="hidden absolute top-full left-0 mt-1 w-48 bg-white rounded-md shadow-lg border border-slate-200 py-1">
+                    <button id="bead-count-btn" class="menu-item">Generate Bead Count</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
     <div class="container mx-auto p-4 md:p-8 no-print">
         <header class="text-center mb-8">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-700">Bead Pattern Designer</h1>
@@ -120,6 +163,41 @@
             <!-- Controls Panel -->
             <aside class="w-full lg:w-1/3 xl:w-1/4 bg-white p-6 rounded-2xl shadow-lg">
                 <div class="space-y-6">
+                    <!-- Color Tools -->
+                    <div class="bg-white rounded-2xl">
+                        <div class="flex justify-between items-center mb-3">
+                            <h2 class="text-lg font-semibold">Color Tools</h2>
+                            <div>
+                                 <label for="palette-select" class="text-sm font-medium text-slate-600 sr-only">Color Palette:</label>
+                                 <select id="palette-select" class="rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                     <option value="default" selected>Designer's Default</option>
+                                     <option value="michaels">Michaels</option>
+                                     <option value="toho">Toho</option>
+                                     <option value="miyuki">Miyuki</option>
+                                 </select>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 flex-wrap">
+                            <input type="color" id="color-picker" value="#000000">
+                            <div class="flex gap-3">
+                                 <button id="mirror-btn" title="Mirror Mode" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V2M6 12H2M18 12h4"/></svg>
+                                </button>
+                                 <button id="replace-color-btn" title="Replace Color" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                                </button>
+                                <button id="eyedropper-btn" title="Eyedropper" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.5 3.5L8 13H4v-4L11.5 2z"/><path d="M18 6 22 10"/><path d="M14 16.5 19 21.5"/></svg>
+                                </button>
+                                <button id="eraser-btn" title="Eraser" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0 0 2.828l3.986 3.986a2 2 0 0 0 2.828 0zM2 22l5.5-5.5"/><path d="m15 5 6 6"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                         <div id="color-palette" class="flex gap-2 flex-wrap mt-4">
+                            <!-- Common colors will be injected here -->
+                        </div>
+                    </div>
                     <!-- Image Mapper -->
                     <div>
                         <h2 class="text-lg font-semibold mb-3">Image Reference</h2>
@@ -129,28 +207,9 @@
                         </div>
                     </div>
 
-                    <!-- Color Tools -->
-                    <div>
-                        <h2 class="text-lg font-semibold mb-3">1. Select a Color</h2>
-                        <div class="flex items-center gap-4">
-                            <input type="color" id="color-picker" value="#000000">
-                            <div class="flex flex-col gap-3">
-                                <button id="eyedropper-btn" title="Eyedropper" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.5 3.5L8 13H4v-4L11.5 2z"/><path d="M18 6 22 10"/><path d="M14 16.5 19 21.5"/></svg>
-                                </button>
-                                <button id="eraser-btn" title="Eraser" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0 0 2.828l3.986 3.986a2 2 0 0 0 2.828 0zM2 22l5.5-5.5"/><path d="m15 5 6 6"/></svg>
-                                </button>
-                            </div>
-                        </div>
-                        <div id="color-palette" class="grid grid-cols-7 gap-2 mt-4">
-                            <!-- Common colors will be injected here -->
-                        </div>
-                    </div>
-
                     <!-- Pattern Settings -->
                     <div>
-                        <h2 class="text-lg font-semibold mb-3">2. Adjust Pattern Settings</h2>
+                        <h2 class="text-lg font-semibold mb-3">Pattern Settings</h2>
                         <div class="space-y-4">
                             <div>
                                 <label for="top-style" class="block text-sm font-medium text-slate-600">Top Style</label>
@@ -205,38 +264,15 @@
                         </div>
                     </div>
 
-                    <!-- Actions -->
-                    <div>
-                        <h2 class="text-lg font-semibold mb-3">3. Actions</h2>
-                        <div class="space-y-3">
-                             <div class="grid grid-cols-2 gap-3">
-                                <button id="save-project-btn" class="w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition">Save</button>
-                                <label for="load-project-input" class="w-full cursor-pointer bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600 transition text-center">Load</label>
-                                <input type="file" id="load-project-input" class="hidden" accept=".beadpattern">
-                            </div>
-                            <div class="grid grid-cols-2 gap-3">
-                                 <button id="undo-btn" class="w-full bg-gray-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition">
-                                    Undo
-                                </button>
-                                 <button id="clear-pattern" class="w-full bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition">
-                                    Clear
-                                </button>
-                            </div>
-                             <button id="trim-btn" class="w-full bg-yellow-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition">
-                                Trim
-                            </button>
-                            <button id="save-image-btn" class="w-full bg-emerald-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition">
-                                Save as Image
-                            </button>
-                             <button id="print-pattern-btn" class="w-full bg-sky-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition">
-                                    Print / PDF
-                                </button>
-                        </div>
+                    <!-- Bead Count Results -->
+                    <div id="bead-count-container" class="hidden">
+                        <h2 class="text-lg font-semibold mb-3">Bead Count</h2>
+                        <div id="bead-count-results" class="mt-4 text-sm space-y-2"></div>
                     </div>
                 </div>
             </aside>
 
-            <!-- Main pattern display area -->
+            <!-- Main Work Area -->
             <main class="w-full lg:w-2/3 xl:w-3/4 bg-white p-4 sm:p-6 rounded-2xl shadow-lg overflow-x-auto flex gap-4">
                 <div id="pattern-container" class="inline-block">
                     <!-- Pattern will be generated here by JS -->
@@ -260,22 +296,52 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- STATE & CONFIG ---
-            const commonColors = [
-                '#000000', '#FFFFFF', '#A9A9A9', '#FF0000', '#FFA500', '#FFFF00', '#008000', 
-                '#0000FF', '#800080', '#FFC0CB', '#964B00', '#40E0D0', '#FFD700', '#C0C0C0'
-            ];
+            const palettes = {
+                default: [
+                    { name: 'Black', hex: '#000000' }, { name: 'White', hex: '#FFFFFF' }, { name: 'Gray', hex: '#A9A9A9' },
+                    { name: 'Red', hex: '#FF0000' }, { name: 'Orange', hex: '#FFA500' }, { name: 'Yellow', hex: '#FFFF00' },
+                    { name: 'Green', hex: '#008000' }, { name: 'Blue', hex: '#0000FF' }, { name: 'Purple', hex: '#800080' },
+                    { name: 'Pink', hex: '#FFC0CB' }, { name: 'Brown', hex: '#964B00' }, { name: 'Turquoise', hex: '#40E0D0' },
+                    { name: 'Gold', hex: '#FFD700' }, { name: 'Silver', hex: '#C0C0C0' }
+                ],
+                michaels: [
+                    { name: 'Neon Orange', hex: '#ff6700' }, { name: 'Copper Mix', hex: '#B87333' }, { name: 'Opaque Dark Mauve', hex: '#5b3d4e' },
+                    { name: 'Neon Green', hex: '#39ff14' }, { name: 'Pearl Peach AB', hex: '#ffdab9' }, { name: 'Silver Lined Orange', hex: '#f28500' },
+                    { name: 'Candy Shop Mix - Pink', hex: '#ff8cc6' }, { name: 'Candy Shop Mix - Blue', hex: '#8ce0ff' }, { name: 'White', hex: '#FFFFFF' },
+                    { name: 'Black', hex: '#000000' }, { name: 'Red', hex: '#d90429' }, { name: 'Metallic Gold', hex: '#D4AF37' },
+                    { name: 'Pearl', hex: '#eae0c8' }, { name: 'Opaque Turquoise', hex: '#40e0d0' }
+                ],
+                toho: [
+                    { name: 'PF557', hex: '#C5B358' }, { name: 'PF558', hex: '#D4AF37' }, { name: '775', hex: '#2E8B57' },
+                    { name: '779', hex: '#008080' }, { name: '49', hex: '#36454F' }, { name: '45', hex: '#E0B0FF' },
+                    { name: '5', hex: '#4169E1' }, { name: '128', hex: '#FF6347' }, { name: '701', hex: '#F5F5DC' },
+                    { name: '714', hex: '#FFB6C1' }, { name: '21', hex: '#C0C0C0' }, { name: '51', hex: '#FF4500' },
+                    { name: '48F', hex: '#F0E68C' }, { name: '932', hex: '#6A5ACD' }
+                ],
+                miyuki: [
+                    { name: 'DB0010', hex: '#000000' }, { name: 'DB0200', hex: '#FFFFFF' }, { name: 'DB0723', hex: '#C70039' },
+                    { name: 'DB0651', hex: '#FFC300' }, { name: 'DB0791', hex: '#2E86C1' }, { name: 'DB1132', hex: '#AF601A' },
+                    { name: 'DB0031', hex: '#DAA520' }, { name: 'DB158', hex: '#58D68D' }, { name: 'DB0796', hex: '#BB8FCE' },
+                    { name: 'DB2111', hex: '#FAD7A0' }, { name: 'DB0352', hex: '#AAB7B8' }, { name: 'DB0728', hex: '#EC7063' },
+                    { name: 'DB1832', hex: '#F7DC6F' }, { name: 'DB0164', hex: '#76D7C4' }
+                ]
+            };
             const whiteRgb = 'rgb(255, 255, 255)';
             let activeTool = 'paint';
             let isPainting = false;
             let history = [];
             let uploadedImageSrc = null;
+            let customColors = new Set();
 
             // --- DOM ELEMENTS ---
             const patternContainer = document.getElementById('pattern-container');
             const colorPicker = document.getElementById('color-picker');
+            const paletteSelect = document.getElementById('palette-select');
             const paletteContainer = document.getElementById('color-palette');
             const eraserBtn = document.getElementById('eraser-btn');
             const eyedropperBtn = document.getElementById('eyedropper-btn');
+            const replaceColorBtn = document.getElementById('replace-color-btn');
+            const mirrorBtn = document.getElementById('mirror-btn');
             const imageUploader = document.getElementById('image-uploader');
             const imagePreviewContainer = document.getElementById('image-preview-container');
             const imagePreview = document.getElementById('image-preview');
@@ -294,10 +360,14 @@
             const applySettingsBtn = document.getElementById('apply-settings');
             const clearBtn = document.getElementById('clear-pattern');
             const trimBtn = document.getElementById('trim-btn');
+            const beadCountBtn = document.getElementById('bead-count-btn');
+            const beadCountContainer = document.getElementById('bead-count-container');
+            const beadCountResults = document.getElementById('bead-count-results');
             const printBtn = document.getElementById('print-pattern-btn');
             const saveImageBtn = document.getElementById('save-image-btn');
             const saveProjectBtn = document.getElementById('save-project-btn');
             const loadProjectInput = document.getElementById('load-project-input');
+            const shareBtn = document.getElementById('share-btn');
             const undoBtn = document.getElementById('undo-btn');
             const printArea = document.getElementById('print-area');
             const patternCloneForPrint = document.getElementById('pattern-clone-for-print');
@@ -305,21 +375,45 @@
 
             // --- FUNCTIONS ---
 
-            function setupPalette() {
+            function populatePalette() {
+                const selectedPalette = paletteSelect.value;
                 paletteContainer.innerHTML = '';
-                commonColors.forEach(color => {
+                palettes[selectedPalette].forEach(color => {
                     const swatch = document.createElement('div');
                     swatch.className = 'color-swatch';
-                    swatch.style.backgroundColor = color;
-                    swatch.dataset.color = color;
+                    swatch.style.backgroundColor = color.hex;
+                    swatch.dataset.color = color.hex;
+                    swatch.title = color.name;
                     paletteContainer.appendChild(swatch);
                 });
+                customColors.forEach(color => {
+                     if (!Object.values(palettes).flat().some(p => p.hex.toUpperCase() === color.toUpperCase())) {
+                        const swatch = document.createElement('div');
+                        swatch.className = 'color-swatch custom-swatch';
+                        swatch.style.backgroundColor = color;
+                        swatch.dataset.color = color;
+                        swatch.title = 'Custom Color';
+                        paletteContainer.appendChild(swatch);
+                    }
+                });
+            }
+
+            function addCustomColor(color) {
+                const hexColor = color.toUpperCase();
+                const allColors = new Set([...Object.values(palettes).flat().map(c => c.hex.toUpperCase()), ...customColors]);
+                if (allColors.has(hexColor)) {
+                    return;
+                }
+                customColors.add(hexColor);
+                populatePalette();
             }
 
             function setActiveTool(tool) {
                 activeTool = tool;
                 eraserBtn.classList.toggle('selected', tool === 'eraser');
                 eyedropperBtn.classList.toggle('selected', tool === 'eyedropper');
+                replaceColorBtn.classList.toggle('selected', tool === 'replace');
+                mirrorBtn.classList.toggle('selected', tool === 'mirror');
                 document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
 
                 if (tool === 'paint') {
@@ -329,7 +423,9 @@
                         matchingSwatch.classList.add('selected');
                     }
                 }
-                const newCursor = tool === 'eyedropper' ? 'copy' : 'pointer';
+                let newCursor = 'pointer';
+                if (tool === 'eyedropper') newCursor = 'copy';
+                if (tool === 'replace') newCursor = 'crosshair';
                 patternContainer.style.cursor = newCursor;
                 imagePreview.style.cursor = newCursor;
             }
@@ -348,9 +444,10 @@
                 const beadGrid = patternContainer.querySelector('.bead-grid-container');
                 if (!beadGrid) return [];
 
-                const rows = Array.from(beadGrid.children).filter(child => child.style.display === 'flex');
+                const rows = Array.from(beadGrid.children).filter(child => child.style.display === 'flex' || child.style.height === '10px');
                 return rows.map(row => {
-                    const beads = row.querySelectorAll('.bead');
+                    if (row.style.height === '10px') return 'spacer';
+                    const beads = row.querySelectorAll('.bead-slot'); 
                     return Array.from(beads).map(bead => bead.style.backgroundColor);
                 });
             }
@@ -476,10 +573,10 @@
 
                 const dataToApply = applyData || existingData;
                 if (dataToApply) {
-                    const newRows = Array.from(beadGridContainer.children).filter(child => child.style.display === 'flex');
+                    const newRows = Array.from(beadGridContainer.children).filter(child => child.style.display === 'flex' || child.style.height === '10px');
                     newRows.forEach((row, rowIndex) => {
-                        if (dataToApply[rowIndex]) {
-                            const beads = row.querySelectorAll('.bead');
+                        if (dataToApply[rowIndex] && dataToApply[rowIndex] !== 'spacer') {
+                            const beads = row.querySelectorAll('.bead-slot');
                             beads.forEach((bead, beadIndex) => {
                                 if (dataToApply[rowIndex][beadIndex]) {
                                     bead.style.backgroundColor = dataToApply[rowIndex][beadIndex];
@@ -492,7 +589,7 @@
 
             function createBead() {
                 const bead = document.createElement('div');
-                bead.className = 'bead bg-white';
+                bead.className = 'bead bead-slot bg-white';
                 bead.style.backgroundColor = 'white';
                 return bead;
             }
@@ -507,6 +604,19 @@
             function handleBeadInteraction(e) {
                 if (!e.target.classList.contains('bead')) return;
                 const bead = e.target;
+                
+                const isMirrorMode = mirrorBtn.classList.contains('selected');
+                const newColor = activeTool === 'eraser' ? 'white' : colorPicker.value;
+
+                function applyColor(targetBead) {
+                    if (!targetBead) return null;
+                    const oldColor = targetBead.style.backgroundColor;
+                    if (oldColor !== newColor) {
+                        targetBead.style.backgroundColor = newColor;
+                        return {bead: targetBead, oldColor, newColor};
+                    }
+                    return null;
+                }
 
                 if (activeTool === 'eyedropper') {
                     const pickedColor = bead.style.backgroundColor;
@@ -514,12 +624,44 @@
                         colorPicker.value = rgbToHex(pickedColor);
                         setActiveTool('paint');
                     }
-                } else {
-                    const oldColor = bead.style.backgroundColor;
-                    const newColor = activeTool === 'eraser' ? 'white' : colorPicker.value;
-                    if (oldColor !== newColor) {
-                       bead.style.backgroundColor = newColor;
-                       recordAction(bead, oldColor, newColor);
+                } else if (activeTool === 'replace') {
+                    const colorToReplace = bead.style.backgroundColor;
+                    if (rgbToHex(colorToReplace) === newColor) return;
+
+                    const allBeads = document.querySelectorAll('.bead-slot');
+                    const changes = [];
+                    allBeads.forEach(b => {
+                        if(b.style.backgroundColor === colorToReplace) {
+                            changes.push({bead: b, oldColor: colorToReplace, newColor: newColor});
+                            b.style.backgroundColor = newColor;
+                        }
+                    });
+                    if (changes.length > 0) {
+                        history.push(changes);
+                        updateUndoButtonState();
+                    }
+                    setActiveTool('paint');
+
+                } else { // paint, eraser, or mirror
+                    const changes = [];
+                    const originalChange = applyColor(bead);
+                    if(originalChange) changes.push(originalChange);
+
+                    if (isMirrorMode) {
+                        const row = bead.parentElement;
+                        const beadsInRow = Array.from(row.children);
+                        const beadIndex = beadsInRow.indexOf(bead);
+                        const mirrorIndex = (beadsInRow.length - 1) - beadIndex;
+                        if (beadIndex !== mirrorIndex) {
+                           const mirrorBead = beadsInRow[mirrorIndex];
+                           const mirrorChange = applyColor(mirrorBead);
+                           if(mirrorChange) changes.push(mirrorChange);
+                        }
+                    }
+                    
+                    if (changes.length > 0) {
+                        history.push(changes);
+                        updateUndoButtonState();
                     }
                 }
             }
@@ -542,7 +684,7 @@
                 const lastAction = history.pop();
                 if (Array.isArray(lastAction)) {
                     lastAction.forEach(change => { change.bead.style.backgroundColor = change.oldColor; });
-                } else {
+                } else { // Legacy single action
                     const { bead, oldColor } = lastAction;
                     bead.style.backgroundColor = oldColor;
                 }
@@ -559,7 +701,7 @@
 
                 for (let i = beadRows.length - 1; i >= 0; i--) {
                     const row = beadRows[i];
-                    const beads = row.querySelectorAll('.bead');
+                    const beads = row.querySelectorAll('.bead-slot');
                     const isRowEmpty = Array.from(beads).every(bead => {
                         return bead.style.visibility === 'hidden' || bead.style.backgroundColor === 'white' || bead.style.backgroundColor === whiteRgb;
                     });
@@ -571,6 +713,37 @@
                         break;
                     }
                 }
+            }
+
+            function generateBeadCount() {
+                const counts = {};
+                document.querySelectorAll('.bead-slot').forEach(bead => {
+                    if (bead.style.visibility !== 'hidden') {
+                        const color = bead.style.backgroundColor;
+                        if (color !== 'white' && color !== whiteRgb) {
+                            counts[color] = (counts[color] || 0) + 1;
+                        }
+                    }
+                });
+
+                beadCountResults.innerHTML = '';
+                if (Object.keys(counts).length === 0) {
+                    beadCountResults.innerHTML = '<p>No colored beads to count.</p>';
+                } else {
+                    for (const color in counts) {
+                        const hex = rgbToHex(color).toUpperCase();
+                        const count = counts[color];
+                        const row = document.createElement('div');
+                        row.className = 'flex items-center gap-2';
+                        row.innerHTML = `
+                            <div class="w-5 h-5 rounded-full border border-slate-300" style="background-color: ${color};"></div>
+                            <span>${hex}:</span>
+                            <span class="font-medium">${count} beads</span>
+                        `;
+                        beadCountResults.appendChild(row);
+                    }
+                }
+                beadCountContainer.classList.remove('hidden');
             }
 
             function preparePrintArea() {
@@ -637,7 +810,7 @@
                     printArea.classList.add('hidden');
                     printArea.style.position = '';
                     printArea.style.left = '';
-                    saveImageBtn.textContent = 'Save as Image';
+                    saveImageBtn.textContent = 'Image';
                     saveImageBtn.disabled = false;
                 }
             }
@@ -686,11 +859,12 @@
                 const color = `rgb(${pixel[0]}, ${pixel[1]}, ${pixel[2]})`;
                 
                 colorPicker.value = rgbToHex(color);
+                addCustomColor(colorPicker.value);
                 setActiveTool('paint');
             }
 
-            function saveProject() {
-                const projectData = {
+            function getProjectData() {
+                 return {
                     settings: {
                         topStyle: topStyleSelect.value,
                         loomShape: loomShapeSelect.value,
@@ -700,9 +874,13 @@
                         length: lengthInput.value,
                         fringeShape: fringeShapeSelect.value
                     },
-                    beadColors: getExistingPatternData()
+                    beadColors: getExistingPatternData(),
+                    customColors: Array.from(customColors)
                 };
+            }
 
+            function saveProject() {
+                const projectData = getProjectData();
                 const dataStr = JSON.stringify(projectData);
                 const dataBlob = new Blob([dataStr], {type: 'application/json'});
                 const url = URL.createObjectURL(dataBlob);
@@ -713,41 +891,70 @@
                 URL.revokeObjectURL(url);
             }
 
-            function loadProject(e) {
-                const file = e.target.files[0];
-                if (!file) return;
+            function loadProject(projectData) {
+                try {
+                    // Restore settings
+                    topStyleSelect.value = projectData.settings.topStyle;
+                    loomShapeSelect.value = projectData.settings.loomShape;
+                    beadSizeSelect.value = projectData.settings.beadSize;
+                    widthInput.value = projectData.settings.width;
+                    lengthUnitSelect.value = projectData.settings.lengthUnit;
+                    lengthInput.value = projectData.settings.length;
+                    fringeShapeSelect.value = projectData.settings.fringeShape;
 
-                const reader = new FileReader();
-                reader.onload = (event) => {
+                    // Restore custom colors
+                    customColors = new Set(projectData.customColors || []);
+                    populatePalette();
+
+                    // Update UI based on restored settings
+                    handleTopStyleChange();
+                    handleLengthUnitChange();
+
+                    // Generate the grid and apply colors
+                    generatePattern(projectData.beadColors);
+                    history = [];
+                    updateUndoButtonState();
+
+                } catch (err) {
+                    alert('Could not load the file. It might be corrupted or not a valid pattern file.');
+                    console.error("Error loading project:", err);
+                }
+            }
+
+            function shareProject() {
+                const projectData = getProjectData();
+                const dataStr = JSON.stringify(projectData);
+                const base64Str = btoa(dataStr);
+                const url = new URL(window.location.href);
+                url.hash = base64Str;
+                
+                navigator.clipboard.writeText(url.toString()).then(() => {
+                    const originalText = shareBtn.textContent;
+                    shareBtn.textContent = 'Copied!';
+                    setTimeout(() => {
+                        shareBtn.textContent = originalText;
+                    }, 2000);
+                }, (err) => {
+                    alert('Could not copy link to clipboard.');
+                    console.error('Clipboard error:', err);
+                });
+            }
+
+            function loadFromURL() {
+                if (window.location.hash) {
                     try {
-                        const projectData = JSON.parse(event.target.result);
-                        
-                        // Restore settings
-                        topStyleSelect.value = projectData.settings.topStyle;
-                        loomShapeSelect.value = projectData.settings.loomShape;
-                        beadSizeSelect.value = projectData.settings.beadSize;
-                        widthInput.value = projectData.settings.width;
-                        lengthUnitSelect.value = projectData.settings.lengthUnit;
-                        lengthInput.value = projectData.settings.length;
-                        fringeShapeSelect.value = projectData.settings.fringeShape;
-
-                        // Update UI based on restored settings
-                        handleTopStyleChange();
-                        handleLengthUnitChange();
-
-                        // Generate the grid and apply colors
-                        generatePattern(projectData.beadColors);
-                        history = [];
-                        updateUndoButtonState();
-
-                    } catch (err) {
-                        alert('Could not load the file. It might be corrupted or not a valid pattern file.');
-                        console.error("Error loading project:", err);
+                        const base64Str = window.location.hash.substring(1);
+                        const dataStr = atob(base64Str);
+                        const projectData = JSON.parse(dataStr);
+                        loadProject(projectData);
+                    } catch (e) {
+                        console.error("Could not load project from URL hash:", e);
+                        // If loading from URL fails, generate a default pattern
+                        generatePattern();
                     }
-                };
-                reader.readAsText(file);
-                // Clear the input so the same file can be loaded again
-                e.target.value = null;
+                } else {
+                     generatePattern();
+                }
             }
 
             // --- EVENT LISTENERS ---
@@ -755,12 +962,22 @@
             clearBtn.addEventListener('click', clearPattern);
             undoBtn.addEventListener('click', handleUndo);
             trimBtn.addEventListener('click', trimEmptyRows);
+            beadCountBtn.addEventListener('click', generateBeadCount);
             printBtn.addEventListener('click', printPattern);
             saveImageBtn.addEventListener('click', saveAsImage);
             saveProjectBtn.addEventListener('click', saveProject);
-            loadProjectInput.addEventListener('change', loadProject);
+            shareBtn.addEventListener('click', shareProject);
+            loadProjectInput.addEventListener('change', (e) => {
+                 const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (event) => loadProject(JSON.parse(event.target.result));
+                reader.readAsText(file);
+                e.target.value = null;
+            });
             topStyleSelect.addEventListener('change', handleTopStyleChange);
             lengthUnitSelect.addEventListener('change', handleLengthUnitChange);
+            paletteSelect.addEventListener('change', populatePalette);
 
             imageUploader.addEventListener('change', (e) => {
                 const file = e.target.files[0];
@@ -781,9 +998,14 @@
                 }
             });
 
-            colorPicker.addEventListener('input', (e) => { setActiveTool('paint'); });
+            colorPicker.addEventListener('change', (e) => { // Use 'change' to fire when picker is closed
+                setActiveTool('paint');
+                addCustomColor(e.target.value);
+            });
             eraserBtn.addEventListener('click', () => setActiveTool('eraser'));
             eyedropperBtn.addEventListener('click', () => setActiveTool('eyedropper'));
+            replaceColorBtn.addEventListener('click', () => setActiveTool('replace'));
+            mirrorBtn.addEventListener('click', (e) => e.currentTarget.classList.toggle('selected'));
 
             paletteContainer.addEventListener('click', (e) => {
                 if(e.target.classList.contains('color-swatch')) {
@@ -797,16 +1019,34 @@
                 handleBeadInteraction(e);
             });
             patternContainer.addEventListener('mouseover', e => {
-                if (isPainting && activeTool !== 'eyedropper') {
+                if (isPainting && activeTool !== 'eyedropper' && activeTool !== 'replace') {
                     handleBeadInteraction(e);
                 }
             });
             document.addEventListener('mouseup', () => { isPainting = false; });
             patternContainer.addEventListener('dragstart', e => e.preventDefault());
 
+            document.querySelectorAll('[data-menu]').forEach(menuContainer => {
+                const button = menuContainer.querySelector('.menu-button');
+                const menu = menuContainer.querySelector('.hidden');
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    // Close other menus
+                    document.querySelectorAll('[data-menu] .hidden').forEach(m => {
+                        if (m !== menu) m.classList.add('hidden');
+                    });
+                    menu.classList.toggle('hidden');
+                });
+            });
+
+            document.addEventListener('click', () => {
+                 document.querySelectorAll('[data-menu] .hidden').forEach(m => m.classList.add('hidden'));
+            });
+
+
             // --- INITIALIZATION ---
-            setupPalette();
-            generatePattern();
+            populatePalette();
+            loadFromURL(); // Load from URL hash first
             handleTopStyleChange();
             handleLengthUnitChange();
             setActiveTool('paint');
