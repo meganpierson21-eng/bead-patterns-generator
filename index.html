@@ -307,6 +307,16 @@
                          <div class="flex items-center gap-2 mb-4">
                             <button id="text-tool-btn" title="Text Tool" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">T</button>
                             <input type="text" id="text-tool-input" placeholder="Enter text..." class="hidden flex-grow rounded-md border-slate-300 shadow-sm sm:text-sm">
+                             <div id="text-options" class="hidden items-center gap-2 text-sm">
+                                <select id="font-size-select" class="rounded-md border-slate-300 text-sm">
+                                    <option value="small">Small</option>
+                                    <option value="large">Large</option>
+                                </select>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="text-vertical-checkbox" class="rounded border-slate-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                    <span class="ml-2">Vertical</span>
+                                </label>
+                            </div>
                          </div>
                         <div class="flex justify-between items-center mb-3">
                             <h2 class="text-lg font-semibold">Color Tools</h2>
@@ -428,25 +438,53 @@
                     { name: 'DB1832', hex: '#F7DC6F' }, { name: 'DB0164', hex: '#76D7C4' }
                 ]
             };
-            const FONT = {
+            const FONT_SMALL = {
                 'A': [[0,1,0],[1,0,1],[1,1,1],[1,0,1],[1,0,1]], 'B': [[1,1,0],[1,0,1],[1,1,0],[1,0,1],[1,1,0]],
                 'C': [[0,1,1],[1,0,0],[1,0,0],[1,0,0],[0,1,1]], 'D': [[1,1,0],[1,0,1],[1,0,1],[1,0,1],[1,1,0]],
                 'E': [[1,1,1],[1,0,0],[1,1,0],[1,0,0],[1,1,1]], 'F': [[1,1,1],[1,0,0],[1,1,0],[1,0,0],[1,0,0]],
                 'G': [[0,1,1],[1,0,0],[1,0,1],[1,0,1],[0,1,1]], 'H': [[1,0,1],[1,0,1],[1,1,1],[1,0,1],[1,0,1]],
                 'I': [[1,1,1],[0,1,0],[0,1,0],[0,1,0],[1,1,1]], 'J': [[0,0,1],[0,0,1],[0,0,1],[1,0,1],[0,1,0]],
                 'K': [[1,0,1],[1,0,1],[1,1,0],[1,0,1],[1,0,1]], 'L': [[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,1,1]],
-                'M': [[1,1,1],[1,1,1],[1,0,1],[1,0,1],[1,0,1]], 'N': [[1,0,1],[1,1,1],[1,1,1],[1,0,1],[1,0,1]],
+                'M': [[1,0,1,0,1],[1,1,1,1,1],[1,0,1,0,1],[1,0,1,0,1],[1,0,1,0,1]], 'N': [[1,0,0,1],[1,1,0,1],[1,0,1,1],[1,0,0,1],[1,0,0,1]],
                 'O': [[0,1,0],[1,0,1],[1,0,1],[1,0,1],[0,1,0]], 'P': [[1,1,0],[1,0,1],[1,1,0],[1,0,0],[1,0,0]],
                 'Q': [[0,1,0],[1,0,1],[1,0,1],[1,1,1],[0,1,1]], 'R': [[1,1,0],[1,0,1],[1,1,0],[1,0,1],[1,0,1]],
                 'S': [[0,1,1],[1,0,0],[0,1,0],[0,0,1],[1,1,0]], 'T': [[1,1,1],[0,1,0],[0,1,0],[0,1,0],[0,1,0]],
                 'U': [[1,0,1],[1,0,1],[1,0,1],[1,0,1],[1,1,1]], 'V': [[1,0,1],[1,0,1],[1,0,1],[0,1,0],[0,1,0]],
-                'W': [[1,0,1],[1,0,1],[1,0,1],[1,1,1],[1,1,1]], 'X': [[1,0,1],[1,0,1],[0,1,0],[1,0,1],[1,0,1]],
+                'W': [[1,0,1,0,1],[1,0,1,0,1],[1,0,1,0,1],[1,1,1,1,1],[1,0,1,0,1]], 'X': [[1,0,1],[1,0,1],[0,1,0],[1,0,1],[1,0,1]],
                 'Y': [[1,0,1],[1,0,1],[0,1,0],[0,1,0],[0,1,0]], 'Z': [[1,1,1],[0,0,1],[0,1,0],[1,0,0],[1,1,1]],
                 '0': [[0,1,0],[1,0,1],[1,0,1],[1,0,1],[0,1,0]], '1': [[0,1,0],[1,1,0],[0,1,0],[0,1,0],[1,1,1]],
                 '2': [[0,1,0],[1,0,1],[0,0,1],[0,1,0],[1,1,1]], '3': [[1,1,0],[0,0,1],[0,1,0],[0,0,1],[1,1,0]],
                 '4': [[1,0,1],[1,0,1],[1,1,1],[0,0,1],[0,0,1]], '5': [[1,1,1],[1,0,0],[1,1,0],[0,0,1],[1,1,0]],
                 '6': [[0,1,1],[1,0,0],[1,1,0],[1,0,1],[0,1,0]], '7': [[1,1,1],[0,0,1],[0,1,0],[0,1,0],[0,1,0]],
                 '8': [[0,1,0],[1,0,1],[0,1,0],[1,0,1],[0,1,0]], '9': [[0,1,0],[1,0,1],[0,1,1],[0,0,1],[1,1,0]],
+            };
+            const FONT_LARGE = {
+                'A': [[0,0,1,0,0],[0,1,0,1,0],[0,1,0,1,0],[1,1,1,1,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1]],
+                'B': [[1,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[1,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[1,1,1,1,0]],
+                'C': [[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,0],[1,0,0,0,0],[1,0,0,0,1],[0,1,1,1,0],[0,0,0,0,0]],
+                'D': [[1,1,1,0,0],[1,0,0,1,0],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,1,0],[1,1,1,0,0],[0,0,0,0,0]],
+                'E': [[1,1,1,1,1],[1,0,0,0,0],[1,0,0,0,0],[1,1,1,1,0],[1,0,0,0,0],[1,0,0,0,0],[1,1,1,1,1]],
+                'F': [[1,1,1,1,1],[1,0,0,0,0],[1,0,0,0,0],[1,1,1,1,0],[1,0,0,0,0],[1,0,0,0,0],[1,0,0,0,0]],
+                'G': [[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,0],[1,0,1,1,1],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
+                'H': [[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,1,1,1,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1]],
+                'I': [[1,1,1],[0,1,0],[0,1,0],[0,1,0],[0,1,0],[0,1,0],[1,1,1]],
+                'J': [[0,0,1,1,1],[0,0,0,1,0],[0,0,0,1,0],[0,0,0,1,0],[1,0,0,1,0],[1,0,0,1,0],[0,1,1,0,0]],
+                'K': [[1,0,0,0,1],[1,0,0,1,0],[1,0,1,0,0],[1,1,0,0,0],[1,0,1,0,0],[1,0,0,1,0],[1,0,0,0,1]],
+                'L': [[1,0,0,0,0],[1,0,0,0,0],[1,0,0,0,0],[1,0,0,0,0],[1,0,0,0,0],[1,0,0,0,0],[1,1,1,1,1]],
+                'M': [[1,0,0,0,1],[1,1,0,1,1],[1,0,1,0,1],[1,0,1,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1]],
+                'N': [[1,0,0,0,1],[1,1,0,0,1],[1,0,1,0,1],[1,0,0,1,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1]],
+                'O': [[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
+                'P': [[1,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[1,1,1,1,0],[1,0,0,0,0],[1,0,0,0,0],[1,0,0,0,0]],
+                'Q': [[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,1,0,1],[1,0,0,1,0],[0,1,1,0,1]],
+                'R': [[1,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[1,1,1,1,0],[1,0,1,0,0],[1,0,0,1,0],[1,0,0,0,1]],
+                'S': [[0,1,1,1,1],[1,0,0,0,0],[1,0,0,0,0],[0,1,1,1,0],[0,0,0,0,1],[0,0,0,0,1],[1,1,1,1,0]],
+                'T': [[1,1,1,1,1],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0]],
+                'U': [[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
+                'V': [[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[0,1,0,1,0],[0,1,0,1,0],[0,0,1,0,0],[0,0,1,0,0]],
+                'W': [[1,0,0,0,1],[1,0,0,0,1],[1,0,1,0,1],[1,0,1,0,1],[1,1,0,1,1],[1,1,0,1,1],[1,0,0,0,1]],
+                'X': [[1,0,0,0,1],[0,1,0,1,0],[0,0,1,0,0],[0,1,0,1,0],[1,0,0,0,1],[0,0,0,0,0],[0,0,0,0,0]],
+                'Y': [[1,0,0,0,1],[0,1,0,1,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0]],
+                'Z': [[1,1,1,1,1],[0,0,0,1,0],[0,0,1,0,0],[0,1,0,0,0],[1,0,0,0,0],[1,0,0,0,0],[1,1,1,1,1]]
             };
             const whiteRgb = 'rgb(255, 255, 255)';
             let activeTool = 'paint';
@@ -469,6 +507,9 @@
                 mirrorHBtn: document.getElementById('mirror-h-btn'),
                 textToolBtn: document.getElementById('text-tool-btn'),
                 textToolInput: document.getElementById('text-tool-input'),
+                textOptions: document.getElementById('text-options'),
+                fontSizeSelect: document.getElementById('font-size-select'),
+                textVerticalCheckbox: document.getElementById('text-vertical-checkbox'),
                 imageUploader: document.getElementById('image-uploader'),
                 generatePaletteBtn: document.getElementById('generate-palette-btn'),
                 imagePreviewContainer: document.getElementById('image-preview-container'),
@@ -572,7 +613,16 @@
                 allElements.eyedropperBtn.classList.toggle('selected', tool === 'eyedropper');
                 allElements.replaceColorBtn.classList.toggle('selected', tool === 'replace');
                 allElements.textToolBtn.classList.toggle('selected', tool === 'text');
-                allElements.textToolInput.classList.toggle('hidden', tool !== 'text');
+                
+                if (tool === 'text') {
+                    allElements.textToolInput.classList.remove('hidden');
+                    allElements.textOptions.classList.remove('hidden');
+                    allElements.textOptions.classList.add('flex');
+                } else {
+                    allElements.textToolInput.classList.add('hidden');
+                    allElements.textOptions.classList.add('hidden');
+                    allElements.textOptions.classList.remove('flex');
+                }
                 
                 document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
 
@@ -968,6 +1018,10 @@
                 const text = allElements.textToolInput.value.toUpperCase();
                 if (!text) return;
 
+                const isVertical = allElements.textVerticalCheckbox.checked;
+                const fontSize = allElements.fontSizeSelect.value;
+                const FONT_MAP = fontSize === 'large' ? FONT_LARGE : FONT_SMALL;
+
                 const startRow = startBead.parentElement;
                 const allRows = Array.from(startRow.parentElement.children);
                 const startRowIndex = allRows.indexOf(startRow);
@@ -976,14 +1030,18 @@
 
                 const changes = [];
                 let currentBeadIndex = startBeadIndex;
+                let currentRowIndex = startRowIndex;
 
                 for (let char of text) {
-                    const fontChar = FONT[char];
+                    const fontChar = FONT_MAP[char];
                     if (fontChar) {
-                        for (let r = 0; r < fontChar.length; r++) {
-                            const row = allRows[startRowIndex + r];
+                        const charWidth = fontChar[0].length;
+                        const charHeight = fontChar.length;
+
+                        for (let r = 0; r < charHeight; r++) {
+                            const row = allRows[currentRowIndex + r];
                             if (row) {
-                                for (let c = 0; c < fontChar[r].length; c++) {
+                                for (let c = 0; c < charWidth; c++) {
                                     if (fontChar[r][c] === 1) {
                                         const bead = row.children[currentBeadIndex + c];
                                         if (bead) {
@@ -1001,7 +1059,11 @@
                                 }
                             }
                         }
-                        currentBeadIndex += fontChar[0].length + 1; // Add 1 for spacing
+                        if(isVertical) {
+                           currentRowIndex += charHeight + 1; // Add 1 for spacing
+                        } else {
+                           currentBeadIndex += charWidth + 1; // Add 1 for spacing
+                        }
                     }
                 }
 
