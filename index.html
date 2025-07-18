@@ -318,6 +318,21 @@
                                 </label>
                             </div>
                          </div>
+                         <div class="flex items-center gap-2 mb-4">
+                            <button id="shape-tool-btn" title="Shape Tool" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </button>
+                            <select id="shape-select" class="hidden flex-grow rounded-md border-slate-300 shadow-sm sm:text-sm">
+                                <option value="heart">Heart</option>
+                                <option value="star">Star</option>
+                                <option value="diamond">Diamond</option>
+                                <option value="circle">Circle</option>
+                                <option value="lightning">Lightning Bolt</option>
+                                <option value="clover">Clover</option>
+                            </select>
+                         </div>
                         <div class="flex justify-between items-center mb-3">
                             <h2 class="text-lg font-semibold">Color Tools</h2>
                             <div>
@@ -456,7 +471,7 @@
                 '2': [[0,1,0],[1,0,1],[0,0,1],[0,1,0],[1,1,1]], '3': [[1,1,0],[0,0,1],[0,1,0],[0,0,1],[1,1,0]],
                 '4': [[1,0,1],[1,0,1],[1,1,1],[0,0,1],[0,0,1]], '5': [[1,1,1],[1,0,0],[1,1,0],[0,0,1],[1,1,0]],
                 '6': [[0,1,1],[1,0,0],[1,1,0],[1,0,1],[0,1,0]], '7': [[1,1,1],[0,0,1],[0,1,0],[0,1,0],[0,1,0]],
-                '8': [[0,1,0],[1,0,1],[0,1,0],[1,0,1],[0,1,0]], '9': [[0,1,0],[1,0,1],[0,1,1],[0,0,1],[1,1,0]],
+                '8': [[0,1,0],[1,0,1],[0,1,0],[1,0,1],[0,1,0]], '9': [[0,1,1],[1,0,1],[0,1,1],[0,0,1],[0,0,1]],
             };
             const FONT_LARGE = {
                 'A': [[0,0,1,0,0],[0,1,0,1,0],[0,1,0,1,0],[1,1,1,1,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1]],
@@ -484,7 +499,25 @@
                 'W': [[1,0,0,0,1],[1,0,0,0,1],[1,0,1,0,1],[1,0,1,0,1],[1,1,0,1,1],[1,1,0,1,1],[1,0,0,0,1]],
                 'X': [[1,0,0,0,1],[0,1,0,1,0],[0,0,1,0,0],[0,1,0,1,0],[1,0,0,0,1],[0,0,0,0,0],[0,0,0,0,0]],
                 'Y': [[1,0,0,0,1],[0,1,0,1,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0]],
-                'Z': [[1,1,1,1,1],[0,0,0,1,0],[0,0,1,0,0],[0,1,0,0,0],[1,0,0,0,0],[1,0,0,0,0],[1,1,1,1,1]]
+                'Z': [[1,1,1,1,1],[0,0,0,1,0],[0,0,1,0,0],[0,1,0,0,0],[1,0,0,0,0],[1,0,0,0,0],[1,1,1,1,1]],
+                '0': [[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
+                '1': [[0,0,1,0,0],[0,1,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,1,1,1,0]],
+                '2': [[0,1,1,1,0],[1,0,0,0,1],[0,0,0,0,1],[0,0,0,1,0],[0,0,1,0,0],[0,1,0,0,0],[1,1,1,1,1]],
+                '3': [[1,1,1,1,0],[0,0,0,0,1],[0,0,0,1,0],[0,0,1,1,0],[0,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
+                '4': [[0,0,0,1,1],[0,0,1,0,1],[0,1,0,0,1],[1,0,0,0,1],[1,1,1,1,1],[0,0,0,0,1],[0,0,0,0,1]],
+                '5': [[1,1,1,1,1],[1,0,0,0,0],[1,1,1,1,0],[0,0,0,0,1],[0,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
+                '6': [[0,0,1,1,0],[0,1,0,0,0],[1,0,0,0,0],[1,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
+                '7': [[1,1,1,1,1],[0,0,0,0,1],[0,0,0,1,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0]],
+                '8': [[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
+                '9': [[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,1],[0,0,0,0,1],[0,0,0,0,1],[0,1,1,1,0]]
+            };
+            const SHAPES = {
+                heart: [[0,1,1,0,1,1,0],[1,1,1,1,1,1,1],[1,1,1,1,1,1,1],[0,1,1,1,1,1,0],[0,0,1,1,1,0,0],[0,0,0,1,0,0,0]],
+                star: [[0,0,1,0,0],[0,1,1,1,0],[1,1,1,1,1],[0,1,1,1,0],[0,1,0,1,0]],
+                diamond: [[0,0,1,0,0],[0,1,1,1,0],[1,1,1,1,1],[0,1,1,1,0],[0,0,1,0,0]],
+                circle: [[0,1,1,1,0],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[0,1,1,1,0]],
+                lightning: [[0,0,1,1,0],[0,1,1,0,0],[1,1,0,0,0],[0,0,1,1,0],[0,0,1,1,0],[0,1,1,0,0],[1,1,0,0,0]],
+                clover: [[0,1,0,1,0],[1,1,1,1,1],[1,1,1,1,1],[0,0,1,0,0],[0,1,1,1,0]]
             };
             const whiteRgb = 'rgb(255, 255, 255)';
             let activeTool = 'paint';
@@ -510,6 +543,8 @@
                 textOptions: document.getElementById('text-options'),
                 fontSizeSelect: document.getElementById('font-size-select'),
                 textVerticalCheckbox: document.getElementById('text-vertical-checkbox'),
+                shapeToolBtn: document.getElementById('shape-tool-btn'),
+                shapeSelect: document.getElementById('shape-select'),
                 imageUploader: document.getElementById('image-uploader'),
                 generatePaletteBtn: document.getElementById('generate-palette-btn'),
                 imagePreviewContainer: document.getElementById('image-preview-container'),
@@ -613,16 +648,13 @@
                 allElements.eyedropperBtn.classList.toggle('selected', tool === 'eyedropper');
                 allElements.replaceColorBtn.classList.toggle('selected', tool === 'replace');
                 allElements.textToolBtn.classList.toggle('selected', tool === 'text');
+                allElements.shapeToolBtn.classList.toggle('selected', tool === 'shape');
                 
-                if (tool === 'text') {
-                    allElements.textToolInput.classList.remove('hidden');
-                    allElements.textOptions.classList.remove('hidden');
-                    allElements.textOptions.classList.add('flex');
-                } else {
-                    allElements.textToolInput.classList.add('hidden');
-                    allElements.textOptions.classList.add('hidden');
-                    allElements.textOptions.classList.remove('flex');
-                }
+                allElements.textToolInput.classList.toggle('hidden', tool !== 'text');
+                allElements.textOptions.classList.toggle('hidden', tool !== 'text');
+                allElements.textOptions.classList.toggle('flex', tool === 'text');
+
+                allElements.shapeSelect.classList.toggle('hidden', tool !== 'shape');
                 
                 document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
 
@@ -635,7 +667,7 @@
                 }
                 let newCursor = 'pointer';
                 if (tool === 'eyedropper') newCursor = 'copy';
-                if (tool === 'replace' || tool === 'text') newCursor = 'crosshair';
+                if (tool === 'replace' || tool === 'text' || tool === 'shape') newCursor = 'crosshair';
                 allElements.patternContainer.style.cursor = newCursor;
                 allElements.imagePreview.style.cursor = newCursor;
             }
@@ -923,6 +955,8 @@
 
                 } else if (activeTool === 'text') {
                     stampText(bead);
+                } else if (activeTool === 'shape') {
+                    stampShape(bead);
                 } else { // paint or eraser
                     const changes = [];
                     const originalChange = applyColor(bead);
@@ -1063,6 +1097,47 @@
                            currentRowIndex += charHeight + 1; // Add 1 for spacing
                         } else {
                            currentBeadIndex += charWidth + 1; // Add 1 for spacing
+                        }
+                    }
+                }
+
+                if (changes.length > 0) {
+                    history.push({type: 'color', changes});
+                    updateUndoButtonState();
+                }
+            }
+
+            function stampShape(startBead) {
+                const shapeName = allElements.shapeSelect.value;
+                const shape = SHAPES[shapeName];
+                if (!shape) return;
+
+                const startRow = startBead.parentElement;
+                const allRows = Array.from(startRow.parentElement.children);
+                const startRowIndex = allRows.indexOf(startRow);
+                const beadsInStartRow = Array.from(startRow.children);
+                const startBeadIndex = beadsInStartRow.indexOf(startBead);
+
+                const changes = [];
+
+                for (let r = 0; r < shape.length; r++) {
+                    const row = allRows[startRowIndex + r];
+                    if (row) {
+                        for (let c = 0; c < shape[r].length; c++) {
+                            if (shape[r][c] === 1) {
+                                const bead = row.children[startBeadIndex + c];
+                                if (bead) {
+                                    const newColor = allElements.colorPicker.value;
+                                    const newFinish = allElements.beadFinishSelect.value;
+                                    const oldColor = bead.style.backgroundColor;
+                                    const oldFinish = bead.dataset.finish;
+                                    if (oldColor !== newColor || oldFinish !== newFinish) {
+                                       bead.dataset.finish = newFinish;
+                                       updateBeadAppearance(bead, newColor);
+                                       changes.push({bead, oldColor, oldFinish, newColor, newFinish});
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -1473,6 +1548,7 @@
             allElements.eyedropperBtn.addEventListener('click', () => setActiveTool('eyedropper'));
             allElements.replaceColorBtn.addEventListener('click', () => setActiveTool('replace'));
             allElements.textToolBtn.addEventListener('click', () => setActiveTool(activeTool === 'text' ? 'paint' : 'text'));
+            allElements.shapeToolBtn.addEventListener('click', () => setActiveTool(activeTool === 'shape' ? 'paint' : 'shape'));
             allElements.mirrorVBtn.addEventListener('click', (e) => e.currentTarget.classList.toggle('selected'));
             allElements.mirrorHBtn.addEventListener('click', (e) => e.currentTarget.classList.toggle('selected'));
 
@@ -1488,7 +1564,7 @@
                 handleBeadInteraction(e);
             });
             allElements.patternContainer.addEventListener('mouseover', e => {
-                if (isPainting && activeTool !== 'eyedropper' && activeTool !== 'replace' && activeTool !== 'text') {
+                if (isPainting && activeTool !== 'eyedropper' && activeTool !== 'replace' && activeTool !== 'text' && activeTool !== 'shape') {
                     handleBeadInteraction(e);
                 }
             });
