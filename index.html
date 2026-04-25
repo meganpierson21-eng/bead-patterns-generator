@@ -246,6 +246,10 @@ button {
 .export-btn {
     margin-top: 10px;
 }
+.refresh-btn {
+    margin-top: 10px;
+    background: #64748b;
+}
 </style>
 </head>
 
@@ -313,6 +317,8 @@ button {
 </div>
 
 <button class="full export-btn" onclick="testExport()">Export</button>
+
+<button class="full refresh-btn" onclick="refreshApp()">Refresh App</button>
 </div>
 </div>
 
@@ -723,6 +729,10 @@ updateControls();
 
 if (!loadPattern()) {
     generatePattern();
+}
+
+function refreshApp() {
+    window.location.href = window.location.pathname + "?fresh=" + Date.now();
 }
 
 applyZoom();
