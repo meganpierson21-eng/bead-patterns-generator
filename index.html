@@ -325,6 +325,7 @@ function generatePattern() {
         for (var down = width - 1; down >= 1; down--) {
             area.appendChild(makeRow(down, down === 1 ? "center start" : ""));
         }
+        area.appendChild(makeFringeGuide(width));
     }
 
     if (patternType === "brick") {
