@@ -6,9 +6,7 @@
 <title>Bead Pattern Designer</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
@@ -73,48 +71,35 @@ button {
     background: #4f46e5;
     color: white;
     font-weight: bold;
-    cursor: pointer;
 }
 
-button.secondary {
-    background: #64748b;
-}
+button.secondary { background: #64748b; }
+button.danger { background: #dc2626; }
 
-button.danger {
-    background: #dc2626;
-}
-
-.hidden {
-    display: none;
-}
-
-.pattern-card {
-    padding: 8px;
-}
+.hidden { display: none; }
 
 .pattern-scroll {
     width: 100%;
     overflow: auto;
     min-height: 420px;
     max-height: 65vh;
-    padding: 12px;
-    background: #ffffff;
+    padding: 40px 80px 80px 40px;
+    background: white;
     border-radius: 12px;
     border: 1px solid #e2e8f0;
     -webkit-overflow-scrolling: touch;
+    touch-action: pan-x pan-y;
 }
 
 #patternArea {
     display: inline-block;
     min-width: max-content;
-    padding-right: 20px;
-    padding-bottom: 20px;
 }
 
 .pattern-row {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     margin-bottom: 3px;
 }
 
@@ -131,7 +116,6 @@ button.danger {
     display: flex;
     gap: 3px;
     justify-content: center;
-    min-width: 20px;
 }
 
 .bead {
@@ -142,11 +126,6 @@ button.danger {
     background: white;
     flex-shrink: 0;
     cursor: pointer;
-    touch-action: none;
-}
-
-.bead:hover {
-    outline: 2px solid #60a5fa;
 }
 
 .palette {
@@ -154,7 +133,6 @@ button.danger {
     overflow-x: auto;
     gap: 8px;
     padding: 4px 0 10px 0;
-    -webkit-overflow-scrolling: touch;
 }
 
 .swatch {
@@ -163,7 +141,6 @@ button.danger {
     min-width: 34px;
     border-radius: 50%;
     border: 2px solid #cbd5e1;
-    cursor: pointer;
 }
 
 .bottom-tools {
@@ -183,7 +160,6 @@ button.danger {
     display: grid;
     grid-template-columns: 70px 1fr 1fr 1fr;
     gap: 8px;
-    align-items: center;
     max-width: 900px;
     margin: 0 auto;
 }
@@ -204,35 +180,6 @@ button.danger {
 .selected-tool {
     outline: 3px solid #111827;
 }
-
-.small-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-top: 8px;
-}
-
-.small-actions button {
-    margin: 0;
-    font-size: 14px;
-    padding: 11px;
-}
-
-@media (min-width: 750px) {
-    .settings-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-    }
-
-    .settings-grid button {
-        grid-column: 1 / -1;
-    }
-
-    .pattern-scroll {
-        max-height: 70vh;
-    }
-}
 </style>
 </head>
 
@@ -245,28 +192,22 @@ button.danger {
 <div class="page">
 
     <div class="card">
-        <div class="settings-grid">
-            <div>
-                <label for="patternType">Pattern Type</label>
-                <select id="patternType" onchange="updateControls(); generatePattern();">
-                    <option value="diamond">Diamond Earring Top</option>
-                    <option value="brick">Brick Stitch Fringe</option>
-                    <option value="loom">Loom Rectangle</option>
-                </select>
-            </div>
+        <label for="patternType">Pattern Type</label>
+        <select id="patternType" onchange="updateControls(); generatePattern();">
+            <option value="diamond">Diamond Earring Top</option>
+            <option value="brick">Brick Stitch Fringe</option>
+            <option value="loom">Loom Rectangle</option>
+        </select>
 
-            <div>
-                <label id="widthLabel" for="widthInput">Widest Point Beads</label>
-                <input id="widthInput" type="number" value="15" min="3" max="51">
-            </div>
+        <label id="widthLabel" for="widthInput">Widest Point Beads</label>
+        <input id="widthInput" type="number" value="15" min="3" max="51">
 
-            <div id="lengthSection" class="hidden">
-                <label id="lengthLabel" for="lengthInput">Length Rows</label>
-                <input id="lengthInput" type="number" value="30" min="1" max="200">
-            </div>
-
-            <button onclick="generatePattern()">Generate Pattern</button>
+        <div id="lengthSection" class="hidden">
+            <label id="lengthLabel" for="lengthInput">Length Rows</label>
+            <input id="lengthInput" type="number" value="30" min="1" max="200">
         </div>
+
+        <button onclick="generatePattern()">Generate Pattern</button>
     </div>
 
     <div class="card">
@@ -274,7 +215,7 @@ button.danger {
         <div class="palette" id="palette"></div>
     </div>
 
-    <div class="card pattern-card">
+    <div class="card">
         <div class="pattern-scroll">
             <div id="patternArea"></div>
         </div>
@@ -293,7 +234,9 @@ button.danger {
 
 <script>
 var currentTool = "paint";
-var isMouseDown = false;
+var pointerStartX = 0;
+var pointerStartY = 0;
+var pointerMoved = false;
 
 var paletteColors = [
     "#000000", "#FFFFFF", "#FF0000", "#FFA500", "#FFFF00",
@@ -319,21 +262,25 @@ function makeRow(count, labelText) {
         bead.className = "bead";
         bead.dataset.color = "#FFFFFF";
 
-        bead.addEventListener("mousedown", function () {
-            isMouseDown = true;
-            colorBead(this);
+        bead.addEventListener("pointerdown", function(event) {
+            pointerStartX = event.clientX;
+            pointerStartY = event.clientY;
+            pointerMoved = false;
         });
 
-        bead.addEventListener("mouseover", function () {
-            if (isMouseDown) {
-                colorBead(this);
+        bead.addEventListener("pointermove", function(event) {
+            var dx = Math.abs(event.clientX - pointerStartX);
+            var dy = Math.abs(event.clientY - pointerStartY);
+            if (dx > 8 || dy > 8) {
+                pointerMoved = true;
             }
         });
 
-        bead.addEventListener("touchstart", function (event) {
-            event.preventDefault();
-            colorBead(this);
-        }, { passive: false });
+        bead.addEventListener("pointerup", function() {
+            if (!pointerMoved) {
+                colorBead(this);
+            }
+        });
 
         beads.appendChild(bead);
     }
@@ -350,18 +297,11 @@ function generatePattern() {
     var width = parseInt(document.getElementById("widthInput").value, 10);
     var length = parseInt(document.getElementById("lengthInput").value, 10);
 
-    if (isNaN(width) || width < 1) {
-        width = 15;
-    }
-
-    if (isNaN(length) || length < 1) {
-        length = 30;
-    }
+    if (isNaN(width) || width < 1) width = 15;
+    if (isNaN(length) || length < 1) length = 30;
 
     if (patternType === "diamond") {
-        if (width < 3) {
-            width = 15;
-        }
+        if (width < 3) width = 15;
 
         if (width % 2 === 0) {
             width = width + 1;
@@ -409,13 +349,9 @@ function generatePattern() {
 }
 
 function colorBead(bead) {
-    var color;
-
-    if (currentTool === "erase") {
-        color = "#FFFFFF";
-    } else {
-        color = document.getElementById("colorPicker").value;
-    }
+    var color = currentTool === "erase"
+        ? "#FFFFFF"
+        : document.getElementById("colorPicker").value;
 
     bead.style.backgroundColor = color;
     bead.dataset.color = color;
@@ -437,9 +373,7 @@ function setTool(tool) {
 }
 
 function clearPattern() {
-    var beads = document.querySelectorAll(".bead");
-
-    beads.forEach(function (bead) {
+    document.querySelectorAll(".bead").forEach(function(bead) {
         bead.style.backgroundColor = "#FFFFFF";
         bead.dataset.color = "#FFFFFF";
     });
@@ -449,13 +383,13 @@ function buildPalette() {
     var palette = document.getElementById("palette");
     palette.innerHTML = "";
 
-    paletteColors.forEach(function (color) {
+    paletteColors.forEach(function(color) {
         var swatch = document.createElement("div");
         swatch.className = "swatch";
         swatch.style.backgroundColor = color;
         swatch.title = color;
 
-        swatch.addEventListener("click", function () {
+        swatch.addEventListener("click", function() {
             document.getElementById("colorPicker").value = color;
             setTool("paint");
         });
@@ -487,10 +421,6 @@ function updateControls() {
         lengthSection.classList.remove("hidden");
     }
 }
-
-document.addEventListener("mouseup", function () {
-    isMouseDown = false;
-});
 
 buildPalette();
 updateControls();
