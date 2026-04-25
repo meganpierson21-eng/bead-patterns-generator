@@ -23,14 +23,14 @@ h1 {
     border: 1px solid #cbd5e1;
     border-radius: 12px;
     padding: 16px;
-    max-width: 760px;
+    max-width: 800px;
     margin: 20px auto;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     overflow-x: auto;
 }
 
 .controls {
-    max-width: 420px;
+    max-width: 440px;
     margin: 0 auto 20px auto;
 }
 
@@ -40,7 +40,7 @@ label {
     margin-bottom: 6px;
 }
 
-input, button {
+input, select, button {
     width: 100%;
     padding: 12px;
     font-size: 16px;
@@ -48,8 +48,9 @@ input, button {
     border-radius: 8px;
 }
 
-input {
+input, select {
     border: 1px solid #cbd5e1;
+    background: white;
 }
 
 button {
@@ -139,6 +140,10 @@ button.danger {
     border: 2px solid #cbd5e1;
     cursor: pointer;
 }
+
+.hidden {
+    display: none;
+}
 </style>
 </head>
 
@@ -148,10 +153,23 @@ button.danger {
 
 <div class="card">
     <div class="controls">
-        <label for="widthInput">Widest Point Beads</label>
+
+        <label for="patternType">Pattern Type</label>
+        <select id="patternType" onchange="updateControls(); generatePattern();">
+            <option value="diamond">Diamond Earring Top</option>
+            <option value="brick">Brick Stitch Fringe</option>
+            <option value="loom">Loom Rectangle</option>
+        </select>
+
+        <label id="widthLabel" for="widthInput">Widest Point Beads</label>
         <input id="widthInput" type="number" value="15" min="3" max="51">
 
-        <button onclick="generatePattern()">Generate Diamond Top</button>
+        <div id="lengthSection" class="hidden">
+            <label id="lengthLabel" for="lengthInput">Length Rows</label>
+            <input id="lengthInput" type="number" value="30" min="1" max="200">
+        </div>
+
+        <button onclick="generatePattern()">Generate Pattern</button>
 
         <label>Color</label>
         <div class="color-row">
@@ -222,27 +240,65 @@ function generatePattern() {
     var area = document.getElementById("patternArea");
     area.innerHTML = "";
 
+    var patternType = document.getElementById("patternType").value;
     var width = parseInt(document.getElementById("widthInput").value, 10);
+    var length = parseInt(document.getElementById("lengthInput").value, 10);
 
-    if (isNaN(width) || width < 3) {
+    if (isNaN(width) || width < 1) {
         width = 15;
     }
 
-    if (width % 2 === 0) {
-        width = width + 1;
-        document.getElementById("widthInput").value = width;
+    if (isNaN(length) || length < 1) {
+        length = 30;
     }
 
-    area.appendChild(makeRow(2, "loop"));
-    area.appendChild(makeRow(2, "loop"));
-    area.appendChild(makeRow(2, "loop"));
+    if (patternType === "diamond") {
+        if (width < 3) {
+            width = 15;
+        }
 
-    for (var up = 3; up <= width; up++) {
-        area.appendChild(makeRow(up, up === width ? "side start" : ""));
+        if (width % 2 === 0) {
+            width = width + 1;
+            document.getElementById("widthInput").value = width;
+        }
+
+        area.appendChild(makeRow(2, "loop"));
+        area.appendChild(makeRow(2, "loop"));
+        area.appendChild(makeRow(2, "loop"));
+
+        for (var up = 3; up <= width; up++) {
+            area.appendChild(makeRow(up, up === width ? "side start" : ""));
+        }
+
+        for (var down = width - 1; down >= 1; down--) {
+            area.appendChild(makeRow(down, down === 1 ? "center start" : ""));
+        }
     }
 
-    for (var down = width - 1; down >= 1; down--) {
-        area.appendChild(makeRow(down, down === 1 ? "center start" : ""));
+    if (patternType === "brick") {
+        if (width < 2) {
+            width = 11;
+            document.getElementById("widthInput").value = width;
+        }
+
+        for (var top = 2; top <= width; top++) {
+            area.appendChild(makeRow(top, top === width ? "fringe start" : ""));
+        }
+
+        for (var row = 1; row <= length; row++) {
+            area.appendChild(makeRow(width, row % 5 === 0 ? String(row) : ""));
+        }
+    }
+
+    if (patternType === "loom") {
+        if (width < 1) {
+            width = 11;
+            document.getElementById("widthInput").value = width;
+        }
+
+        for (var loomRow = 1; loomRow <= length; loomRow++) {
+            area.appendChild(makeRow(width, loomRow % 5 === 0 ? String(loomRow) : ""));
+        }
     }
 }
 
@@ -304,11 +360,36 @@ function buildPalette() {
     });
 }
 
+function updateControls() {
+    var patternType = document.getElementById("patternType").value;
+    var widthLabel = document.getElementById("widthLabel");
+    var lengthSection = document.getElementById("lengthSection");
+    var lengthLabel = document.getElementById("lengthLabel");
+
+    if (patternType === "diamond") {
+        widthLabel.textContent = "Widest Point Beads";
+        lengthSection.classList.add("hidden");
+    }
+
+    if (patternType === "brick") {
+        widthLabel.textContent = "Top Width Beads";
+        lengthLabel.textContent = "Fringe Length Rows";
+        lengthSection.classList.remove("hidden");
+    }
+
+    if (patternType === "loom") {
+        widthLabel.textContent = "Width Beads";
+        lengthLabel.textContent = "Length Rows";
+        lengthSection.classList.remove("hidden");
+    }
+}
+
 document.addEventListener("mouseup", function () {
     isMouseDown = false;
 });
 
 buildPalette();
+updateControls();
 generatePattern();
 </script>
 
