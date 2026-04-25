@@ -471,6 +471,39 @@ function resetGraphZoom() {
     graphScale = 1;
     applyGraphZoom();
 }
+    var pinchStartDistance = 0;
+var pinchStartScale = 1;
+
+function getTouchDistance(touches) {
+    var dx = touches[0].clientX - touches[1].clientX;
+    var dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+}
+
+var patternScroll = document.getElementById("patternScroll");
+
+patternScroll.addEventListener("touchstart", function(event) {
+    if (event.touches.length === 2) {
+        pinchStartDistance = getTouchDistance(event.touches);
+        pinchStartScale = graphScale;
+    }
+}, { passive: false });
+
+patternScroll.addEventListener("touchmove", function(event) {
+    if (event.touches.length === 2) {
+        event.preventDefault();
+
+        var newDistance = getTouchDistance(event.touches);
+        var scaleChange = newDistance / pinchStartDistance;
+
+        graphScale = pinchStartScale * scaleChange;
+
+        if (graphScale < 0.35) graphScale = 0.35;
+        if (graphScale > 2.5) graphScale = 2.5;
+
+        applyGraphZoom();
+    }
+}, { passive: false });
 function clearPattern() {
     document.querySelectorAll(".bead").forEach(function(bead) {
         bead.style.backgroundColor = "#FFFFFF";
