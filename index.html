@@ -18,8 +18,7 @@ body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#f8fafc,#dbe
 .selected{outline:3px solid #3b82f6}
 .swatch{width:26px;height:26px;border-radius:50%;border:2px solid #e5e7eb;cursor:pointer}
 .row{display:flex;gap:2px;justify-content:center}
-.ruler{width:42px;font-size:10px;color:#64748b;text-align:center;height:22px}
-.no-print{}
+.ruler{width:64px;font-size:10px;color:#64748b;text-align:right;padding-right:8px;height:22px}
 @media print{.no-print{display:none!important}body{background:white}}
 </style>
 </head>
@@ -27,14 +26,14 @@ body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#f8fafc,#dbe
 <body class="text-slate-800">
 
 <header class="no-print bg-white shadow p-3 sticky top-0 z-20">
-  <div class="max-w-7xl mx-auto flex gap-2">
-    <button id="saveProject" class="px-3 py-1 rounded hover:bg-slate-100">Save Project</button>
+  <div class="max-w-7xl mx-auto flex gap-2 justify-around">
+    <button id="saveProject" class="px-3 py-1 rounded hover:bg-slate-100">Save<br>Project</button>
     <label class="px-3 py-1 rounded hover:bg-slate-100 cursor-pointer">
-      Load Project
+      Load<br>Project
       <input id="loadProject" type="file" accept=".beadpattern,.json" hidden>
     </label>
-    <button id="exportImage" class="px-3 py-1 rounded hover:bg-slate-100">Export Image</button>
-    <button id="exportPDF" class="px-3 py-1 rounded hover:bg-slate-100">Export PDF</button>
+    <button id="exportImage" class="px-3 py-1 rounded hover:bg-slate-100">Export<br>Image</button>
+    <button id="exportPDF" class="px-3 py-1 rounded hover:bg-slate-100">Export<br>PDF</button>
     <button id="clearBtn" class="px-3 py-1 rounded hover:bg-slate-100">Clear</button>
   </div>
 </header>
@@ -85,7 +84,7 @@ body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#f8fafc,#dbe
       <button id="applyBtn" class="w-full bg-indigo-600 text-white rounded p-2 font-semibold">Apply Settings</button>
 
       <div class="text-xs text-slate-500">
-        Diamond top creates 3 loop rows of 2 beads, then increases to the widest point, then decreases to 1 bead.
+        Diamond top creates 3 loop rows of 2 beads, then starts the diamond at 3 beads, increases to the widest point, and decreases to 1 bead.
       </div>
     </aside>
 
@@ -227,7 +226,7 @@ function makeAnchorRow(fringeCount){
     a.style.justifyContent="center";
     a.dataset.anchor="true";
     a.textContent=i===center?"C":(i===1||i===fringeCount?"S":i);
-    a.title=i===center?"Center fringe starts at final single bead":"Side pieces start at final increase/widest row";
+    a.title=i===center?"Center fringe starts at final single bead":"Side pieces start at widest row";
     row.appendChild(a);
   }
 
@@ -245,17 +244,21 @@ function generatePattern(){
   let fringeCount=parseInt($("fringeInput").value)||17;
 
   if(type==="diamond"){
+    if(width<3)width=3;
     if(width%2===0)width++;
     $("widthInput").value=width;
 
+    // Loop: exactly 6 beads total, 3 rows of 2.
     area.appendChild(makeRow(2,"loop"));
     area.appendChild(makeRow(2,"loop"));
     area.appendChild(makeRow(2,"loop"));
 
-    for(let i=1;i<=width;i++){
+    // Diamond body: starts at 3 beads. No single bead or 2-bead rows under the loop.
+    for(let i=3;i<=width;i++){
       area.appendChild(makeRow(i,i===width?"side start":""));
     }
 
+    // Decrease down to the final single center-start bead.
     for(let i=width-1;i>=1;i--){
       area.appendChild(makeRow(i,i===1?"center start":""));
     }
@@ -264,7 +267,7 @@ function generatePattern(){
 
     const note=document.createElement("div");
     note.className="text-xs text-slate-500 mt-2 text-center";
-    note.innerHTML="<b>C</b> = middle fringe starts at final single bead. <b>S</b> = side pieces start at final increase / widest row.";
+    note.innerHTML="<b>C</b> = middle fringe starts at final single bead. <b>S</b> = side pieces start at the widest row.";
     area.appendChild(note);
   }
 
