@@ -62,8 +62,8 @@ header {
 
 .pattern-row {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
 
 .label {
@@ -87,9 +87,9 @@ header {
 }
 
 .fringe-dot {
-    font-size: 10px;
     width: 22px;
     text-align: center;
+    font-size: 10px;
 }
 
 .bottom-tools {
@@ -115,9 +115,7 @@ button {
     color: white;
 }
 
-button.danger {
-    background: #dc2626;
-}
+button.danger { background: #dc2626; }
 
 #beadCount {
     display: flex;
@@ -148,8 +146,19 @@ button.danger {
 <header>Bead Pattern Designer</header>
 
 <div class="card">
+<label>Pattern Type</label>
+<select id="patternType">
+<option value="diamond">Diamond Earring Top</option>
+<option value="brick">Brick Stitch Fringe</option>
+<option value="loom">Loom Rectangle</option>
+</select>
+
 <label>Width</label>
 <input id="widthInput" type="number" value="15">
+
+<label id="lengthLabel">Length</label>
+<input id="lengthInput" type="number" value="10">
+
 <button onclick="generatePattern()">Generate</button>
 </div>
 
@@ -189,14 +198,15 @@ button.danger {
 let currentTool = "paint";
 let graphScale = 1;
 
-const colors = [
+const paletteColors = [
 "#000000","#FFFFFF","#FF0000","#FFA500","#FFFF00",
 "#008000","#0000FF","#800080","#FFC0CB"
 ];
 
 function buildPalette(){
-    const p = document.getElementById("palette");
-    colors.forEach(c=>{
+    let p = document.getElementById("palette");
+    p.innerHTML = "";
+    paletteColors.forEach(c=>{
         let d=document.createElement("div");
         d.className="swatch";
         d.style.background=c;
@@ -218,28 +228,46 @@ function makeRow(count,label){
         let b=document.createElement("div");
         b.className="bead";
         b.dataset.color="#FFFFFF";
-
         b.onclick=()=>colorBead(b);
-
         row.appendChild(b);
     }
     return row;
 }
 
 function generatePattern(){
+    let type=document.getElementById("patternType").value;
     let width=parseInt(document.getElementById("widthInput").value);
+    let length=parseInt(document.getElementById("lengthInput").value);
+
     let area=document.getElementById("patternArea");
     area.innerHTML="";
 
-    for(let i=3;i<=width;i++){
-        area.appendChild(makeRow(i,i===width?"side start":""));
+    if(type==="diamond"){
+        for(let i=3;i<=width;i++){
+            area.appendChild(makeRow(i,i===width?"side start":""));
+        }
+        for(let i=width-1;i>=1;i--){
+            area.appendChild(makeRow(i,i===1?"center start":""));
+        }
+        makeFringe(width);
     }
 
-    for(let i=width-1;i>=1;i--){
-        area.appendChild(makeRow(i,i===1?"center start":""));
+    if(type==="brick"){
+        for(let i=2;i<=width;i++){
+            area.appendChild(makeRow(i));
+        }
+        for(let i=0;i<length;i++){
+            area.appendChild(makeRow(width));
+        }
     }
 
-    makeFringe(width);
+    if(type==="loom"){
+        for(let i=0;i<length;i++){
+            area.appendChild(makeRow(width));
+        }
+    }
+
+    updateBeadCount();
 }
 
 function makeFringe(n){
@@ -316,6 +344,34 @@ function updateBeadCount(){
         container.appendChild(d);
     }
 }
+
+/* PINCH ZOOM */
+let pinchStartDist=0;
+let pinchStartScale=1;
+
+function getDist(t){
+    let dx=t[0].clientX-t[1].clientX;
+    let dy=t[0].clientY-t[1].clientY;
+    return Math.sqrt(dx*dx+dy*dy);
+}
+
+let scroll=document.getElementById("patternScroll");
+
+scroll.addEventListener("touchstart",e=>{
+    if(e.touches.length===2){
+        pinchStartDist=getDist(e.touches);
+        pinchStartScale=graphScale;
+    }
+},{passive:false});
+
+scroll.addEventListener("touchmove",e=>{
+    if(e.touches.length===2){
+        e.preventDefault();
+        let dist=getDist(e.touches);
+        graphScale=pinchStartScale*(dist/pinchStartDist);
+        applyZoom();
+    }
+},{passive:false});
 
 buildPalette();
 generatePattern();
