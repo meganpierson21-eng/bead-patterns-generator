@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Bead Pattern Designer</title>
+<title>Bead Pattern Designer1</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#4f46e5">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -507,6 +507,7 @@ function generatePattern() {
     }
 
     updateBeadCount();
+    savePattern();
 }
 
 function colorBead(bead) {
@@ -532,6 +533,7 @@ function clearPattern() {
         bead.dataset.color = "#FFFFFF";
     });
     updateBeadCount();
+localStorage.removeItem("patternData");
 }
 
 function updateBeadCount() {
@@ -541,6 +543,21 @@ function updateBeadCount() {
         if (!color || color === "#FFFFFF") return;
         counts[color] = (counts[color] || 0) + 1;
     });
+    
+function loadPattern() {
+    const data = JSON.parse(localStorage.getItem("patternData") || "[]");
+
+    const beads = document.querySelectorAll(".bead");
+
+    beads.forEach((bead, i) => {
+        if (data[i]) {
+            bead.style.backgroundColor = data[i];
+            bead.dataset.color = data[i];
+        }
+    });
+
+    updateBeadCount();
+}
 
     const container = document.getElementById("beadCount");
     container.innerHTML = "";
@@ -652,6 +669,7 @@ function updateControls() {
 buildPalette();
 updateControls();
 generatePattern();
+  loadPattern();  
 </script>
 
  <script>
