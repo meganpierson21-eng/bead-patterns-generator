@@ -452,7 +452,25 @@ function setTool(tool) {
         document.getElementById("eraseBtn").classList.add("selected-tool");
     }
 }
+var graphScale = 1;
 
+function applyGraphZoom() {
+    document.getElementById("patternArea").style.transform = "scale(" + graphScale + ")";
+}
+
+function zoomGraph(amount) {
+    graphScale = graphScale + amount;
+
+    if (graphScale < 0.35) graphScale = 0.35;
+    if (graphScale > 2.5) graphScale = 2.5;
+
+    applyGraphZoom();
+}
+
+function resetGraphZoom() {
+    graphScale = 1;
+    applyGraphZoom();
+}
 function clearPattern() {
     document.querySelectorAll(".bead").forEach(function(bead) {
         bead.style.backgroundColor = "#FFFFFF";
