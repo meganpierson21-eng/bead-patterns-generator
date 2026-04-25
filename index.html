@@ -146,9 +146,7 @@ button.danger { background: #dc2626; }
 <header>Bead Pattern Designer</header>
 
 <div class="card">
-<label>Pattern Type</label>
-<select id="patternType">
-<option value="diamond">Diamond Earring Top</option>
+<label>Pattern Type</<select id="patternType" onchange="updateControls()">="diamond">Diamond Earring Top</option>
 <option value="brick">Brick Stitch Fringe</option>
 <option value="loom">Loom Rectangle</option>
 </select>
@@ -156,8 +154,10 @@ button.danger { background: #dc2626; }
 <label>Width</label>
 <input id="widthInput" type="number" value="15">
 
-<label id="lengthLabel">Length</label>
-<input id="lengthInput" type="number" value="10">
+<div id="lengthSection">
+  <label id="lengthLabel">Length</label>
+  <input id="lengthInput" type="number" value="10">
+</div>
 
 <button onclick="generatePattern()">Generate</button>
 </div>
@@ -203,6 +203,16 @@ const paletteColors = [
 "#008000","#0000FF","#800080","#FFC0CB"
 ];
 
+  function updateControls() {
+    const type = document.getElementById("patternType").value;
+    const lengthSection = document.getElementById("lengthSection");
+
+    if (type === "diamond") {
+        lengthSection.style.display = "none";
+    } else {
+        lengthSection.style.display = "block";
+    }
+}  
 function buildPalette(){
     let p = document.getElementById("palette");
     p.innerHTML = "";
