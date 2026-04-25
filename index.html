@@ -23,14 +23,14 @@ h1 {
     border: 1px solid #cbd5e1;
     border-radius: 12px;
     padding: 16px;
-    max-width: 700px;
+    max-width: 760px;
     margin: 20px auto;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     overflow-x: auto;
 }
 
 .controls {
-    max-width: 400px;
+    max-width: 420px;
     margin: 0 auto 20px auto;
 }
 
@@ -58,6 +58,34 @@ button {
     color: white;
 }
 
+button.secondary {
+    background: #64748b;
+}
+
+button.danger {
+    background: #dc2626;
+}
+
+.tool-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.color-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.color-row input {
+    width: 70px;
+    height: 55px;
+    padding: 2px;
+    margin-bottom: 0;
+}
+
 .pattern-row {
     display: flex;
     align-items: center;
@@ -66,7 +94,7 @@ button {
 }
 
 .label {
-    width: 80px;
+    width: 90px;
     text-align: right;
     padding-right: 8px;
     font-size: 12px;
@@ -86,6 +114,30 @@ button {
     border-radius: 50%;
     background: white;
     flex-shrink: 0;
+    cursor: pointer;
+}
+
+.bead:hover {
+    outline: 2px solid #60a5fa;
+}
+
+.selected-tool {
+    outline: 3px solid #111827;
+}
+
+.palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.swatch {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
+    cursor: pointer;
 }
 </style>
 </head>
@@ -98,13 +150,39 @@ button {
     <div class="controls">
         <label for="widthInput">Widest Point Beads</label>
         <input id="widthInput" type="number" value="15" min="3" max="51">
+
         <button onclick="generatePattern()">Generate Diamond Top</button>
+
+        <label>Color</label>
+        <div class="color-row">
+            <input id="colorPicker" type="color" value="#000000">
+            <span id="currentToolText">Tool: Paint</span>
+        </div>
+
+        <div class="palette" id="palette"></div>
+
+        <div class="tool-row">
+            <button id="paintBtn" onclick="setTool('paint')" class="selected-tool">Paint</button>
+            <button id="eraseBtn" onclick="setTool('erase')" class="secondary">Erase</button>
+        </div>
+
+        <button class="danger" onclick="clearPattern()">Clear Colors</button>
     </div>
 
     <div id="patternArea"></div>
 </div>
 
 <script>
+var currentTool = "paint";
+var isMouseDown = false;
+
+var paletteColors = [
+    "#000000", "#FFFFFF", "#FF0000", "#FFA500", "#FFFF00",
+    "#008000", "#0000FF", "#800080", "#FFC0CB", "#964B00",
+    "#40E0D0", "#FFD700", "#C0C0C0", "#A9A9A9",
+    "#7C2D12", "#06B6D4", "#581C87"
+];
+
 function makeRow(count, labelText) {
     var rowWrap = document.createElement("div");
     rowWrap.className = "pattern-row";
@@ -120,6 +198,19 @@ function makeRow(count, labelText) {
     for (var i = 0; i < count; i++) {
         var bead = document.createElement("div");
         bead.className = "bead";
+        bead.dataset.color = "#FFFFFF";
+
+        bead.addEventListener("mousedown", function () {
+            isMouseDown = true;
+            colorBead(this);
+        });
+
+        bead.addEventListener("mouseover", function () {
+            if (isMouseDown) {
+                colorBead(this);
+            }
+        });
+
         beads.appendChild(bead);
     }
 
@@ -155,6 +246,69 @@ function generatePattern() {
     }
 }
 
+function colorBead(bead) {
+    var color;
+
+    if (currentTool === "erase") {
+        color = "#FFFFFF";
+    } else {
+        color = document.getElementById("colorPicker").value;
+    }
+
+    bead.style.backgroundColor = color;
+    bead.dataset.color = color;
+}
+
+function setTool(tool) {
+    currentTool = tool;
+
+    document.getElementById("paintBtn").classList.remove("selected-tool");
+    document.getElementById("eraseBtn").classList.remove("selected-tool");
+
+    if (tool === "paint") {
+        document.getElementById("paintBtn").classList.add("selected-tool");
+        document.getElementById("currentToolText").textContent = "Tool: Paint";
+    }
+
+    if (tool === "erase") {
+        document.getElementById("eraseBtn").classList.add("selected-tool");
+        document.getElementById("currentToolText").textContent = "Tool: Erase";
+    }
+}
+
+function clearPattern() {
+    var beads = document.querySelectorAll(".bead");
+
+    beads.forEach(function (bead) {
+        bead.style.backgroundColor = "#FFFFFF";
+        bead.dataset.color = "#FFFFFF";
+    });
+}
+
+function buildPalette() {
+    var palette = document.getElementById("palette");
+    palette.innerHTML = "";
+
+    paletteColors.forEach(function (color) {
+        var swatch = document.createElement("div");
+        swatch.className = "swatch";
+        swatch.style.backgroundColor = color;
+        swatch.title = color;
+
+        swatch.addEventListener("click", function () {
+            document.getElementById("colorPicker").value = color;
+            setTool("paint");
+        });
+
+        palette.appendChild(swatch);
+    });
+}
+
+document.addEventListener("mouseup", function () {
+    isMouseDown = false;
+});
+
+buildPalette();
 generatePattern();
 </script>
 
