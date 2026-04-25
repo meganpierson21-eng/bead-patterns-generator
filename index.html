@@ -5,228 +5,259 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bead Pattern Designer Pro</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
-body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#f8fafc,#dbeafe,#fce7f3);min-height:100vh}
-.bead{width:20px;height:20px;border:1px solid #cbd5e1;cursor:pointer;flex-shrink:0}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#f8fafc,#dbeafe,#fce7f3);color:#1e293b}
+.topbar{position:sticky;top:0;z-index:10;background:white;box-shadow:0 2px 8px #0002;padding:12px;display:flex;justify-content:space-around;gap:8px}
+button,label.button{border:0;background:white;padding:8px 10px;border-radius:8px;font-size:16px;color:#1e293b;cursor:pointer}
+button:hover,label.button:hover{background:#f1f5f9}
+.container{padding:16px;max-width:1300px;margin:auto}
+.title{text-align:center;background:#ffffffcc;border-radius:16px;padding:16px;margin-bottom:18px;box-shadow:0 4px 12px #0001}
+.layout{display:grid;grid-template-columns:260px 1fr 260px;gap:18px}
+.panel{background:#ffffffcc;border-radius:16px;padding:16px;box-shadow:0 4px 12px #0001}
+.panel h2{margin-top:0}
+input,select{width:100%;padding:8px;margin-top:4px;border:1px solid #cbd5e1;border-radius:8px}
+.control{margin-bottom:14px}
+.main{overflow:auto;min-height:600px}
+.pattern-row-wrap{display:flex;align-items:center;margin-bottom:2px}
+.ruler{width:72px;font-size:11px;color:#64748b;text-align:right;padding-right:8px;flex-shrink:0}
+.bead-row{display:flex;gap:2px;justify-content:center}
+.bead{width:20px;height:20px;border:1px solid #cbd5e1;background:white;cursor:pointer;flex-shrink:0}
 .bead:hover{outline:2px solid #60a5fa}
 .round{border-radius:50%}
 .cylinder{border-radius:4px}
-.selected{outline:3px solid #3b82f6}
+.swatches{display:flex;gap:6px;flex-wrap:wrap}
 .swatch{width:26px;height:26px;border-radius:50%;border:2px solid #e5e7eb;cursor:pointer}
-.row{display:flex;gap:2px;justify-content:center}
-.ruler{width:64px;font-size:10px;color:#64748b;text-align:right;padding-right:8px;height:22px}
-@media print{.no-print{display:none!important}body{background:white}}
+.selected{outline:3px solid #3b82f6!important}
+.toolgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.toolgrid button,.fullbtn{border:1px solid #cbd5e1}
+.primary{background:#4f46e5;color:white;width:100%;font-weight:bold}
+.primary:hover{background:#4338ca}
+.hidden{display:none!important}
+.note{font-size:12px;color:#64748b;text-align:center;margin-top:8px}
+#printArea{background:white;padding:24px;width:900px}
+@media(max-width:900px){
+.layout{grid-template-columns:1fr}
+.topbar button,.topbar label.button{font-size:15px;padding:6px}
+}
 </style>
 </head>
 
-<body class="text-slate-800">
+<body>
 
-<header class="no-print bg-white shadow p-3 sticky top-0 z-20">
-  <div class="max-w-7xl mx-auto flex gap-2 justify-around">
-    <button id="saveProject" class="px-3 py-1 rounded hover:bg-slate-100">Save<br>Project</button>
-    <label class="px-3 py-1 rounded hover:bg-slate-100 cursor-pointer">
-      Load<br>Project
-      <input id="loadProject" type="file" accept=".beadpattern,.json" hidden>
-    </label>
-    <button id="exportImage" class="px-3 py-1 rounded hover:bg-slate-100">Export<br>Image</button>
-    <button id="exportPDF" class="px-3 py-1 rounded hover:bg-slate-100">Export<br>PDF</button>
-    <button id="clearBtn" class="px-3 py-1 rounded hover:bg-slate-100">Clear</button>
-  </div>
+<header class="topbar">
+<button id="saveProject">Save<br>Project</button>
+<label class="button">Load<br>Project<input id="loadProject" type="file" accept=".json,.beadpattern" hidden></label>
+<button id="exportImage">Export<br>Image</button>
+<button id="exportPDF">Export<br>PDF</button>
+<button id="clearBtn">Clear</button>
 </header>
 
-<div class="no-print max-w-7xl mx-auto p-4">
-  <div class="text-center bg-white/80 rounded-xl shadow p-4 mb-6">
-    <h1 class="text-3xl font-bold">Bead Pattern Designer Pro</h1>
-    <p class="text-slate-500">Diamond earring tops, brick fringe, loom, and simple bead graphing.</p>
-  </div>
-
-  <div class="grid lg:grid-cols-4 gap-6">
-
-    <aside class="bg-white/80 rounded-xl shadow p-4 space-y-4">
-      <h2 class="font-bold text-lg">Pattern Settings</h2>
-
-      <div>
-        <label class="text-sm font-semibold">Pattern Type</label>
-        <select id="patternType" class="w-full border rounded p-2">
-          <option value="diamond" selected>Diamond Earring Top</option>
-          <option value="brick">Brick + Fringe</option>
-          <option value="loom">Loom</option>
-        </select>
-      </div>
-
-      <div>
-        <label id="widthLabel" class="text-sm font-semibold">Widest Point Beads</label>
-        <input id="widthInput" type="number" value="15" min="3" max="51" class="w-full border rounded p-2">
-      </div>
-
-      <div id="lengthWrap">
-        <label class="text-sm font-semibold">Length / Fringe Rows</label>
-        <input id="lengthInput" type="number" value="30" min="1" max="200" class="w-full border rounded p-2">
-      </div>
-
-      <div id="fringeWrap">
-        <label class="text-sm font-semibold">Number of Fringes</label>
-        <input id="fringeInput" type="number" value="17" min="1" max="99" class="w-full border rounded p-2">
-      </div>
-
-      <div>
-        <label class="text-sm font-semibold">Bead Shape</label>
-        <select id="beadShape" class="w-full border rounded p-2">
-          <option value="round" selected>Round Seed Bead</option>
-          <option value="cylinder">Cylinder / Delica</option>
-        </select>
-      </div>
-
-      <button id="applyBtn" class="w-full bg-indigo-600 text-white rounded p-2 font-semibold">Apply Settings</button>
-
-      <div class="text-xs text-slate-500">
-        Diamond top creates 3 loop rows of 2 beads, then starts the diamond at 3 beads, increases to the widest point, and decreases to 1 bead.
-      </div>
-    </aside>
-
-    <main class="lg:col-span-2 bg-white/80 rounded-xl shadow p-4 overflow-auto">
-      <div class="flex items-center gap-2 mb-3">
-        <button id="zoomOut" class="border rounded px-2">−</button>
-        <button id="zoomReset" class="border rounded px-2">100%</button>
-        <button id="zoomIn" class="border rounded px-2">+</button>
-      </div>
-
-      <div id="canvasWrap" class="overflow-auto min-h-[550px]">
-        <div id="patternArea" class="inline-block"></div>
-      </div>
-    </main>
-
-    <aside class="bg-white/80 rounded-xl shadow p-4 space-y-4">
-      <h2 class="font-bold text-lg">Color Tools</h2>
-
-      <input id="colorPicker" type="color" value="#000000" class="w-16 h-16">
-
-      <div class="flex gap-2 flex-wrap" id="palette"></div>
-
-      <div class="grid grid-cols-2 gap-2">
-        <button id="paintTool" class="border rounded p-2 selected">Paint</button>
-        <button id="eraseTool" class="border rounded p-2">Erase</button>
-        <button id="pickTool" class="border rounded p-2">Pick</button>
-        <button id="replaceTool" class="border rounded p-2">Replace</button>
-      </div>
-
-      <div class="grid grid-cols-2 gap-2">
-        <button id="mirrorV" class="border rounded p-2">Mirror V</button>
-        <button id="mirrorH" class="border rounded p-2">Mirror H</button>
-      </div>
-
-      <button id="countBtn" class="w-full border rounded p-2">Bead Count</button>
-      <div id="countBox" class="text-sm space-y-1"></div>
-
-      <hr>
-
-      <h2 class="font-bold text-lg">Image Reference</h2>
-      <input id="imageInput" type="file" accept="image/*" class="text-sm">
-      <img id="imagePreview" class="hidden rounded shadow max-w-full">
-      <button id="paletteFromImage" class="hidden w-full bg-slate-600 text-white rounded p-2">Generate Palette</button>
-    </aside>
-  </div>
+<div class="container">
+<div class="title">
+<h1>Bead Pattern Designer Pro</h1>
+<p>Diamond earring tops, brick fringe, loom, and bead graphing.</p>
 </div>
 
-<div id="printArea" class="hidden bg-white p-6">
-  <h1 style="font-size:24px;font-weight:bold;margin-bottom:16px;">Bead Pattern</h1>
-  <div id="printPattern"></div>
-  <h2 style="font-size:18px;font-weight:bold;margin-top:20px;">Color Key</h2>
-  <div id="printKey"></div>
-  <h2 style="font-size:18px;font-weight:bold;margin-top:20px;">Word Chart</h2>
-  <div id="wordChart" style="font-size:12px;"></div>
+<div class="layout">
+
+<aside class="panel">
+<h2>Pattern Settings</h2>
+
+<div class="control">
+<label>Pattern Type</label>
+<select id="patternType">
+<option value="diamond" selected>Diamond Earring Top</option>
+<option value="brick">Brick + Fringe</option>
+<option value="loom">Loom</option>
+</select>
+</div>
+
+<div class="control">
+<label id="widthLabel">Widest Point Beads</label>
+<input id="widthInput" type="number" value="15" min="3" max="51">
+</div>
+
+<div id="lengthWrap" class="control">
+<label>Length / Fringe Rows</label>
+<input id="lengthInput" type="number" value="30" min="1" max="200">
+</div>
+
+<div id="fringeWrap" class="control">
+<label>Number of Fringes</label>
+<input id="fringeInput" type="number" value="17" min="1" max="99">
+</div>
+
+<div class="control">
+<label>Bead Shape</label>
+<select id="beadShape">
+<option value="round" selected>Round Seed Bead</option>
+<option value="cylinder">Cylinder / Delica</option>
+</select>
+</div>
+
+<button id="applyBtn" class="primary">Apply Settings</button>
+
+<p class="note">
+Diamond top: loop is 3 rows of 2 beads. Body starts at 3 beads, increases to widest point, then decreases to 1.
+</p>
+</aside>
+
+<main class="panel main">
+<div style="margin-bottom:10px">
+<button id="zoomOut">−</button>
+<button id="zoomReset">100%</button>
+<button id="zoomIn">+</button>
+</div>
+<div id="patternArea"></div>
+</main>
+
+<aside class="panel">
+<h2>Color Tools</h2>
+
+<div class="control">
+<input id="colorPicker" type="color" value="#000000" style="width:70px;height:70px">
+</div>
+
+<div id="palette" class="swatches"></div>
+
+<br>
+
+<div class="toolgrid">
+<button id="paintTool" class="selected">Paint</button>
+<button id="eraseTool">Erase</button>
+<button id="pickTool">Pick</button>
+<button id="replaceTool">Replace</button>
+</div>
+
+<br>
+
+<div class="toolgrid">
+<button id="mirrorV">Mirror V</button>
+<button id="mirrorH">Mirror H</button>
+</div>
+
+<br>
+
+<button id="countBtn" class="fullbtn" style="width:100%">Bead Count</button>
+<div id="countBox" style="font-size:14px;margin-top:10px"></div>
+
+<hr>
+
+<h2>Image Reference</h2>
+<input id="imageInput" type="file" accept="image/*">
+<img id="imagePreview" class="hidden" style="max-width:100%;border-radius:10px;margin-top:10px">
+<button id="paletteFromImage" class="hidden fullbtn" style="width:100%;margin-top:10px">Generate Palette</button>
+</aside>
+
+</div>
+</div>
+
+<div id="printArea" class="hidden">
+<h1>Bead Pattern</h1>
+<div id="printPattern"></div>
+<h2>Color Key</h2>
+<div id="printKey"></div>
+<h2>Word Chart</h2>
+<div id="wordChart" style="font-size:12px"></div>
 </div>
 
 <script>
-let activeTool="paint";
-let isDown=false;
-let zoom=1;
-let uploadedImage=null;
+var activeTool = "paint";
+var isDown = false;
+var zoom = 1;
+var uploadedImage = null;
 
-const colors=[
+var colors = [
 "#000000","#FFFFFF","#FF0000","#FFA500","#FFFF00","#008000","#0000FF",
 "#800080","#FFC0CB","#964B00","#40E0D0","#FFD700","#C0C0C0","#A9A9A9"
 ];
 
-const $=id=>document.getElementById(id);
+function el(id){return document.getElementById(id);}
 
-function hexFromRgb(rgb){
-  if(!rgb)return "#FFFFFF";
-  if(rgb.startsWith("#"))return rgb.toUpperCase();
-  const m=rgb.match(/\d+/g);
-  if(!m)return "#FFFFFF";
-  return "#"+m.slice(0,3).map(x=>(+x).toString(16).padStart(2,"0")).join("").toUpperCase();
+function hexFromRgb(value){
+  if(!value){return "#FFFFFF";}
+  if(value.charAt(0)==="#"){return value.toUpperCase();}
+  var nums = value.match(/\d+/g);
+  if(!nums || nums.length < 3){return "#FFFFFF";}
+  var r = Number(nums[0]).toString(16).padStart(2,"0");
+  var g = Number(nums[1]).toString(16).padStart(2,"0");
+  var b = Number(nums[2]).toString(16).padStart(2,"0");
+  return ("#" + r + g + b).toUpperCase();
 }
 
 function setTool(tool){
-  activeTool=tool;
-  ["paintTool","eraseTool","pickTool","replaceTool"].forEach(id=>$(id).classList.remove("selected"));
-  if(tool==="paint")$("paintTool").classList.add("selected");
-  if(tool==="erase")$("eraseTool").classList.add("selected");
-  if(tool==="pick")$("pickTool").classList.add("selected");
-  if(tool==="replace")$("replaceTool").classList.add("selected");
+  activeTool = tool;
+  ["paintTool","eraseTool","pickTool","replaceTool"].forEach(function(id){
+    el(id).classList.remove("selected");
+  });
+  if(tool==="paint"){el("paintTool").classList.add("selected");}
+  if(tool==="erase"){el("eraseTool").classList.add("selected");}
+  if(tool==="pick"){el("pickTool").classList.add("selected");}
+  if(tool==="replace"){el("replaceTool").classList.add("selected");}
 }
 
 function makeBead(){
-  const b=document.createElement("div");
-  b.className="bead "+($("beadShape").value==="round"?"round":"cylinder");
-  b.dataset.color="#FFFFFF";
-  b.style.backgroundColor="#FFFFFF";
-  return b;
+  var bead = document.createElement("div");
+  bead.className = "bead " + (el("beadShape").value === "round" ? "round" : "cylinder");
+  bead.dataset.color = "#FFFFFF";
+  bead.style.backgroundColor = "#FFFFFF";
+  return bead;
 }
 
-function makeRow(count,label=""){
-  const wrap=document.createElement("div");
-  wrap.style.display="flex";
-  wrap.style.alignItems="center";
-  wrap.style.marginBottom="2px";
+function makeRow(count,label){
+  var wrap = document.createElement("div");
+  wrap.className = "pattern-row-wrap";
 
-  const ruler=document.createElement("div");
-  ruler.className="ruler";
-  ruler.textContent=label;
+  var ruler = document.createElement("div");
+  ruler.className = "ruler";
+  ruler.textContent = label || "";
   wrap.appendChild(ruler);
 
-  const row=document.createElement("div");
-  row.className="row beadRow";
+  var row = document.createElement("div");
+  row.className = "bead-row";
 
-  for(let i=0;i<count;i++)row.appendChild(makeBead());
+  for(var i=0;i<count;i++){
+    row.appendChild(makeBead());
+  }
 
   wrap.appendChild(row);
   return wrap;
 }
 
 function makeAnchorRow(fringeCount){
-  const wrap=document.createElement("div");
-  wrap.style.display="flex";
-  wrap.style.alignItems="center";
-  wrap.style.marginTop="10px";
+  var wrap = document.createElement("div");
+  wrap.className = "pattern-row-wrap";
+  wrap.style.marginTop = "10px";
 
-  const ruler=document.createElement("div");
-  ruler.className="ruler";
-  ruler.textContent="fringe";
+  var ruler = document.createElement("div");
+  ruler.className = "ruler";
+  ruler.textContent = "fringe";
   wrap.appendChild(ruler);
 
-  const row=document.createElement("div");
-  row.className="row";
+  var row = document.createElement("div");
+  row.className = "bead-row";
 
-  const center=Math.ceil(fringeCount/2);
+  var center = Math.ceil(fringeCount / 2);
 
-  for(let i=1;i<=fringeCount;i++){
-    const a=document.createElement("div");
-    a.className="bead round";
-    a.style.background="#f8fafc";
-    a.style.border="1px dashed #94a3b8";
-    a.style.fontSize="9px";
-    a.style.display="flex";
-    a.style.alignItems="center";
-    a.style.justifyContent="center";
-    a.dataset.anchor="true";
-    a.textContent=i===center?"C":(i===1||i===fringeCount?"S":i);
-    a.title=i===center?"Center fringe starts at final single bead":"Side pieces start at widest row";
+  for(var i=1;i<=fringeCount;i++){
+    var a = document.createElement("div");
+    a.className = "bead round";
+    a.style.backgroundColor = "#f8fafc";
+    a.style.border = "1px dashed #94a3b8";
+    a.style.fontSize = "9px";
+    a.style.display = "flex";
+    a.style.alignItems = "center";
+    a.style.justifyContent = "center";
+    a.dataset.anchor = "true";
+
+    if(i === center){a.textContent = "C";}
+    else if(i === 1 || i === fringeCount){a.textContent = "S";}
+    else{a.textContent = String(i);}
+
     row.appendChild(a);
   }
 
@@ -235,334 +266,430 @@ function makeAnchorRow(fringeCount){
 }
 
 function generatePattern(){
-  const area=$("patternArea");
-  area.innerHTML="";
+  var area = el("patternArea");
+  area.innerHTML = "";
 
-  let type=$("patternType").value;
-  let width=parseInt($("widthInput").value)||15;
-  let length=parseInt($("lengthInput").value)||30;
-  let fringeCount=parseInt($("fringeInput").value)||17;
+  var type = el("patternType").value;
+  var width = parseInt(el("widthInput").value,10) || 15;
+  var length = parseInt(el("lengthInput").value,10) || 30;
+  var fringeCount = parseInt(el("fringeInput").value,10) || 17;
 
-  if(type==="diamond"){
-    if(width<3)width=3;
-    if(width%2===0)width++;
-    $("widthInput").value=width;
+  if(type === "diamond"){
+    if(width < 3){width = 3;}
+    if(width % 2 === 0){width = width + 1;}
+    el("widthInput").value = width;
 
-    // Loop: exactly 6 beads total, 3 rows of 2.
     area.appendChild(makeRow(2,"loop"));
     area.appendChild(makeRow(2,"loop"));
     area.appendChild(makeRow(2,"loop"));
 
-    // Diamond body: starts at 3 beads. No single bead or 2-bead rows under the loop.
-    for(let i=3;i<=width;i++){
-      area.appendChild(makeRow(i,i===width?"side start":""));
+    for(var up=3; up<=width; up++){
+      area.appendChild(makeRow(up, up === width ? "side start" : ""));
     }
 
-    // Decrease down to the final single center-start bead.
-    for(let i=width-1;i>=1;i--){
-      area.appendChild(makeRow(i,i===1?"center start":""));
+    for(var down=width-1; down>=1; down--){
+      area.appendChild(makeRow(down, down === 1 ? "center start" : ""));
     }
 
     area.appendChild(makeAnchorRow(fringeCount));
 
-    const note=document.createElement("div");
-    note.className="text-xs text-slate-500 mt-2 text-center";
-    note.innerHTML="<b>C</b> = middle fringe starts at final single bead. <b>S</b> = side pieces start at the widest row.";
+    var note = document.createElement("div");
+    note.className = "note";
+    note.innerHTML = "<b>C</b> = middle fringe starts at final single bead. <b>S</b> = side pieces start at widest row.";
     area.appendChild(note);
   }
 
-  if(type==="brick"){
-    for(let i=2;i<=width;i++)area.appendChild(makeRow(i,"top"));
-    for(let i=1;i<=length;i++)area.appendChild(makeRow(width,i%5===0?i:"-"));
+  if(type === "brick"){
+    for(var top=2; top<=width; top++){
+      area.appendChild(makeRow(top,"top"));
+    }
+    for(var r=1; r<=length; r++){
+      area.appendChild(makeRow(width, r % 5 === 0 ? String(r) : "-"));
+    }
   }
 
-  if(type==="loom"){
-    for(let i=1;i<=length;i++)area.appendChild(makeRow(width,i%5===0?i:"-"));
+  if(type === "loom"){
+    for(var l=1; l<=length; l++){
+      area.appendChild(makeRow(width, l % 5 === 0 ? String(l) : "-"));
+    }
   }
 }
 
 function applyBead(bead,color){
-  bead.dataset.color=color;
-  bead.style.backgroundColor=color;
+  if(!bead || bead.dataset.anchor === "true"){return;}
+  bead.dataset.color = color;
+  bead.style.backgroundColor = color;
 }
 
 function handleBead(bead){
-  if(!bead || bead.dataset.anchor==="true")return;
+  if(!bead || !bead.classList.contains("bead") || bead.dataset.anchor === "true"){return;}
 
-  if(activeTool==="pick"){
-    const c=hexFromRgb(bead.style.backgroundColor);
-    $("colorPicker").value=c;
+  if(activeTool === "pick"){
+    el("colorPicker").value = hexFromRgb(bead.style.backgroundColor);
     setTool("paint");
     return;
   }
 
-  if(activeTool==="replace"){
-    const old=hexFromRgb(bead.style.backgroundColor);
-    const next=$("colorPicker").value.toUpperCase();
-    document.querySelectorAll(".bead").forEach(b=>{
-      if(b.dataset.anchor!=="true" && hexFromRgb(b.style.backgroundColor)===old)applyBead(b,next);
+  if(activeTool === "replace"){
+    var oldColor = hexFromRgb(bead.style.backgroundColor);
+    var newColor = el("colorPicker").value.toUpperCase();
+
+    document.querySelectorAll(".bead").forEach(function(b){
+      if(b.dataset.anchor !== "true" && hexFromRgb(b.style.backgroundColor) === oldColor){
+        applyBead(b,newColor);
+      }
     });
+
     setTool("paint");
     return;
   }
 
-  const color=activeTool==="erase"?"#FFFFFF":$("colorPicker").value.toUpperCase();
+  var color = activeTool === "erase" ? "#FFFFFF" : el("colorPicker").value.toUpperCase();
   applyBead(bead,color);
 
-  const row=bead.parentElement;
-  const rows=[...document.querySelectorAll(".beadRow")];
-  const beads=[...row.children];
-  const rowIndex=rows.indexOf(row);
-  const beadIndex=beads.indexOf(bead);
+  var row = bead.parentElement;
+  var rows = Array.from(document.querySelectorAll(".bead-row")).filter(function(r){
+    return r.querySelector(".bead[data-anchor='true']") === null;
+  });
+  var beads = Array.from(row.children);
+  var rowIndex = rows.indexOf(row);
+  var beadIndex = beads.indexOf(bead);
 
-  if($("mirrorV").classList.contains("selected")){
-    const mirror=beads[beads.length-1-beadIndex];
-    if(mirror)applyBead(mirror,color);
+  if(el("mirrorV").classList.contains("selected")){
+    var mirror = beads[beads.length - 1 - beadIndex];
+    applyBead(mirror,color);
   }
 
-  if($("mirrorH").classList.contains("selected")){
-    const mirrorRow=rows[rows.length-1-rowIndex];
-    if(mirrorRow && mirrorRow.children[beadIndex])applyBead(mirrorRow.children[beadIndex],color);
+  if(el("mirrorH").classList.contains("selected")){
+    var mirrorRow = rows[rows.length - 1 - rowIndex];
+    if(mirrorRow && mirrorRow.children[beadIndex]){
+      applyBead(mirrorRow.children[beadIndex],color);
+    }
   }
 }
 
 function setupPalette(){
-  const p=$("palette");
-  p.innerHTML="";
-  colors.forEach(c=>{
-    const s=document.createElement("div");
-    s.className="swatch";
-    s.style.backgroundColor=c;
-    s.title=c;
-    s.onclick=()=>{$("colorPicker").value=c;setTool("paint")};
-    p.appendChild(s);
+  var palette = el("palette");
+  palette.innerHTML = "";
+
+  colors.forEach(function(color){
+    var swatch = document.createElement("div");
+    swatch.className = "swatch";
+    swatch.style.backgroundColor = color;
+    swatch.title = color;
+    swatch.onclick = function(){
+      el("colorPicker").value = color;
+      setTool("paint");
+    };
+    palette.appendChild(swatch);
   });
 }
 
 function getProjectData(){
   return {
     settings:{
-      patternType:$("patternType").value,
-      width:$("widthInput").value,
-      length:$("lengthInput").value,
-      fringe:$("fringeInput").value,
-      shape:$("beadShape").value
+      patternType:el("patternType").value,
+      width:el("widthInput").value,
+      length:el("lengthInput").value,
+      fringe:el("fringeInput").value,
+      shape:el("beadShape").value
     },
-    beads:[...document.querySelectorAll(".beadRow")].map(row=>
-      [...row.children].map(b=>hexFromRgb(b.style.backgroundColor))
-    )
+    beads:Array.from(document.querySelectorAll(".bead-row")).filter(function(row){
+      return row.querySelector(".bead[data-anchor='true']") === null;
+    }).map(function(row){
+      return Array.from(row.children).map(function(b){
+        return hexFromRgb(b.style.backgroundColor);
+      });
+    })
   };
 }
 
 function loadProjectData(data){
-  $("patternType").value=data.settings.patternType||"diamond";
-  $("widthInput").value=data.settings.width||15;
-  $("lengthInput").value=data.settings.length||30;
-  $("fringeInput").value=data.settings.fringe||17;
-  $("beadShape").value=data.settings.shape||"round";
+  el("patternType").value = data.settings.patternType || "diamond";
+  el("widthInput").value = data.settings.width || 15;
+  el("lengthInput").value = data.settings.length || 30;
+  el("fringeInput").value = data.settings.fringe || 17;
+  el("beadShape").value = data.settings.shape || "round";
+
   updateControls();
   generatePattern();
 
-  const rows=[...document.querySelectorAll(".beadRow")];
-  data.beads.forEach((r,i)=>{
-    if(!rows[i])return;
-    r.forEach((c,j)=>{
-      if(rows[i].children[j])applyBead(rows[i].children[j],c);
+  var rows = Array.from(document.querySelectorAll(".bead-row")).filter(function(row){
+    return row.querySelector(".bead[data-anchor='true']") === null;
+  });
+
+  data.beads.forEach(function(rowData,i){
+    if(!rows[i]){return;}
+    rowData.forEach(function(color,j){
+      if(rows[i].children[j]){
+        applyBead(rows[i].children[j],color);
+      }
     });
   });
 }
 
 function saveProject(){
-  const blob=new Blob([JSON.stringify(getProjectData())],{type:"application/json"});
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);
-  a.download="bead-pattern.beadpattern";
+  var blob = new Blob([JSON.stringify(getProjectData())],{type:"application/json"});
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "bead-pattern.beadpattern";
   a.click();
   URL.revokeObjectURL(a.href);
 }
 
 function preparePrint(){
-  $("printPattern").innerHTML=$("patternArea").innerHTML;
+  el("printPattern").innerHTML = el("patternArea").innerHTML;
 
-  const used=new Map();
-  document.querySelectorAll("#patternArea .bead").forEach(b=>{
-    if(b.dataset.anchor==="true")return;
-    const c=hexFromRgb(b.style.backgroundColor);
-    if(c!=="#FFFFFF"&&!used.has(c))used.set(c,String.fromCharCode(65+used.size));
+  var used = new Map();
+
+  document.querySelectorAll("#patternArea .bead").forEach(function(b){
+    if(b.dataset.anchor === "true"){return;}
+    var c = hexFromRgb(b.style.backgroundColor);
+    if(c !== "#FFFFFF" && !used.has(c)){
+      used.set(c,String.fromCharCode(65 + used.size));
+    }
   });
 
-  $("printKey").innerHTML=[...used.entries()].map(([c,l])=>
-    `<div style="display:flex;align-items:center;gap:8px;margin:4px 0;">
-      <div style="width:20px;height:20px;border-radius:50%;background:${c};border:1px solid #ccc"></div>
-      <span>(${l}) ${c}</span>
-    </div>`
-  ).join("") || "No colors used.";
+  var keyHtml = "";
+  used.forEach(function(letter,color){
+    keyHtml += "<div style='display:flex;align-items:center;gap:8px;margin:4px 0;'>";
+    keyHtml += "<div style='width:20px;height:20px;border-radius:50%;background:"+color+";border:1px solid #ccc'></div>";
+    keyHtml += "<span>("+letter+") "+color+"</span></div>";
+  });
+  el("printKey").innerHTML = keyHtml || "No colors used.";
 
-  let html="";
-  [...document.querySelectorAll("#patternArea .beadRow")].forEach((row,i)=>{
-    let parts=[];
-    let last=null,count=0;
-    [...row.children].forEach(b=>{
-      const c=hexFromRgb(b.style.backgroundColor);
-      const sym=c==="#FFFFFF"?"-":used.get(c);
-      if(sym!==last){
-        if(count&&last!=="-")parts.push(`(${last})x${count}`);
-        last=sym;count=1;
-      }else count++;
+  var wordHtml = "";
+  var rows = Array.from(document.querySelectorAll("#patternArea .bead-row")).filter(function(row){
+    return row.querySelector(".bead[data-anchor='true']") === null;
+  });
+
+  rows.forEach(function(row,i){
+    var parts = [];
+    var last = null;
+    var count = 0;
+
+    Array.from(row.children).forEach(function(b){
+      var c = hexFromRgb(b.style.backgroundColor);
+      var symbol = c === "#FFFFFF" ? "-" : used.get(c);
+
+      if(symbol !== last){
+        if(count > 0 && last !== "-"){parts.push("("+last+")x"+count);}
+        last = symbol;
+        count = 1;
+      }else{
+        count++;
+      }
     });
-    if(count&&last!=="-")parts.push(`(${last})x${count}`);
-    html+=`<div><b>Row ${i+1}:</b> ${parts.join(", ")||"blank"}</div>`;
+
+    if(count > 0 && last !== "-"){parts.push("("+last+")x"+count);}
+    wordHtml += "<div><b>Row "+(i+1)+":</b> "+(parts.join(", ") || "blank")+"</div>";
   });
-  $("wordChart").innerHTML=html;
+
+  el("wordChart").innerHTML = wordHtml;
 }
 
 async function exportPDF(){
   preparePrint();
-  $("printArea").classList.remove("hidden");
-  $("printArea").style.position="absolute";
-  $("printArea").style.left="-9999px";
-  $("printArea").style.width="900px";
 
-  const canvas=await html2canvas($("printArea"),{scale:2,backgroundColor:"#ffffff"});
-  const img=canvas.toDataURL("image/png");
-  const {jsPDF}=window.jspdf;
-  const pdf=new jsPDF("p","pt","letter");
+  el("printArea").classList.remove("hidden");
+  el("printArea").style.position = "absolute";
+  el("printArea").style.left = "-9999px";
 
-  const pw=pdf.internal.pageSize.getWidth();
-  const ph=pdf.internal.pageSize.getHeight();
-  const margin=30;
-  const ratio=Math.min((pw-margin*2)/canvas.width,(ph-margin*2)/canvas.height);
-  const w=canvas.width*ratio;
-  const h=canvas.height*ratio;
+  var canvas = await html2canvas(el("printArea"),{scale:2,backgroundColor:"#ffffff"});
+  var img = canvas.toDataURL("image/png");
+  var jsPDF = window.jspdf.jsPDF;
+  var pdf = new jsPDF("p","pt","letter");
 
-  pdf.addImage(img,"PNG",(pw-w)/2,margin,w,h);
+  var pw = pdf.internal.pageSize.getWidth();
+  var ph = pdf.internal.pageSize.getHeight();
+  var margin = 30;
+  var ratio = Math.min((pw - margin * 2) / canvas.width, (ph - margin * 2) / canvas.height);
+  var w = canvas.width * ratio;
+  var h = canvas.height * ratio;
+
+  pdf.addImage(img,"PNG",(pw - w) / 2,margin,w,h);
   pdf.save("bead-pattern.pdf");
 
-  $("printArea").classList.add("hidden");
+  el("printArea").classList.add("hidden");
 }
 
 async function exportImage(){
   preparePrint();
-  $("printArea").classList.remove("hidden");
-  $("printArea").style.position="absolute";
-  $("printArea").style.left="-9999px";
-  $("printArea").style.width="900px";
 
-  const canvas=await html2canvas($("printArea"),{scale:2,backgroundColor:"#ffffff"});
-  const a=document.createElement("a");
-  a.href=canvas.toDataURL("image/png");
-  a.download="bead-pattern.png";
+  el("printArea").classList.remove("hidden");
+  el("printArea").style.position = "absolute";
+  el("printArea").style.left = "-9999px";
+
+  var canvas = await html2canvas(el("printArea"),{scale:2,backgroundColor:"#ffffff"});
+  var a = document.createElement("a");
+  a.href = canvas.toDataURL("image/png");
+  a.download = "bead-pattern.png";
   a.click();
 
-  $("printArea").classList.add("hidden");
+  el("printArea").classList.add("hidden");
 }
 
 function beadCount(){
-  const counts={};
-  document.querySelectorAll("#patternArea .bead").forEach(b=>{
-    if(b.dataset.anchor==="true")return;
-    const c=hexFromRgb(b.style.backgroundColor);
-    if(c==="#FFFFFF")return;
-    counts[c]=(counts[c]||0)+1;
+  var counts = {};
+
+  document.querySelectorAll("#patternArea .bead").forEach(function(b){
+    if(b.dataset.anchor === "true"){return;}
+    var c = hexFromRgb(b.style.backgroundColor);
+    if(c === "#FFFFFF"){return;}
+    counts[c] = (counts[c] || 0) + 1;
   });
 
-  $("countBox").innerHTML=Object.keys(counts).length
-    ? Object.entries(counts).map(([c,n])=>`<div><span style="display:inline-block;width:14px;height:14px;background:${c};border:1px solid #ccc"></span> ${c}: ${n}</div>`).join("")
-    : "No colored beads yet.";
+  var html = "";
+  Object.keys(counts).forEach(function(c){
+    html += "<div><span style='display:inline-block;width:14px;height:14px;background:"+c+";border:1px solid #ccc'></span> "+c+": "+counts[c]+"</div>";
+  });
+
+  el("countBox").innerHTML = html || "No colored beads yet.";
 }
 
 function updateControls(){
-  const isDiamond=$("patternType").value==="diamond";
-  $("widthLabel").textContent=isDiamond?"Widest Point Beads":"Width Beads";
-  $("lengthWrap").style.display=isDiamond?"none":"block";
-  $("fringeWrap").style.display=isDiamond?"block":"none";
+  var isDiamond = el("patternType").value === "diamond";
+  el("widthLabel").textContent = isDiamond ? "Widest Point Beads" : "Width Beads";
+  el("lengthWrap").style.display = isDiamond ? "none" : "block";
+  el("fringeWrap").style.display = isDiamond ? "block" : "none";
 }
 
 function generatePaletteFromImage(){
-  if(!uploadedImage)return;
-  const img=new Image();
-  img.onload=()=>{
-    const canvas=document.createElement("canvas");
-    const ctx=canvas.getContext("2d");
-    canvas.width=150;canvas.height=150;
+  if(!uploadedImage){return;}
+
+  var img = new Image();
+  img.onload = function(){
+    var canvas = document.createElement("canvas");
+    var ctx = canvas.getContext("2d");
+    canvas.width = 150;
+    canvas.height = 150;
     ctx.drawImage(img,0,0,150,150);
-    const data=ctx.getImageData(0,0,150,150).data;
-    const buckets={};
-    for(let i=0;i<data.length;i+=16){
-      const r=Math.round(data[i]/32)*32;
-      const g=Math.round(data[i+1]/32)*32;
-      const b=Math.round(data[i+2]/32)*32;
-      const c="#"+[r,g,b].map(x=>Math.min(255,x).toString(16).padStart(2,"0")).join("").toUpperCase();
-      buckets[c]=(buckets[c]||0)+1;
+
+    var data = ctx.getImageData(0,0,150,150).data;
+    var buckets = {};
+
+    for(var i=0;i<data.length;i+=16){
+      var r = Math.min(255,Math.round(data[i] / 32) * 32);
+      var g = Math.min(255,Math.round(data[i+1] / 32) * 32);
+      var b = Math.min(255,Math.round(data[i+2] / 32) * 32);
+      var c = "#" + [r,g,b].map(function(x){
+        return x.toString(16).padStart(2,"0");
+      }).join("").toUpperCase();
+
+      buckets[c] = (buckets[c] || 0) + 1;
     }
-    Object.entries(buckets).sort((a,b)=>b[1]-a[1]).slice(0,10).forEach(([c])=>{
-      if(!colors.includes(c))colors.push(c);
+
+    Object.entries(buckets).sort(function(a,b){return b[1]-a[1];}).slice(0,10).forEach(function(entry){
+      if(colors.indexOf(entry[0]) === -1){colors.push(entry[0]);}
     });
+
     setupPalette();
   };
-  img.src=uploadedImage;
+
+  img.src = uploadedImage;
 }
 
-$("patternArea").addEventListener("mousedown",e=>{isDown=true;if(e.target.classList.contains("bead"))handleBead(e.target)});
-$("patternArea").addEventListener("mouseover",e=>{if(isDown&&e.target.classList.contains("bead")&&!["pick","replace"].includes(activeTool))handleBead(e.target)});
-document.addEventListener("mouseup",()=>isDown=false);
+el("patternArea").addEventListener("mousedown",function(e){
+  isDown = true;
+  if(e.target.classList.contains("bead")){handleBead(e.target);}
+});
 
-$("applyBtn").onclick=generatePattern;
-$("clearBtn").onclick=()=>document.querySelectorAll("#patternArea .bead").forEach(b=>{if(b.dataset.anchor!=="true")applyBead(b,"#FFFFFF")});
-$("paintTool").onclick=()=>setTool("paint");
-$("eraseTool").onclick=()=>setTool("erase");
-$("pickTool").onclick=()=>setTool("pick");
-$("replaceTool").onclick=()=>setTool("replace");
-$("mirrorV").onclick=()=>$("mirrorV").classList.toggle("selected");
-$("mirrorH").onclick=()=>$("mirrorH").classList.toggle("selected");
-$("saveProject").onclick=saveProject;
-$("exportPDF").onclick=exportPDF;
-$("exportImage").onclick=exportImage;
-$("countBtn").onclick=beadCount;
+el("patternArea").addEventListener("mouseover",function(e){
+  if(isDown && e.target.classList.contains("bead") && activeTool !== "pick" && activeTool !== "replace"){
+    handleBead(e.target);
+  }
+});
 
-$("loadProject").onchange=e=>{
-  const file=e.target.files[0];
-  if(!file)return;
-  const r=new FileReader();
-  r.onload=()=>loadProjectData(JSON.parse(r.result));
-  r.readAsText(file);
+document.addEventListener("mouseup",function(){isDown = false;});
+
+el("applyBtn").onclick = generatePattern;
+el("clearBtn").onclick = function(){
+  document.querySelectorAll("#patternArea .bead").forEach(function(b){
+    applyBead(b,"#FFFFFF");
+  });
 };
 
-$("patternType").onchange=()=>{updateControls();generatePattern()};
-$("beadShape").onchange=generatePattern;
+el("paintTool").onclick = function(){setTool("paint");};
+el("eraseTool").onclick = function(){setTool("erase");};
+el("pickTool").onclick = function(){setTool("pick");};
+el("replaceTool").onclick = function(){setTool("replace");};
 
-$("zoomIn").onclick=()=>{zoom=Math.min(3,zoom+.2);$("patternArea").style.transform=`scale(${zoom})`;$("patternArea").style.transformOrigin="top left"};
-$("zoomOut").onclick=()=>{zoom=Math.max(.3,zoom-.2);$("patternArea").style.transform=`scale(${zoom})`;$("patternArea").style.transformOrigin="top left"};
-$("zoomReset").onclick=()=>{zoom=1;$("patternArea").style.transform="scale(1)"};
+el("mirrorV").onclick = function(){el("mirrorV").classList.toggle("selected");};
+el("mirrorH").onclick = function(){el("mirrorH").classList.toggle("selected");};
 
-$("imageInput").onchange=e=>{
-  const file=e.target.files[0];
-  if(!file)return;
-  const r=new FileReader();
-  r.onload=()=>{
-    uploadedImage=r.result;
-    $("imagePreview").src=uploadedImage;
-    $("imagePreview").classList.remove("hidden");
-    $("paletteFromImage").classList.remove("hidden");
+el("saveProject").onclick = saveProject;
+el("exportPDF").onclick = exportPDF;
+el("exportImage").onclick = exportImage;
+el("countBtn").onclick = beadCount;
+
+el("loadProject").onchange = function(e){
+  var file = e.target.files[0];
+  if(!file){return;}
+
+  var reader = new FileReader();
+  reader.onload = function(){
+    loadProjectData(JSON.parse(reader.result));
   };
-  r.readAsDataURL(file);
+  reader.readAsText(file);
 };
 
-$("paletteFromImage").onclick=generatePaletteFromImage;
+el("patternType").onchange = function(){
+  updateControls();
+  generatePattern();
+};
 
-$("imagePreview").onclick=e=>{
-  if(activeTool!=="pick")return;
-  const img=$("imagePreview");
-  const canvas=document.createElement("canvas");
-  const ctx=canvas.getContext("2d");
-  canvas.width=img.naturalWidth;
-  canvas.height=img.naturalHeight;
+el("beadShape").onchange = generatePattern;
+
+el("zoomIn").onclick = function(){
+  zoom = Math.min(3,zoom + 0.2);
+  el("patternArea").style.transform = "scale("+zoom+")";
+  el("patternArea").style.transformOrigin = "top left";
+};
+
+el("zoomOut").onclick = function(){
+  zoom = Math.max(0.3,zoom - 0.2);
+  el("patternArea").style.transform = "scale("+zoom+")";
+  el("patternArea").style.transformOrigin = "top left";
+};
+
+el("zoomReset").onclick = function(){
+  zoom = 1;
+  el("patternArea").style.transform = "scale(1)";
+};
+
+el("imageInput").onchange = function(e){
+  var file = e.target.files[0];
+  if(!file){return;}
+
+  var reader = new FileReader();
+  reader.onload = function(){
+    uploadedImage = reader.result;
+    el("imagePreview").src = uploadedImage;
+    el("imagePreview").classList.remove("hidden");
+    el("paletteFromImage").classList.remove("hidden");
+  };
+  reader.readAsDataURL(file);
+};
+
+el("paletteFromImage").onclick = generatePaletteFromImage;
+
+el("imagePreview").onclick = function(e){
+  if(activeTool !== "pick"){return;}
+
+  var img = el("imagePreview");
+  var canvas = document.createElement("canvas");
+  var ctx = canvas.getContext("2d");
+
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
   ctx.drawImage(img,0,0);
-  const rect=img.getBoundingClientRect();
-  const x=Math.floor((e.clientX-rect.left)*(img.naturalWidth/rect.width));
-  const y=Math.floor((e.clientY-rect.top)*(img.naturalHeight/rect.height));
-  const p=ctx.getImageData(x,y,1,1).data;
-  $("colorPicker").value=hexFromRgb(`rgb(${p[0]},${p[1]},${p[2]})`);
+
+  var rect = img.getBoundingClientRect();
+  var x = Math.floor((e.clientX - rect.left) * (img.naturalWidth / rect.width));
+  var y = Math.floor((e.clientY - rect.top) * (img.naturalHeight / rect.height));
+  var p = ctx.getImageData(x,y,1,1).data;
+
+  el("colorPicker").value = hexFromRgb("rgb("+p[0]+","+p[1]+","+p[2]+")");
   setTool("paint");
 };
 
