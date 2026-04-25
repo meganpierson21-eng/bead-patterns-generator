@@ -108,7 +108,7 @@ button {
     border: 1px solid #cbd5e1;
     border-radius: 14px;
     background: white;
-    padding: 24px 24px 80px 8px;
+    padding: 10px 80px 80px 40px;
     -webkit-overflow-scrolling: touch;
     touch-action: pan-x pan-y;
 }
@@ -242,6 +242,10 @@ button {
 .danger {
     background: #dc2626;
 }
+
+.export-btn {
+    margin-top: 10px;
+}
 </style>
 </head>
 
@@ -306,7 +310,9 @@ button {
     <button id="paintBtn" class="selected-tool" onclick="setTool('paint')">Paint</button>
     <button id="eraseBtn" onclick="setTool('erase')">Erase</button>
     <button class="danger" onclick="clearPattern()">Clear</button>
-    <button onclick="testExport()">Test</button>
+</div>
+
+<button class="full export-btn" onclick="testExport()">Export</button>
 </div>
 </div>
 
@@ -669,47 +675,46 @@ function handlePatternChange() {
 }
 
 function testExport() {
-    const element = document.getElementById("patternScale");
+    const pattern = document.getElementById("patternScale");
+    const beadCount = document.getElementById("beadCount");
 
-    html2canvas(element, {
+    const wrapper = document.createElement("div");
+    wrapper.style.background = "#ffffff";
+    wrapper.style.padding = "30px";
+    wrapper.style.display = "inline-block";
+    wrapper.style.fontFamily = "Arial, sans-serif";
+    wrapper.style.color = "#1e293b";
+
+    const title = document.createElement("h2");
+    title.textContent = "Bead Pattern";
+    title.style.textAlign = "center";
+    title.style.margin = "0 0 20px 0";
+
+    const patternClone = pattern.cloneNode(true);
+
+    const countTitle = document.createElement("h3");
+    countTitle.textContent = "Bead Count";
+    countTitle.style.margin = "24px 0 10px 0";
+
+    const countClone = beadCount.cloneNode(true);
+
+    wrapper.appendChild(title);
+    wrapper.appendChild(patternClone);
+    wrapper.appendChild(countTitle);
+    wrapper.appendChild(countClone);
+
+    document.body.appendChild(wrapper);
+
+    html2canvas(wrapper, {
         backgroundColor: "#ffffff",
-        scale: 3,
-        useCORS: true
+        scale: 3
     }).then(canvas => {
-        // ✂️ Crop to actual content
-        const ctx = canvas.getContext("2d");
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-
-        let top = null, bottom = null, left = null, right = null;
-
-        for (let y = 0; y < canvas.height; y++) {
-            for (let x = 0; x < canvas.width; x++) {
-                const i = (y * canvas.width + x) * 4;
-                const alpha = imageData[i + 3];
-
-                if (alpha > 0) {
-                    if (top === null) top = y;
-                    bottom = y;
-                    if (left === null || x < left) left = x;
-                    if (right === null || x > right) right = x;
-                }
-            }
-        }
-
-        const width = right - left;
-        const height = bottom - top;
-
-        const croppedCanvas = document.createElement("canvas");
-        croppedCanvas.width = width;
-        croppedCanvas.height = height;
-
-        const croppedCtx = croppedCanvas.getContext("2d");
-        croppedCtx.drawImage(canvas, left, top, width, height, 0, 0, width, height);
-
         const link = document.createElement("a");
-        link.download = "bead-pattern.png";
-        link.href = croppedCanvas.toDataURL("image/png");
+        link.download = "bead-pattern-printable.png";
+        link.href = canvas.toDataURL("image/png");
         link.click();
+
+        document.body.removeChild(wrapper);
     });
 }
 
