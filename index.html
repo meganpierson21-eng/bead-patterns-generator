@@ -20,7 +20,49 @@
     color: #1e293b;
     padding-bottom: 120px;
 }
+#patternArea {
+    display: inline-block;
+    min-width: max-content;
+    transform-origin: top center;
+}
 
+.fringe-guide {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+    margin-left: 92px;
+}
+
+.fringe-row {
+    display: flex;
+    gap: 3px;
+}
+
+.fringe-dot {
+    width: 22px;
+    height: 22px;
+    border: 1px dashed #94a3b8;
+    border-radius: 50%;
+    color: #64748b;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.zoom-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.zoom-controls button {
+    margin: 0;
+    padding: 10px;
+    font-size: 15px;
+}
 header {
     background: white;
     border-bottom: 1px solid #cbd5e1;
@@ -222,10 +264,16 @@ button.danger { background: #dc2626; }
     </div>
 
     <div class="card">
-        <div class="pattern-scroll">
-            <div id="patternArea"></div>
-        </div>
+    <div class="zoom-controls">
+        <button onclick="zoomGraph(-0.1)">Zoom -</button>
+        <button onclick="resetGraphZoom()">Reset</button>
+        <button onclick="zoomGraph(0.1)">Zoom +</button>
     </div>
+
+    <div class="pattern-scroll" id="patternScroll">
+        <div id="patternArea"></div>
+    </div>
+</div>
 
 </div>
 
@@ -250,7 +298,33 @@ var paletteColors = [
     "#40E0D0", "#FFD700", "#C0C0C0", "#A9A9A9",
     "#7C2D12", "#06B6D4", "#581C87"
 ];
+  function makeFringeGuide(fringeCount) {
+    var wrap = document.createElement("div");
+    wrap.className = "fringe-guide";
 
+    var row = document.createElement("div");
+    row.className = "fringe-row";
+
+    var center = Math.ceil(fringeCount / 2);
+
+    for (var i = 1; i <= fringeCount; i++) {
+        var dot = document.createElement("div");
+        dot.className = "fringe-dot";
+
+        if (i === center) {
+            dot.textContent = "C";
+        } else if (i === 1 || i === fringeCount) {
+            dot.textContent = "S";
+        } else {
+            dot.textContent = i;
+        }
+
+        row.appendChild(dot);
+    }
+
+    wrap.appendChild(row);
+    return wrap;
+}  
 function makeRow(count, labelText) {
     var rowWrap = document.createElement("div");
     rowWrap.className = "pattern-row";
