@@ -6,46 +6,61 @@
 <title>Bead Pattern Designer</title>
 
 <style>
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #f8fafc;
     color: #1e293b;
-    padding: 20px;
+    padding-bottom: 120px;
+}
+
+header {
+    background: white;
+    border-bottom: 1px solid #cbd5e1;
+    padding: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 h1 {
+    font-size: 24px;
     text-align: center;
+    margin: 0;
+}
+
+.page {
+    padding: 12px;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .card {
     background: white;
     border: 1px solid #cbd5e1;
-    border-radius: 12px;
-    padding: 16px;
-    max-width: 800px;
-    margin: 20px auto;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    overflow-x: auto;
-}
-
-.controls {
-    max-width: 440px;
-    margin: 0 auto 20px auto;
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
 label {
     display: block;
     font-weight: bold;
     margin-bottom: 6px;
+    font-size: 15px;
 }
 
 input, select, button {
     width: 100%;
-    padding: 12px;
+    padding: 13px;
     font-size: 16px;
-    margin-bottom: 12px;
-    border-radius: 8px;
+    margin-bottom: 10px;
+    border-radius: 10px;
 }
 
 input, select {
@@ -57,6 +72,8 @@ button {
     border: none;
     background: #4f46e5;
     color: white;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 button.secondary {
@@ -67,127 +84,211 @@ button.danger {
     background: #dc2626;
 }
 
-.tool-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+.hidden {
+    display: none;
 }
 
-.color-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
+.pattern-card {
+    padding: 8px;
 }
 
-.color-row input {
-    width: 70px;
-    height: 55px;
-    padding: 2px;
-    margin-bottom: 0;
+.pattern-scroll {
+    width: 100%;
+    overflow: auto;
+    min-height: 420px;
+    max-height: 65vh;
+    padding: 12px;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    -webkit-overflow-scrolling: touch;
+}
+
+#patternArea {
+    display: inline-block;
+    min-width: max-content;
+    padding-right: 20px;
+    padding-bottom: 20px;
 }
 
 .pattern-row {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 2px;
+    justify-content: flex-start;
+    margin-bottom: 3px;
 }
 
 .label {
-    width: 90px;
+    width: 92px;
     text-align: right;
     padding-right: 8px;
-    font-size: 12px;
+    font-size: 11px;
     color: #64748b;
     flex-shrink: 0;
 }
 
 .beads {
     display: flex;
-    gap: 2px;
+    gap: 3px;
+    justify-content: center;
+    min-width: 20px;
 }
 
 .bead {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     border: 1px solid #cbd5e1;
     border-radius: 50%;
     background: white;
     flex-shrink: 0;
     cursor: pointer;
+    touch-action: none;
 }
 
 .bead:hover {
     outline: 2px solid #60a5fa;
 }
 
-.selected-tool {
-    outline: 3px solid #111827;
-}
-
 .palette {
     display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 12px;
+    overflow-x: auto;
+    gap: 8px;
+    padding: 4px 0 10px 0;
+    -webkit-overflow-scrolling: touch;
 }
 
 .swatch {
-    width: 28px;
-    height: 28px;
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
     border-radius: 50%;
     border: 2px solid #cbd5e1;
     cursor: pointer;
 }
 
-.hidden {
-    display: none;
+.bottom-tools {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    background: white;
+    border-top: 1px solid #cbd5e1;
+    padding: 10px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
+    box-shadow: 0 -3px 12px rgba(0,0,0,0.12);
+}
+
+.tool-grid {
+    display: grid;
+    grid-template-columns: 70px 1fr 1fr 1fr;
+    gap: 8px;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.tool-grid input[type="color"] {
+    width: 70px;
+    height: 52px;
+    padding: 2px;
+    margin: 0;
+}
+
+.tool-grid button {
+    margin: 0;
+    padding: 14px 8px;
+    font-size: 15px;
+}
+
+.selected-tool {
+    outline: 3px solid #111827;
+}
+
+.small-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.small-actions button {
+    margin: 0;
+    font-size: 14px;
+    padding: 11px;
+}
+
+@media (min-width: 750px) {
+    .settings-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .settings-grid button {
+        grid-column: 1 / -1;
+    }
+
+    .pattern-scroll {
+        max-height: 70vh;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<h1>Bead Pattern Designer</h1>
+<header>
+    <h1>Bead Pattern Designer</h1>
+</header>
 
-<div class="card">
-    <div class="controls">
+<div class="page">
 
-        <label for="patternType">Pattern Type</label>
-        <select id="patternType" onchange="updateControls(); generatePattern();">
-            <option value="diamond">Diamond Earring Top</option>
-            <option value="brick">Brick Stitch Fringe</option>
-            <option value="loom">Loom Rectangle</option>
-        </select>
+    <div class="card">
+        <div class="settings-grid">
+            <div>
+                <label for="patternType">Pattern Type</label>
+                <select id="patternType" onchange="updateControls(); generatePattern();">
+                    <option value="diamond">Diamond Earring Top</option>
+                    <option value="brick">Brick Stitch Fringe</option>
+                    <option value="loom">Loom Rectangle</option>
+                </select>
+            </div>
 
-        <label id="widthLabel" for="widthInput">Widest Point Beads</label>
-        <input id="widthInput" type="number" value="15" min="3" max="51">
+            <div>
+                <label id="widthLabel" for="widthInput">Widest Point Beads</label>
+                <input id="widthInput" type="number" value="15" min="3" max="51">
+            </div>
 
-        <div id="lengthSection" class="hidden">
-            <label id="lengthLabel" for="lengthInput">Length Rows</label>
-            <input id="lengthInput" type="number" value="30" min="1" max="200">
+            <div id="lengthSection" class="hidden">
+                <label id="lengthLabel" for="lengthInput">Length Rows</label>
+                <input id="lengthInput" type="number" value="30" min="1" max="200">
+            </div>
+
+            <button onclick="generatePattern()">Generate Pattern</button>
         </div>
-
-        <button onclick="generatePattern()">Generate Pattern</button>
-
-        <label>Color</label>
-        <div class="color-row">
-            <input id="colorPicker" type="color" value="#000000">
-            <span id="currentToolText">Tool: Paint</span>
-        </div>
-
-        <div class="palette" id="palette"></div>
-
-        <div class="tool-row">
-            <button id="paintBtn" onclick="setTool('paint')" class="selected-tool">Paint</button>
-            <button id="eraseBtn" onclick="setTool('erase')" class="secondary">Erase</button>
-        </div>
-
-        <button class="danger" onclick="clearPattern()">Clear Colors</button>
     </div>
 
-    <div id="patternArea"></div>
+    <div class="card">
+        <label>Palette</label>
+        <div class="palette" id="palette"></div>
+    </div>
+
+    <div class="card pattern-card">
+        <div class="pattern-scroll">
+            <div id="patternArea"></div>
+        </div>
+    </div>
+
+</div>
+
+<div class="bottom-tools">
+    <div class="tool-grid">
+        <input id="colorPicker" type="color" value="#000000">
+        <button id="paintBtn" onclick="setTool('paint')" class="selected-tool">Paint</button>
+        <button id="eraseBtn" onclick="setTool('erase')" class="secondary">Erase</button>
+        <button class="danger" onclick="clearPattern()">Clear</button>
+    </div>
 </div>
 
 <script>
@@ -228,6 +329,11 @@ function makeRow(count, labelText) {
                 colorBead(this);
             }
         });
+
+        bead.addEventListener("touchstart", function (event) {
+            event.preventDefault();
+            colorBead(this);
+        }, { passive: false });
 
         beads.appendChild(bead);
     }
@@ -323,12 +429,10 @@ function setTool(tool) {
 
     if (tool === "paint") {
         document.getElementById("paintBtn").classList.add("selected-tool");
-        document.getElementById("currentToolText").textContent = "Tool: Paint";
     }
 
     if (tool === "erase") {
         document.getElementById("eraseBtn").classList.add("selected-tool");
-        document.getElementById("currentToolText").textContent = "Tool: Erase";
     }
 }
 
