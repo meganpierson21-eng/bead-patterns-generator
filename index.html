@@ -1,1642 +1,572 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bead Pattern Designer Pro</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            overscroll-behavior: none;
-            background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAHgAtoDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAECA//EABwQAQEBAQEBAQEBAAAAAAAAAAABEQISIUExQf/EABgBAQEBAQEAAAAAAAAAAAAAAAABAgME/8QAGBEBAQEBAQAAAAAAAAAAAAAAAAERAgP/2gAMAwEAAhEDEQA/APgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
-        .bead {
-            width: 20px;
-            height: 20px;
-            border: 1px solid #d1d5db; /* gray-300 */
-            cursor: pointer;
-            transition: transform 0.1s;
-            flex-shrink: 0;
-        }
-        .bead-round { border-radius: 50%; }
-        .bead-cylinder { border-radius: 4px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bead Pattern Designer Pro</title>
 
-        .bead:hover {
-            transform: scale(1.1);
-        }
-        .tool-btn.selected {
-            border-color: #3b82f6; /* blue-500 */
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
-        }
-        .color-swatch {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid #e5e7eb;
-            transition: all 0.2s;
-        }
-        .color-swatch:hover {
-            transform: scale(1.1);
-        }
-        .color-swatch.selected {
-             border-color: #3b82f6;
-        }
-        .ruler-mark {
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 24px;
-            color: #6b7280; /* gray-500 */
-            font-size: 12px;
-        }
-        button:disabled, .menu-item.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        input[type="color"] {
-        	-webkit-appearance: none;
-        	border: none;
-        	width: 56px;
-        	height: 56px;
-            cursor: pointer;
-        }
-        input[type="color"]::-webkit-color-swatch-wrapper {
-        	padding: 0;
-        }
-        input[type="color"]::-webkit-color-swatch {
-        	border: 1px solid #d1d5db;
-        	border-radius: 0.5rem; /* rounded-lg */
-        }
-        .menu-item {
-            display: block;
-            width: 100%;
-            padding: 0.5rem 1rem;
-            text-align: left;
-        }
-         .menu-item:hover:not(.disabled) {
-            background-color: #f3f4f6;
-        }
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-        /* Custom scrollbar for better aesthetics */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9; /* slate-100 */
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #94a3b8; /* slate-400 */
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #64748b; /* slate-500 */
-        }
-
-        /* Custom notification message box */
-        #message-box {
-            transition: transform 0.4s ease-in-out;
-        }
-        
-        #zoom-container {
-            overflow: hidden;
-            cursor: grab;
-        }
-        #pattern-wrapper {
-            transition: transform 0.2s ease-out;
-            transform-origin: top left;
-        }
-        
-        .modal-overlay {
-            background-color: rgba(0,0,0,0.5);
-        }
-
-
-        /* Print-specific styles */
-        @media print {
-            body {
-                padding: 0;
-                margin: 0;
-                background-image: none !important;
-            }
-            .no-print {
-                display: none !important;
-            }
-            .print-only {
-                display: block !important;
-            }
-            main, aside, header {
-                display: none !important;
-            }
-            /* Ensure colors are printed */
-            * {
-               -webkit-print-color-adjust: exact !important;
-               print-color-adjust: exact !important;
-            }
-        }
-    </style>
+<style>
+body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#f8fafc,#dbeafe,#fce7f3);min-height:100vh}
+.bead{width:20px;height:20px;border:1px solid #cbd5e1;cursor:pointer;flex-shrink:0}
+.bead:hover{outline:2px solid #60a5fa}
+.round{border-radius:50%}
+.cylinder{border-radius:4px}
+.selected{outline:3px solid #3b82f6}
+.swatch{width:26px;height:26px;border-radius:50%;border:2px solid #e5e7eb;cursor:pointer}
+.row{display:flex;gap:2px;justify-content:center}
+.ruler{width:42px;font-size:10px;color:#64748b;text-align:center;height:22px}
+.no-print{}
+@media print{.no-print{display:none!important}body{background:white}}
+</style>
 </head>
+
 <body class="text-slate-800">
 
-    <!-- Header and Menu Bar -->
-    <header class="bg-white shadow-md p-2 sticky top-0 z-20 no-print">
-        <div class="container mx-auto flex items-center gap-2">
-            <div class="relative" data-menu="file-menu">
-                <button class="menu-button px-3 py-1 rounded-md hover:bg-slate-100">File</button>
-                <div id="file-menu" class="hidden absolute top-full left-0 mt-1 w-48 bg-white rounded-md shadow-lg border border-slate-200 py-1 z-30">
-                    <button id="save-project-btn" class="menu-item">Save Project</button>
-                    <label for="load-project-input" class="menu-item cursor-pointer">Load Project</label>
-                    <input type="file" id="load-project-input" class="hidden" accept=".beadpattern">
-                    <button id="share-btn" class="menu-item">Share</button>
-                    <hr class="my-1">
-                    <button id="save-image-btn" class="menu-item">Export as Image</button>
-                    <button id="save-svg-btn" class="menu-item">Export as SVG</button>
-                    <button id="print-pattern-btn" class="menu-item">Export as PDF</button>
-                </div>
-            </div>
-            <div class="relative" data-menu="edit-menu">
-                <button class="menu-button px-3 py-1 rounded-md hover:bg-slate-100">Edit</button>
-                <div id="edit-menu" class="hidden absolute top-full left-0 mt-1 w-48 bg-white rounded-md shadow-lg border border-slate-200 py-1 z-30">
-                    <button id="undo-btn" class="menu-item">Undo</button>
-                    <hr class="my-1">
-                    <button id="clear-pattern" class="menu-item">Clear Pattern</button>
-                    <button id="trim-btn" class="menu-item">Trim Empty Rows</button>
-                </div>
-            </div>
-             <div class="relative" data-menu="view-menu">
-                <button class="menu-button px-3 py-1 rounded-md hover:bg-slate-100">View</button>
-                <div id="view-menu" class="hidden absolute top-full left-0 mt-1 w-56 bg-white rounded-md shadow-lg border border-slate-200 py-1 z-30">
-                    <button id="bead-count-btn" class="menu-item">Bead Count & Cost</button>
-                    <hr class="my-1">
-                    <button id="craft-chart-btn" class="menu-item">View as Craft Chart</button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <div class="container mx-auto p-4 md:p-8 no-print">
-        <header class="text-center mb-8 bg-white/70 backdrop-blur-sm p-4 rounded-xl">
-            <h1 class="text-3xl md:text-4xl font-bold text-slate-700">Bead Pattern Designer Pro</h1>
-            <p class="text-slate-500 mt-2">Design brick stitch, loom, and fringe patterns with ease.</p>
-        </header>
-
-        <div class="flex flex-col lg:flex-row gap-8">
-
-            <!-- Left Controls Panel -->
-            <aside class="w-full lg:w-1/4 bg-white/70 backdrop-blur-sm p-6 rounded-2xl shadow-lg self-start">
-                <div class="space-y-6">
-                     <!-- Image Mapper -->
-                    <div>
-                        <h2 class="text-lg font-semibold mb-3">Image Reference</h2>
-                        <div class="space-y-2">
-                            <label for="image-uploader" class="block text-sm font-medium text-slate-600">Upload an image to use as a reference.</label>
-                            <input type="file" id="image-uploader" accept="image/*" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"/>
-                            <button id="generate-palette-btn" class="hidden w-full bg-slate-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-slate-600 transition mt-2">Generate Palette</button>
-                        </div>
-                    </div>
-
-                    <!-- Pattern Settings -->
-                    <div>
-                        <h2 class="text-lg font-semibold mb-3">Pattern Settings</h2>
-                        <div class="space-y-4">
-                             <div>
-                                <label for="bead-shape" class="block text-sm font-medium text-slate-600">Bead Shape</label>
-                                <select id="bead-shape" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                    <option value="round" selected>Round (Seed)</option>
-                                    <option value="cylinder">Cylinder (Delica)</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="stitch-type" class="block text-sm font-medium text-slate-600">Stitch Type</label>
-                                <select id="stitch-type" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                    <option value="single-brick" selected>Single Brick</option>
-                                    <option value="double-brick">Double Brick</option>
-                                    <option value="loom">Loom</option>
-                                    <option value="peyote-even">Peyote (Even Count)</option>
-                                    <option value="peyote-odd">Peyote (Odd Count)</option>
-                                </select>
-                            </div>
-                             <div id="loom-shape-container" class="hidden">
-                                <label for="loom-shape" class="block text-sm font-medium text-slate-600">Loom Shape</label>
-                                <select id="loom-shape" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                    <option value="rectangle" selected>Straight (Rectangle)</option>
-                                    <option value="pointed">Pointed Ends</option>
-                                </select>
-                            </div>
-                            <div id="bead-size-container">
-                                <label for="bead-size" class="block text-sm font-medium text-slate-600">Bead Size</label>
-                                <select id="bead-size" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                    <option value="22">15/0 (Tiny)</option>
-                                    <option value="16" selected>11/0 (Standard)</option>
-                                    <option value="12">8/0 (Large)</option>
-                                    <option value="8">6/0 (Extra Large)</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="width-input" id="width-label" class="block text-sm font-medium text-slate-600">Width (beads)</label>
-                                <input type="number" id="width-input" value="11" min="2" max="50" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                            </div>
-                             <div>
-                                <label for="length-unit" class="block text-sm font-medium text-slate-600">Length Unit</label>
-                                <select id="length-unit" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                    <option value="inches" selected>Inches</option>
-                                    <option value="beads">Beads</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="length-input" id="length-label" class="block text-sm font-medium text-slate-600">Length (inches)</label>
-                                <input type="number" id="length-input" value="2" min="0.5" max="50" step="0.1" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                            </div>
-                            <div id="fringe-shape-container">
-                                <label for="fringe-shape" class="block text-sm font-medium text-slate-600">Fringe Shape</label>
-                                <select id="fringe-shape" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                    <option value="rectangle" selected>Rectangle</option>
-                                    <option value="v-shape">V-Shape</option>
-                                    <option value="chevron">Chevron (Inverted V)</option>
-                                </select>
-                            </div>
-                            <button id="apply-settings" class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition">
-                                Apply Settings
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-
-            <!-- Main Work Area -->
-            <main class="w-full lg:w-1/2 flex flex-col gap-2">
-                <div class="w-full bg-white/70 backdrop-blur-sm p-2 rounded-2xl shadow-lg flex items-center justify-center gap-4">
-                    <span class="text-sm font-medium">Zoom:</span>
-                    <button id="zoom-out-btn" class="tool-btn p-1 rounded-md border border-slate-300 hover:bg-slate-100">&minus;</button>
-                    <button id="zoom-reset-btn" class="tool-btn px-2 py-1 text-sm rounded-md border border-slate-300 hover:bg-slate-100">100%</button>
-                    <button id="zoom-in-btn" class="tool-btn p-1 rounded-md border border-slate-300 hover:bg-slate-100">+</button>
-                </div>
-                <div class="flex-grow flex flex-row gap-4">
-                    <div id="zoom-container" class="flex-grow bg-white/70 backdrop-blur-sm p-4 sm:p-6 rounded-2xl shadow-lg">
-                        <div id="pattern-wrapper">
-                            <div id="pattern-container" class="inline-block">
-                                <!-- Pattern will be generated here by JS -->
-                            </div>
-                        </div>
-                    </div>
-                    <div id="image-preview-container" class="hidden">
-                         <img id="image-preview" class="max-w-xs h-auto rounded-lg sticky top-4"/>
-                    </div>
-                </div>
-            </main>
-            
-            <!-- Right Controls Panel -->
-            <aside class="w-full lg:w-1/4 bg-white/70 backdrop-blur-sm p-6 rounded-2xl shadow-lg self-start">
-                <div class="space-y-6">
-                    <!-- Color Tools -->
-                    <div class="rounded-2xl">
-                         <h2 class="text-lg font-semibold mb-3">Creative Tools</h2>
-                         <div class="flex gap-3 mb-4">
-                            <button id="mirror-v-btn" title="Vertical Mirror" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors flex-1">Vertical</button>
-                            <button id="mirror-h-btn" title="Horizontal Mirror" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors flex-1">Horizontal</button>
-                         </div>
-                         <div class="flex items-center gap-2 mb-4">
-                            <button id="text-tool-btn" title="Text Tool" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">T</button>
-                            <input type="text" id="text-tool-input" placeholder="Enter text..." class="hidden flex-grow rounded-md border-slate-300 shadow-sm sm:text-sm">
-                             <div id="text-options" class="hidden items-center gap-2 text-sm">
-                                <select id="font-size-select" class="rounded-md border-slate-300 text-sm">
-                                    <option value="small">Small</option>
-                                    <option value="large">Large</option>
-                                </select>
-                                <label class="flex items-center">
-                                    <input type="checkbox" id="text-vertical-checkbox" class="rounded border-slate-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                    <span class="ml-2">Vertical</span>
-                                </label>
-                            </div>
-                         </div>
-                         <div class="flex items-center gap-2 mb-4">
-                            <button id="shape-tool-btn" title="Shape Tool" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                </svg>
-                            </button>
-                            <select id="shape-select" class="hidden flex-grow rounded-md border-slate-300 shadow-sm sm:text-sm">
-                                <option value="heart">Heart</option>
-                                <option value="star">Star</option>
-                                <option value="diamond">Diamond</option>
-                                <option value="circle">Circle</option>
-                                <option value="lightning">Lightning Bolt</option>
-                                <option value="clover">Clover</option>
-                            </select>
-                         </div>
-                        <div class="flex justify-between items-center mb-3">
-                            <h2 class="text-lg font-semibold">Color Tools</h2>
-                            <div>
-                                 <label for="palette-select" class="text-sm font-medium text-slate-600 sr-only">Color Palette:</label>
-                                 <select id="palette-select" class="rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                     <option value="default" selected>Designer's Default</option>
-                                     <option value="michaels">Michaels</option>
-                                     <option value="toho">Toho</option>
-                                     <option value="miyuki">Miyuki</option>
-                                 </select>
-                            </div>
-                        </div>
-                         <div class="flex items-center gap-2 mb-3">
-                            <label for="bead-finish" class="text-sm font-medium text-slate-600">Finish:</label>
-                            <select id="bead-finish" class="flex-grow rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                <option value="opaque" selected>Opaque</option>
-                                <option value="matte">Matte</option>
-                                <option value="metallic">Metallic</option>
-                                <option value="transparent">Transparent</option>
-                            </select>
-                         </div>
-                        <div class="flex items-center gap-4 flex-wrap">
-                            <input type="color" id="color-picker" value="#000000">
-                            <div class="flex gap-3">
-                                <button id="replace-color-btn" title="Replace Color" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                                </button>
-                                <button id="eyedropper-btn" title="Eyedropper" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.5 3.5L8 13H4v-4L11.5 2z"/><path d="M18 6 22 10"/><path d="M14 16.5 19 21.5"/></svg>
-                                </button>
-                                <button id="eraser-btn" title="Eraser" class="tool-btn p-2 rounded-md border border-slate-300 hover:bg-slate-100 transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0 0 2.828l3.986 3.986a2 2 0 0 0 2.828 0zM2 22l5.5-5.5"/><path d="m15 5 6 6"/></svg>
-                                </button>
-                            </div>
-                        </div>
-                         <div id="color-palette" class="flex gap-2 flex-wrap mt-4">
-                            <!-- Common colors will be injected here -->
-                        </div>
-                    </div>
-                </div>
-            </aside>
-        </div>
-    </div>
-
-    <!-- Modals -->
-    <div id="cost-modal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 flex items-center justify-center no-print">
-        <div class="bg-white rounded-2xl shadow-lg p-6 w-full max-w-2xl max-h-[90vh] flex flex-col">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold">Bead Count & Cost Estimator</h2>
-                <button id="cost-modal-close" class="p-1 rounded-full hover:bg-slate-200">&times;</button>
-            </div>
-            <div id="cost-modal-content" class="overflow-y-auto space-y-2 text-sm"></div>
-            <div class="mt-4 pt-4 border-t flex justify-end items-center">
-                 <div class="text-right">
-                    <span class="font-bold">Estimated Total Cost:</span>
-                    <span id="total-cost" class="font-bold text-lg ml-2">$0.00</span>
-                 </div>
-            </div>
-        </div>
-    </div>
-    
-    <div id="craft-chart-modal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 flex items-center justify-center no-print">
-         <div class="bg-white rounded-2xl shadow-lg p-6 w-full max-w-4xl max-h-[90vh] flex flex-col">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold">Knitting/Crochet Colorwork Chart</h2>
-                <button id="craft-chart-modal-close" class="p-1 rounded-full hover:bg-slate-200">&times;</button>
-            </div>
-            <div id="craft-chart-modal-content" class="overflow-auto flex-grow text-center"></div>
-        </div>
-    </div>
-
-
-    <!-- This section is only for displaying the pattern for printing/saving -->
-    <div id="print-area" class="hidden print-only m-8 bg-white p-4">
-        <h1 class="text-2xl font-bold mb-4">Bead Pattern Designer</h1>
-        <div id="pattern-clone-for-print" class="mb-8"></div>
-        <h2 class="text-xl font-bold mb-2">Color Key & Word Chart</h2>
-        <div id="color-key-for-print"></div>
-        <div id="word-chart-for-print" class="mt-4 text-xs"></div>
-    </div>
-
-    <!-- Message Box for non-blocking notifications -->
-    <div id="message-box" class="hidden fixed top-5 right-5 text-white py-2 px-4 rounded-lg shadow-lg z-50 transform translate-x-full">
-        <span id="message-box-text"></span>
-    </div>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- STATE & CONFIG ---
-            const palettes = {
-                default: [
-                    { name: 'Black', hex: '#000000' }, { name: 'White', hex: '#FFFFFF' }, { name: 'Gray', hex: '#A9A9A9' },
-                    { name: 'Red', hex: '#FF0000' }, { name: 'Orange', hex: '#FFA500' }, { name: 'Yellow', hex: '#FFFF00' },
-                    { name: 'Green', hex: '#008000' }, { name: 'Blue', hex: '#0000FF' }, { name: 'Purple', hex: '#800080' },
-                    { name: 'Pink', hex: '#FFC0CB' }, { name: 'Brown', hex: '#964B00' }, { name: 'Turquoise', hex: '#40E0D0' },
-                    { name: 'Gold', hex: '#FFD700' }, { name: 'Silver', hex: '#C0C0C0' }
-                ],
-                michaels: [
-                    { name: 'Neon Orange', hex: '#ff6700' }, { name: 'Copper Mix', hex: '#B87333' }, { name: 'Opaque Dark Mauve', hex: '#5b3d4e' },
-                    { name: 'Neon Green', hex: '#39ff14' }, { name: 'Pearl Peach AB', hex: '#ffdab9' }, { name: 'Silver Lined Orange', hex: '#f28500' },
-                    { name: 'Candy Shop Mix - Pink', hex: '#ff8cc6' }, { name: 'Candy Shop Mix - Blue', hex: '#8ce0ff' }, { name: 'White', hex: '#FFFFFF' },
-                    { name: 'Black', hex: '#000000' }, { name: 'Red', hex: '#d90429' }, { name: 'Metallic Gold', hex: '#D4AF37' },
-                    { name: 'Pearl', hex: '#eae0c8' }, { name: 'Opaque Turquoise', hex: '#40e0d0' }
-                ],
-                toho: [
-                    { name: 'PF557', hex: '#C5B358' }, { name: 'PF558', hex: '#D4AF37' }, { name: '775', hex: '#2E8B57' },
-                    { name: '779', hex: '#008080' }, { name: '49', hex: '#36454F' }, { name: '45', hex: '#E0B0FF' },
-                    { name: '5', hex: '#4169E1' }, { name: '128', hex: '#FF6347' }, { name: '701', hex: '#F5F5DC' },
-                    { name: '714', hex: '#FFB6C1' }, { name: '21', hex: '#C0C0C0' }, { name: '51', hex: '#FF4500' },
-                    { name: '48F', hex: '#F0E68C' }, { name: '932', hex: '#6A5ACD' }
-                ],
-                miyuki: [
-                    { name: 'DB0010', hex: '#000000' }, { name: 'DB0200', hex: '#FFFFFF' }, { name: 'DB0723', hex: '#C70039' },
-                    { name: 'DB0651', hex: '#FFC300' }, { name: 'DB0791', hex: '#2E86C1' }, { name: 'DB1132', hex: '#AF601A' },
-                    { name: 'DB0031', hex: '#DAA520' }, { name: 'DB158', hex: '#58D68D' }, { name: 'DB0796', hex: '#BB8FCE' },
-                    { name: 'DB2111', hex: '#FAD7A0' }, { name: 'DB0352', hex: '#AAB7B8' }, { name: 'DB0728', hex: '#EC7063' },
-                    { name: 'DB1832', hex: '#F7DC6F' }, { name: 'DB0164', hex: '#76D7C4' }
-                ]
-            };
-            const FONT_SMALL = {
-                'A': [[0,1,0],[1,0,1],[1,1,1],[1,0,1],[1,0,1]], 'B': [[1,1,0],[1,0,1],[1,1,0],[1,0,1],[1,1,0]],
-                'C': [[0,1,1],[1,0,0],[1,0,0],[1,0,0],[0,1,1]], 'D': [[1,1,0],[1,0,1],[1,0,1],[1,0,1],[1,1,0]],
-                'E': [[1,1,1],[1,0,0],[1,1,0],[1,0,0],[1,1,1]], 'F': [[1,1,1],[1,0,0],[1,1,0],[1,0,0],[1,0,0]],
-                'G': [[0,1,1],[1,0,0],[1,0,1],[1,0,1],[0,1,1]], 'H': [[1,0,1],[1,0,1],[1,1,1],[1,0,1],[1,0,1]],
-                'I': [[1,1,1],[0,1,0],[0,1,0],[0,1,0],[1,1,1]], 'J': [[0,0,1],[0,0,1],[0,0,1],[1,0,1],[0,1,0]],
-                'K': [[1,0,1],[1,0,1],[1,1,0],[1,0,1],[1,0,1]], 'L': [[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,1,1]],
-                'M': [[1,0,1,0,1],[1,1,1,1,1],[1,0,1,0,1],[1,0,1,0,1],[1,0,1,0,1]], 'N': [[1,0,0,1],[1,1,0,1],[1,0,1,1],[1,0,0,1],[1,0,0,1]],
-                'O': [[0,1,0],[1,0,1],[1,0,1],[1,0,1],[0,1,0]], 'P': [[1,1,0],[1,0,1],[1,1,0],[1,0,0],[1,0,0]],
-                'Q': [[0,1,0],[1,0,1],[1,0,1],[1,1,1],[0,1,1]], 'R': [[1,1,0],[1,0,1],[1,1,0],[1,0,1],[1,0,1]],
-                'S': [[0,1,1],[1,0,0],[0,1,0],[0,0,1],[1,1,0]], 'T': [[1,1,1],[0,1,0],[0,1,0],[0,1,0],[0,1,0]],
-                'U': [[1,0,1],[1,0,1],[1,0,1],[1,0,1],[1,1,1]], 'V': [[1,0,1],[1,0,1],[1,0,1],[0,1,0],[0,1,0]],
-                'W': [[1,0,1,0,1],[1,0,1,0,1],[1,0,1,0,1],[1,1,1,1,1],[1,0,1,0,1]], 'X': [[1,0,1],[1,0,1],[0,1,0],[1,0,1],[1,0,1]],
-                'Y': [[1,0,1],[1,0,1],[0,1,0],[0,1,0],[0,1,0]], 'Z': [[1,1,1],[0,0,1],[0,1,0],[1,0,0],[1,1,1]],
-                '0': [[0,1,0],[1,0,1],[1,0,1],[1,0,1],[0,1,0]], '1': [[0,1,0],[1,1,0],[0,1,0],[0,1,0],[1,1,1]],
-                '2': [[0,1,0],[1,0,1],[0,0,1],[0,1,0],[1,1,1]], '3': [[1,1,0],[0,0,1],[0,1,0],[0,0,1],[1,1,0]],
-                '4': [[1,0,1],[1,0,1],[1,1,1],[0,0,1],[0,0,1]], '5': [[1,1,1],[1,0,0],[1,1,0],[0,0,1],[1,1,0]],
-                '6': [[0,1,1],[1,0,0],[1,1,0],[1,0,1],[0,1,0]], '7': [[1,1,1],[0,0,1],[0,1,0],[0,1,0],[0,1,0]],
-                '8': [[0,1,0],[1,0,1],[0,1,0],[1,0,1],[0,1,0]], '9': [[0,1,1],[1,0,1],[0,1,1],[0,0,1],[0,0,1]],
-            };
-            const FONT_LARGE = {
-                'A': [[0,0,1,0,0],[0,1,0,1,0],[0,1,0,1,0],[1,1,1,1,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1]],
-                'B': [[1,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[1,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[1,1,1,1,0]],
-                'C': [[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,0],[1,0,0,0,0],[1,0,0,0,1],[0,1,1,1,0],[0,0,0,0,0]],
-                'D': [[1,1,1,0,0],[1,0,0,1,0],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,1,0],[1,1,1,0,0],[0,0,0,0,0]],
-                'E': [[1,1,1,1,1],[1,0,0,0,0],[1,0,0,0,0],[1,1,1,1,0],[1,0,0,0,0],[1,0,0,0,0],[1,1,1,1,1]],
-                'F': [[1,1,1,1,1],[1,0,0,0,0],[1,0,0,0,0],[1,1,1,1,0],[1,0,0,0,0],[1,0,0,0,0],[1,0,0,0,0]],
-                'G': [[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,0],[1,0,1,1,1],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
-                'H': [[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,1,1,1,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1]],
-                'I': [[1,1,1],[0,1,0],[0,1,0],[0,1,0],[0,1,0],[0,1,0],[1,1,1]],
-                'J': [[0,0,1,1,1],[0,0,0,1,0],[0,0,0,1,0],[0,0,0,1,0],[1,0,0,1,0],[1,0,0,1,0],[0,1,1,0,0]],
-                'K': [[1,0,0,0,1],[1,0,0,1,0],[1,0,1,0,0],[1,1,0,0,0],[1,0,1,0,0],[1,0,0,1,0],[1,0,0,0,1]],
-                'L': [[1,0,0,0,0],[1,0,0,0,0],[1,0,0,0,0],[1,0,0,0,0],[1,0,0,0,0],[1,0,0,0,0],[1,1,1,1,1]],
-                'M': [[1,0,0,0,1],[1,1,0,1,1],[1,0,1,0,1],[1,0,1,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1]],
-                'N': [[1,0,0,0,1],[1,1,0,0,1],[1,0,1,0,1],[1,0,0,1,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1]],
-                'O': [[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
-                'P': [[1,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[1,1,1,1,0],[1,0,0,0,0],[1,0,0,0,0],[1,0,0,0,0]],
-                'Q': [[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,1,0,1],[1,0,0,1,0],[0,1,1,0,1]],
-                'R': [[1,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[1,1,1,1,0],[1,0,1,0,0],[1,0,0,1,0],[1,0,0,0,1]],
-                'S': [[0,1,1,1,1],[1,0,0,0,0],[1,0,0,0,0],[0,1,1,1,0],[0,0,0,0,1],[0,0,0,0,1],[1,1,1,1,0]],
-                'T': [[1,1,1,1,1],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0]],
-                'U': [[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
-                'V': [[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[0,1,0,1,0],[0,1,0,1,0],[0,0,1,0,0],[0,0,1,0,0]],
-                'W': [[1,0,0,0,1],[1,0,0,0,1],[1,0,1,0,1],[1,0,1,0,1],[1,1,0,1,1],[1,1,0,1,1],[1,0,0,0,1]],
-                'X': [[1,0,0,0,1],[0,1,0,1,0],[0,0,1,0,0],[0,1,0,1,0],[1,0,0,0,1],[0,0,0,0,0],[0,0,0,0,0]],
-                'Y': [[1,0,0,0,1],[0,1,0,1,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0]],
-                'Z': [[1,1,1,1,1],[0,0,0,1,0],[0,0,1,0,0],[0,1,0,0,0],[1,0,0,0,0],[1,0,0,0,0],[1,1,1,1,1]],
-                '0': [[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
-                '1': [[0,0,1,0,0],[0,1,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,1,1,1,0]],
-                '2': [[0,1,1,1,0],[1,0,0,0,1],[0,0,0,0,1],[0,0,0,1,0],[0,0,1,0,0],[0,1,0,0,0],[1,1,1,1,1]],
-                '3': [[1,1,1,1,0],[0,0,0,0,1],[0,0,0,1,0],[0,0,1,1,0],[0,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
-                '4': [[0,0,0,1,1],[0,0,1,0,1],[0,1,0,0,1],[1,0,0,0,1],[1,1,1,1,1],[0,0,0,0,1],[0,0,0,0,1]],
-                '5': [[1,1,1,1,1],[1,0,0,0,0],[1,1,1,1,0],[0,0,0,0,1],[0,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
-                '6': [[0,0,1,1,0],[0,1,0,0,0],[1,0,0,0,0],[1,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
-                '7': [[1,1,1,1,1],[0,0,0,0,1],[0,0,0,1,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0]],
-                '8': [[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
-                '9': [[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,1],[0,0,0,0,1],[0,0,0,0,1],[0,1,1,1,0]]
-            };
-            const SHAPES = {
-                heart: [[0,1,1,0,1,1,0],[1,1,1,1,1,1,1],[1,1,1,1,1,1,1],[0,1,1,1,1,1,0],[0,0,1,1,1,0,0],[0,0,0,1,0,0,0]],
-                star: [[0,0,1,0,0],[0,1,1,1,0],[1,1,1,1,1],[0,1,1,1,0],[0,1,0,1,0]],
-                diamond: [[0,0,1,0,0],[0,1,1,1,0],[1,1,1,1,1],[0,1,1,1,0],[0,0,1,0,0]],
-                circle: [[0,1,1,1,0],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[0,1,1,1,0]],
-                lightning: [[0,0,1,1,0],[0,1,1,0,0],[1,1,0,0,0],[0,0,1,1,0],[0,0,1,1,0],[0,1,1,0,0],[1,1,0,0,0]],
-                clover: [[0,1,0,1,0],[1,1,1,1,1],[1,1,1,1,1],[0,0,1,0,0],[0,1,1,1,0]]
-            };
-            const whiteRgb = 'rgb(255, 255, 255)';
-            let activeTool = 'paint';
-            let isPainting = false;
-            let history = [];
-            let uploadedImageSrc = null;
-            let customColors = new Set();
-            let zoomState = { scale: 1, panX: 0, panY: 0, isPanning: false, startX: 0, startY: 0 };
-
-            // --- DOM ELEMENTS ---
-            const allElements = {
-                patternContainer: document.getElementById('pattern-container'),
-                colorPicker: document.getElementById('color-picker'),
-                paletteSelect: document.getElementById('palette-select'),
-                paletteContainer: document.getElementById('color-palette'),
-                eraserBtn: document.getElementById('eraser-btn'),
-                eyedropperBtn: document.getElementById('eyedropper-btn'),
-                replaceColorBtn: document.getElementById('replace-color-btn'),
-                mirrorVBtn: document.getElementById('mirror-v-btn'),
-                mirrorHBtn: document.getElementById('mirror-h-btn'),
-                textToolBtn: document.getElementById('text-tool-btn'),
-                textToolInput: document.getElementById('text-tool-input'),
-                textOptions: document.getElementById('text-options'),
-                fontSizeSelect: document.getElementById('font-size-select'),
-                textVerticalCheckbox: document.getElementById('text-vertical-checkbox'),
-                shapeToolBtn: document.getElementById('shape-tool-btn'),
-                shapeSelect: document.getElementById('shape-select'),
-                imageUploader: document.getElementById('image-uploader'),
-                generatePaletteBtn: document.getElementById('generate-palette-btn'),
-                imagePreviewContainer: document.getElementById('image-preview-container'),
-                imagePreview: document.getElementById('image-preview'),
-                beadShapeSelect: document.getElementById('bead-shape'),
-                beadFinishSelect: document.getElementById('bead-finish'),
-                stitchTypeSelect: document.getElementById('stitch-type'),
-                loomShapeContainer: document.getElementById('loom-shape-container'),
-                loomShapeSelect: document.getElementById('loom-shape'),
-                beadSizeContainer: document.getElementById('bead-size-container'),
-                beadSizeSelect: document.getElementById('bead-size'),
-                widthInput: document.getElementById('width-input'),
-                widthLabel: document.getElementById('width-label'),
-                lengthUnitSelect: document.getElementById('length-unit'),
-                lengthInput: document.getElementById('length-input'),
-                lengthLabel: document.getElementById('length-label'),
-                fringeShapeContainer: document.getElementById('fringe-shape-container'),
-                fringeShapeSelect: document.getElementById('fringe-shape'),
-                applySettingsBtn: document.getElementById('apply-settings'),
-                clearBtn: document.getElementById('clear-pattern'),
-                trimBtn: document.getElementById('trim-btn'),
-                beadCountBtn: document.getElementById('bead-count-btn'),
-                craftChartBtn: document.getElementById('craft-chart-btn'),
-                printBtn: document.getElementById('print-pattern-btn'),
-                saveImageBtn: document.getElementById('save-image-btn'),
-                saveSvgBtn: document.getElementById('save-svg-btn'),
-                saveProjectBtn: document.getElementById('save-project-btn'),
-                loadProjectInput: document.getElementById('load-project-input'),
-                shareBtn: document.getElementById('share-btn'),
-                undoBtn: document.getElementById('undo-btn'),
-                printArea: document.getElementById('print-area'),
-                patternCloneForPrint: document.getElementById('pattern-clone-for-print'),
-                colorKeyForPrint: document.getElementById('color-key-for-print'),
-                wordChartForPrint: document.getElementById('word-chart-for-print'),
-                messageBox: document.getElementById('message-box'),
-                messageBoxText: document.getElementById('message-box-text'),
-                zoomContainer: document.getElementById('zoom-container'),
-                patternWrapper: document.getElementById('pattern-wrapper'),
-                zoomInBtn: document.getElementById('zoom-in-btn'),
-                zoomOutBtn: document.getElementById('zoom-out-btn'),
-                zoomResetBtn: document.getElementById('zoom-reset-btn'),
-                costModal: document.getElementById('cost-modal'),
-                costModalClose: document.getElementById('cost-modal-close'),
-                costModalContent: document.getElementById('cost-modal-content'),
-                totalCostEl: document.getElementById('total-cost'),
-                craftChartModal: document.getElementById('craft-chart-modal'),
-                craftChartModalClose: document.getElementById('craft-chart-modal-close'),
-                craftChartModalContent: document.getElementById('craft-chart-modal-content'),
-            };
-
-            // --- FUNCTIONS ---
-
-            function showMessage(message, isError = true) {
-                allElements.messageBox.classList.toggle('bg-red-600', isError);
-                allElements.messageBox.classList.toggle('bg-green-600', !isError);
-                allElements.messageBoxText.textContent = message;
-                
-                allElements.messageBox.classList.remove('hidden', 'translate-x-full');
-                
-                setTimeout(() => {
-                    allElements.messageBox.classList.add('translate-x-full');
-                }, 3000);
-            }
-
-            function populatePalette() {
-                const selectedPalette = allElements.paletteSelect.value;
-                allElements.paletteContainer.innerHTML = '';
-                palettes[selectedPalette].forEach(color => {
-                    const swatch = document.createElement('div');
-                    swatch.className = 'color-swatch';
-                    swatch.style.backgroundColor = color.hex;
-                    swatch.dataset.color = color.hex;
-                    swatch.title = color.name;
-                    allElements.paletteContainer.appendChild(swatch);
-                });
-                customColors.forEach(color => {
-                     if (!Object.values(palettes).flat().some(p => p.hex.toUpperCase() === color.toUpperCase())) {
-                         const swatch = document.createElement('div');
-                         swatch.className = 'color-swatch custom-swatch';
-                         swatch.style.backgroundColor = color;
-                         swatch.dataset.color = color;
-                         swatch.title = 'Custom Color';
-                         allElements.paletteContainer.appendChild(swatch);
-                     }
-                });
-            }
-
-            function addCustomColor(color) {
-                const hexColor = color.toUpperCase();
-                const allColors = new Set([...Object.values(palettes).flat().map(c => c.hex.toUpperCase()), ...customColors]);
-                if (allColors.has(hexColor)) {
-                    return;
-                }
-                customColors.add(hexColor);
-                populatePalette();
-            }
-
-            function setActiveTool(tool) {
-                activeTool = tool;
-                allElements.eraserBtn.classList.toggle('selected', tool === 'eraser');
-                allElements.eyedropperBtn.classList.toggle('selected', tool === 'eyedropper');
-                allElements.replaceColorBtn.classList.toggle('selected', tool === 'replace');
-                allElements.textToolBtn.classList.toggle('selected', tool === 'text');
-                allElements.shapeToolBtn.classList.toggle('selected', tool === 'shape');
-                
-                allElements.textToolInput.classList.toggle('hidden', tool !== 'text');
-                allElements.textOptions.classList.toggle('hidden', tool !== 'text');
-                allElements.textOptions.classList.toggle('flex', tool === 'text');
-
-                allElements.shapeSelect.classList.toggle('hidden', tool !== 'shape');
-                
-                document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
-
-                if (tool === 'paint') {
-                    const currentHex = allElements.colorPicker.value.toUpperCase();
-                    const matchingSwatch = document.querySelector(`.color-swatch[data-color="${currentHex}"]`);
-                    if(matchingSwatch) {
-                        matchingSwatch.classList.add('selected');
-                    }
-                }
-                let newCursor = 'pointer';
-                if (tool === 'eyedropper') newCursor = 'copy';
-                if (tool === 'replace' || tool === 'text' || tool === 'shape') newCursor = 'crosshair';
-                allElements.patternContainer.style.cursor = newCursor;
-                allElements.imagePreview.style.cursor = newCursor;
-            }
-
-            function updateUndoButtonState() {
-                allElements.undoBtn.disabled = history.length === 0;
-            }
-            
-            function getExistingPatternData() {
-                const beadGrid = allElements.patternContainer.querySelector('.bead-grid-container');
-                if (!beadGrid) return [];
-
-                const rows = Array.from(beadGrid.children).filter(child => child.style.display === 'flex' || child.style.height === '10px');
-                return rows.map(row => {
-                    if (row.style.height === '10px') return 'spacer';
-                    const beads = row.querySelectorAll('.bead-slot'); 
-                    return Array.from(beads).map(bead => ({
-                        color: bead.style.backgroundColor,
-                        finish: bead.dataset.finish || 'opaque'
-                    }));
-                });
-            }
-
-            function generatePattern(applyData = null) {
-                const existingData = applyData ? null : getExistingPatternData();
-
-                allElements.patternContainer.innerHTML = '';
-                
-                const stitchType = allElements.stitchTypeSelect.value;
-                const widthInBeads = parseInt(allElements.widthInput.value);
-                const lengthUnit = allElements.lengthUnitSelect.value;
-                const lengthValue = parseFloat(allElements.lengthInput.value);
-                const beadsPerInch = parseInt(allElements.beadSizeSelect.value);
-                const fringeShape = allElements.fringeShapeSelect.value;
-                const loomShape = allElements.loomShapeSelect.value;
-                const isPeyote = stitchType.startsWith('peyote');
-
-                let lengthInBeads;
-                if (lengthUnit === 'inches') {
-                    lengthInBeads = Math.round(lengthValue * beadsPerInch);
-                } else {
-                    lengthInBeads = parseInt(lengthValue);
-                }
-
-                if (isNaN(widthInBeads) || isNaN(lengthInBeads) || widthInBeads < 2 || lengthInBeads < 1) {
-                    allElements.patternContainer.innerHTML = '<p class="text-red-500">Please enter valid numbers. Width must be at least 2.</p>';
-                    return;
-                }
-                
-                if (stitchType === 'peyote-even' && widthInBeads % 2 !== 0) {
-                     showMessage('Even count peyote requires an even width.');
-                     allElements.widthInput.value = widthInBeads + 1;
-                     generatePattern(existingData);
-                     return;
-                }
-                 if (stitchType === 'peyote-odd' && widthInBeads % 2 === 0) {
-                     showMessage('Odd count peyote requires an odd width.');
-                     allElements.widthInput.value = widthInBeads + 1;
-                     generatePattern(existingData);
-                     return;
-                }
-
-
-                const mainFlexContainer = document.createElement('div');
-                mainFlexContainer.style.display = 'flex';
-                mainFlexContainer.style.gap = '8px';
-
-                const rulerContainer = document.createElement('div');
-                rulerContainer.className = 'ruler-container';
-                rulerContainer.style.display = 'flex';
-                rulerContainer.style.flexDirection = 'column';
-
-                const beadGridContainer = document.createElement('div');
-                beadGridContainer.className = 'bead-grid-container';
-                beadGridContainer.style.display = 'flex';
-                beadGridContainer.style.flexDirection = 'column';
-                beadGridContainer.style.alignItems = 'center';
-                
-                if (stitchType === 'single-brick' || stitchType === 'double-brick') {
-                    if (stitchType === 'single-brick') {
-                        for (let numBeads = 2; numBeads <= widthInBeads; numBeads++) {
-                            const row = document.createElement('div');
-                            row.style.display = 'flex';
-                            row.style.gap = '2px';
-                            rulerContainer.appendChild(createRulerMark(''));
-                            for (let j = 0; j < numBeads; j++) { row.appendChild(createBead()); }
-                            beadGridContainer.appendChild(row);
-                        }
-                    } else { // double
-                        for (let numBeads = 2; numBeads <= widthInBeads; numBeads++) {
-                            for(let k=0; k<2; k++) {
-                                const row = document.createElement('div');
-                                row.style.display = 'flex';
-                                row.style.gap = '2px';
-                                rulerContainer.appendChild(createRulerMark(''));
-                                for (let j = 0; j < numBeads; j++) { row.appendChild(createBead()); }
-                                beadGridContainer.appendChild(row);
-                            }
-                        }
-                    }
-                    const spacer = document.createElement('div');
-                    spacer.style.height = '10px';
-                    beadGridContainer.appendChild(spacer);
-                    const rulerSpacer = document.createElement('div');
-                    rulerSpacer.style.height = '10px';
-                    rulerContainer.appendChild(rulerSpacer);
-                }
-
-                for (let i = 0; i < lengthInBeads; i++) {
-                    const row = document.createElement('div');
-                    row.style.display = 'flex';
-                    row.style.gap = '2px';
-                    const label = (i + 1) % 5 === 0 ? (i + 1) : '-';
-                    rulerContainer.appendChild(createRulerMark(label));
-                    
-                    if(isPeyote) {
-                         if (stitchType === 'peyote-odd') {
-                            const beadsThisRow = (i % 2 === 0) ? Math.ceil(widthInBeads / 2) : Math.floor(widthInBeads / 2);
-                            row.style.marginLeft = (i % 2 !== 0) ? '11px' : '0';
-                            for (let j = 0; j < beadsThisRow; j++) { row.appendChild(createBead()); }
-                         } else { // Even count
-                            row.style.marginLeft = (i % 2 !== 0) ? '11px' : '0';
-                            for (let j = 0; j < widthInBeads / 2; j++) { row.appendChild(createBead()); }
-                         }
-
-                    } else if (stitchType === 'loom') {
-                        let numBeadsInRow = widthInBeads;
-                        if (loomShape === 'pointed') {
-                            const minBeads = widthInBeads % 2 === 0 ? 2 : 1;
-                            const taperRows = Math.floor((widthInBeads - minBeads) / 2);
-
-                            if (i < taperRows) { // Top taper
-                                numBeadsInRow = minBeads + (i * 2);
-                            } else if (i >= lengthInBeads - taperRows) { // Bottom taper
-                                const bottomRowIndex = lengthInBeads - 1 - i;
-                                numBeadsInRow = minBeads + (bottomRowIndex * 2);
-                            }
-                            if (numBeadsInRow > widthInBeads) numBeadsInRow = widthInBeads;
-                        }
-                        for (let j = 0; j < numBeadsInRow; j++) { row.appendChild(createBead()); }
-
-                    } else { // Fringe for brick stitch tops
-                        for (let j = 0; j < widthInBeads; j++) {
-                            const bead = createBead();
-                            let isVisible = true;
-                            if (fringeShape !== 'rectangle') {
-                                const centerColumnIndex = Math.floor(widthInBeads / 2);
-                                const distFromCenter = Math.abs(j - centerColumnIndex);
-                                let columnLength = lengthInBeads;
-                                if (fringeShape === 'v-shape') {
-                                    columnLength = lengthInBeads - (centerColumnIndex - distFromCenter);
-                                } else if (fringeShape === 'chevron') {
-                                    columnLength = lengthInBeads - distFromCenter;
-                                }
-                                if (i >= columnLength) isVisible = false;
-                            }
-                            if (!isVisible) {
-                                bead.style.visibility = 'hidden';
-                                bead.classList.remove('bead');
-                            }
-                            row.appendChild(bead);
-                        }
-                    }
-                    beadGridContainer.appendChild(row);
-                }
-                
-                mainFlexContainer.appendChild(rulerContainer);
-                mainFlexContainer.appendChild(beadGridContainer);
-                allElements.patternContainer.appendChild(mainFlexContainer);
-
-                const dataToApply = applyData || existingData;
-                if (dataToApply) {
-                    const newRows = Array.from(beadGridContainer.children).filter(child => child.style.display === 'flex' || child.style.height === '10px');
-                    newRows.forEach((row, rowIndex) => {
-                        if (dataToApply[rowIndex] && dataToApply[rowIndex] !== 'spacer') {
-                            const beads = row.querySelectorAll('.bead-slot');
-                            beads.forEach((bead, beadIndex) => {
-                                if (dataToApply[rowIndex][beadIndex]) {
-                                    const { color, finish } = dataToApply[rowIndex][beadIndex];
-                                    bead.dataset.finish = finish;
-                                    updateBeadAppearance(bead, color);
-                                }
-                            });
-                        }
-                    });
-                }
-            }
-
-            function createBead() {
-                const bead = document.createElement('div');
-                bead.className = `bead bead-slot bg-white bead-${allElements.beadShapeSelect.value}`;
-                bead.dataset.finish = 'opaque';
-                updateBeadAppearance(bead, 'white');
-                return bead;
-            }
-            
-            function updateBeadAppearance(bead, color) {
-                bead.style.background = 'none'; // Clear previous background
-                bead.style.backgroundColor = 'transparent'; // Clear previous background
-                
-                const finish = bead.dataset.finish || 'opaque';
-
-                if (finish === 'metallic') {
-                    bead.style.background = `radial-gradient(circle at 30% 30%, white, ${color})`;
-                } else if (finish === 'transparent') {
-                    const hex = rgbToHex(color);
-                    if (!hex) {
-                        bead.style.backgroundColor = 'white';
-                        bead.style.boxShadow = 'none';
-                        return;
-                    };
-                    const r = parseInt(hex.slice(1, 3), 16);
-                    const g = parseInt(hex.slice(3, 5), 16);
-                    const b = parseInt(hex.slice(5, 7), 16);
-                    bead.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.6)`;
-                    bead.style.boxShadow = 'inset 0 0 2px rgba(0,0,0,0.4)';
-                } else if (finish === 'matte') {
-                    bead.style.backgroundColor = color;
-                    bead.style.boxShadow = 'inset 0 0 3px rgba(0,0,0,0.2)';
-                } else { // Opaque
-                    bead.style.backgroundColor = color;
-                    bead.style.boxShadow = 'none';
-                }
-            }
-
-            function createRulerMark(text) {
-                const mark = document.createElement('div');
-                mark.className = 'ruler-mark';
-                mark.textContent = text;
-                return mark;
-            }
-
-            function handleBeadInteraction(e) {
-                if (!e.target.classList.contains('bead')) return;
-                const bead = e.target;
-                
-                const isMirrorV = allElements.mirrorVBtn.classList.contains('selected');
-                const isMirrorH = allElements.mirrorHBtn.classList.contains('selected');
-                const newColor = activeTool === 'eraser' ? 'white' : allElements.colorPicker.value;
-                const newFinish = activeTool === 'eraser' ? 'opaque' : allElements.beadFinishSelect.value;
-
-                function applyColor(targetBead) {
-                    if (!targetBead || targetBead.style.visibility === 'hidden') return null;
-                    const oldColor = targetBead.style.backgroundColor;
-                    const oldFinish = targetBead.dataset.finish;
-                    
-                    if (oldColor !== newColor || oldFinish !== newFinish) {
-                        targetBead.dataset.finish = newFinish;
-                        updateBeadAppearance(targetBead, newColor);
-                        return {bead: targetBead, oldColor, oldFinish, newColor, newFinish};
-                    }
-                    return null;
-                }
-                
-                 function revertColor(change) {
-                    change.bead.dataset.finish = change.oldFinish;
-                    updateBeadAppearance(change.bead, change.oldColor);
-                }
-
-                if (activeTool === 'eyedropper') {
-                    const pickedColor = bead.style.backgroundColor;
-                    if (pickedColor !== whiteRgb && pickedColor !== 'white') {
-                        allElements.colorPicker.value = rgbToHex(pickedColor);
-                        allElements.beadFinishSelect.value = bead.dataset.finish || 'opaque';
-                        setActiveTool('paint');
-                    }
-                } else if (activeTool === 'replace') {
-                    const colorToReplace = bead.style.backgroundColor;
-                    if (rgbToHex(colorToReplace) === newColor) return;
-
-                    const allBeads = document.querySelectorAll('.bead-slot');
-                    const changes = [];
-                    allBeads.forEach(b => {
-                        if(b.style.backgroundColor === colorToReplace) {
-                            changes.push({bead: b, oldColor: colorToReplace, oldFinish: b.dataset.finish, newColor: newColor, newFinish: newFinish });
-                            b.dataset.finish = newFinish;
-                            updateBeadAppearance(b, newColor);
-                        }
-                    });
-                    if (changes.length > 0) {
-                        history.push({type: 'color', changes});
-                        updateUndoButtonState();
-                    }
-                    setActiveTool('paint');
-
-                } else if (activeTool === 'text') {
-                    stampText(bead);
-                } else if (activeTool === 'shape') {
-                    stampShape(bead);
-                } else { // paint or eraser
-                    const changes = [];
-                    const originalChange = applyColor(bead);
-                    if(originalChange) changes.push(originalChange);
-                    
-                    const row = bead.parentElement;
-                    const allRows = Array.from(row.parentElement.children);
-                    const rowIndex = allRows.indexOf(row);
-                    const beadsInRow = Array.from(row.children);
-                    const beadIndex = beadsInRow.indexOf(bead);
-
-                    if (isMirrorV) {
-                        const mirrorIndex = (beadsInRow.length - 1) - beadIndex;
-                        if (beadIndex !== mirrorIndex) {
-                           const mirrorBead = beadsInRow[mirrorIndex];
-                           const mirrorChange = applyColor(mirrorBead);
-                           if(mirrorChange) changes.push(mirrorChange);
-                        }
-                    }
-                    if (isMirrorH) {
-                        const mirrorRowIndex = (allRows.length - 1) - rowIndex;
-                        if(rowIndex !== mirrorRowIndex) {
-                            const mirrorRow = allRows[mirrorRowIndex];
-                            if(mirrorRow && mirrorRow.children[beadIndex]){
-                                const mirrorBead = mirrorRow.children[beadIndex];
-                                const mirrorChange = applyColor(mirrorBead);
-                                if(mirrorChange) changes.push(mirrorChange);
-                            }
-                        }
-                    }
-                    
-                    if (changes.length > 0) {
-                        history.push({type: 'color', changes});
-                        updateUndoButtonState();
-                    }
-                }
-            }
-            
-            function clearPattern() {
-                const beads = document.querySelectorAll('.bead');
-                const changes = [];
-                beads.forEach(bead => {
-                    if (bead.style.visibility !== 'hidden' && bead.style.backgroundColor !== 'white') {
-                       changes.push({bead: bead, oldColor: bead.style.backgroundColor, oldFinish: bead.dataset.finish, newColor: 'white', newFinish: 'opaque'});
-                    }
-                });
-                if (changes.length > 0) history.push({type: 'color', changes});
-                beads.forEach(bead => { 
-                    bead.dataset.finish = 'opaque';
-                    updateBeadAppearance(bead, 'white');
-                });
-                updateUndoButtonState();
-            }
-
-            function handleUndo() {
-                if (history.length === 0) return;
-                const lastAction = history.pop();
-                
-                if (lastAction.type === 'color') {
-                    lastAction.changes.forEach(change => {
-                        change.bead.dataset.finish = change.oldFinish;
-                        updateBeadAppearance(change.bead, change.oldColor);
-                    });
-                }
-                updateUndoButtonState();
-            }
-            
-            function trimEmptyRows() {
-                const beadGrid = allElements.patternContainer.querySelector('.bead-grid-container');
-                const ruler = allElements.patternContainer.querySelector('.ruler-container');
-                if (!beadGrid || !ruler) return;
-
-                const beadRows = Array.from(beadGrid.children).filter(row => row.style.display === 'flex');
-                const rulerRows = Array.from(ruler.children);
-
-                for (let i = beadRows.length - 1; i >= 0; i--) {
-                    const row = beadRows[i];
-                    const beads = row.querySelectorAll('.bead-slot');
-                    const isRowEmpty = Array.from(beads).every(bead => {
-                        return bead.style.visibility === 'hidden' || bead.style.backgroundColor === 'white' || bead.style.backgroundColor === whiteRgb;
-                    });
-
-                    if (isRowEmpty) {
-                        row.remove();
-                        if (rulerRows[i]) rulerRows[i].remove();
-                    } else {
-                        break;
-                    }
-                }
-            }
-
-            function stampText(startBead) {
-                const text = allElements.textToolInput.value.toUpperCase();
-                if (!text) return;
-
-                const isVertical = allElements.textVerticalCheckbox.checked;
-                const fontSize = allElements.fontSizeSelect.value;
-                const FONT_MAP = fontSize === 'large' ? FONT_LARGE : FONT_SMALL;
-
-                const startRow = startBead.parentElement;
-                const allRows = Array.from(startRow.parentElement.children);
-                const startRowIndex = allRows.indexOf(startRow);
-                const beadsInStartRow = Array.from(startRow.children);
-                const startBeadIndex = beadsInStartRow.indexOf(startBead);
-
-                const changes = [];
-                let currentBeadIndex = startBeadIndex;
-                let currentRowIndex = startRowIndex;
-
-                for (let char of text) {
-                    const fontChar = FONT_MAP[char];
-                    if (fontChar) {
-                        const charWidth = fontChar[0].length;
-                        const charHeight = fontChar.length;
-
-                        for (let r = 0; r < charHeight; r++) {
-                            const row = allRows[currentRowIndex + r];
-                            if (row) {
-                                for (let c = 0; c < charWidth; c++) {
-                                    if (fontChar[r][c] === 1) {
-                                        const bead = row.children[currentBeadIndex + c];
-                                        if (bead) {
-                                            const newColor = allElements.colorPicker.value;
-                                            const newFinish = allElements.beadFinishSelect.value;
-                                            const oldColor = bead.style.backgroundColor;
-                                            const oldFinish = bead.dataset.finish;
-                                            if (oldColor !== newColor || oldFinish !== newFinish) {
-                                               bead.dataset.finish = newFinish;
-                                               updateBeadAppearance(bead, newColor);
-                                               changes.push({bead, oldColor, oldFinish, newColor, newFinish});
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        if(isVertical) {
-                           currentRowIndex += charHeight + 1; // Add 1 for spacing
-                        } else {
-                           currentBeadIndex += charWidth + 1; // Add 1 for spacing
-                        }
-                    }
-                }
-
-                if (changes.length > 0) {
-                    history.push({type: 'color', changes});
-                    updateUndoButtonState();
-                }
-            }
-
-            function stampShape(startBead) {
-                const shapeName = allElements.shapeSelect.value;
-                const shape = SHAPES[shapeName];
-                if (!shape) return;
-
-                const startRow = startBead.parentElement;
-                const allRows = Array.from(startRow.parentElement.children);
-                const startRowIndex = allRows.indexOf(startRow);
-                const beadsInStartRow = Array.from(startRow.children);
-                const startBeadIndex = beadsInStartRow.indexOf(startBead);
-
-                const changes = [];
-
-                for (let r = 0; r < shape.length; r++) {
-                    const row = allRows[startRowIndex + r];
-                    if (row) {
-                        for (let c = 0; c < shape[r].length; c++) {
-                            if (shape[r][c] === 1) {
-                                const bead = row.children[startBeadIndex + c];
-                                if (bead) {
-                                    const newColor = allElements.colorPicker.value;
-                                    const newFinish = allElements.beadFinishSelect.value;
-                                    const oldColor = bead.style.backgroundColor;
-                                    const oldFinish = bead.dataset.finish;
-                                    if (oldColor !== newColor || oldFinish !== newFinish) {
-                                       bead.dataset.finish = newFinish;
-                                       updateBeadAppearance(bead, newColor);
-                                       changes.push({bead, oldColor, oldFinish, newColor, newFinish});
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if (changes.length > 0) {
-                    history.push({type: 'color', changes});
-                    updateUndoButtonState();
-                }
-            }
-
-            function preparePrintArea() {
-                allElements.patternCloneForPrint.innerHTML = allElements.patternContainer.innerHTML;
-                const usedColors = new Map();
-                let colorIndex = 0;
-                
-                document.querySelectorAll('.bead-slot').forEach(bead => {
-                    const color = bead.style.backgroundColor;
-                    if (bead.style.visibility !== 'hidden' && color && color !== 'white' && color !== whiteRgb) {
-                        if (!usedColors.has(color)) {
-                            usedColors.set(color, String.fromCharCode(65 + colorIndex++)); // A, B, C...
-                        }
-                    }
-                });
-
-                let paletteHTML = '';
-                usedColors.forEach((symbol, color) => {
-                    paletteHTML += `<div style="display: flex; align-items: center; margin-bottom: 4px;">
-                                        <div style="width: 24px; height: 24px; border-radius: 50%; background-color: ${color}; border: 1px solid #ccc; margin-right: 8px;"></div>
-                                        <span>(${symbol}) ${rgbToHex(color).toUpperCase()}</span>
-                                    </div>`;
-                });
-                if (paletteHTML === '') paletteHTML = '<p>No custom colors used.</p>';
-                allElements.colorKeyForPrint.innerHTML = paletteHTML;
-
-                // Generate Word Chart
-                let wordChartHTML = '<h3>Word Chart</h3>';
-                const rows = allElements.patternCloneForPrint.querySelectorAll('.bead-grid-container > div[style*="display: flex"]');
-                let rowCounter = 1;
-                rows.forEach(row => {
-                    if (row.children.length === 0) return; // Skip spacers
-                    let rowText = `<b>Row ${rowCounter}:</b> `;
-                    let currentSymbol = null;
-                    let count = 0;
-                    const beads = row.querySelectorAll('.bead-slot');
-                    beads.forEach((bead, index) => {
-                         const color = bead.style.backgroundColor;
-                         const symbol = usedColors.get(color) || '-'; // '-' for empty
-                         if (symbol !== currentSymbol) {
-                            if (count > 0 && currentSymbol !== '-') {
-                                rowText += `(${currentSymbol})x${count}, `;
-                            }
-                            currentSymbol = symbol;
-                            count = 1;
-                         } else {
-                            count++;
-                         }
-                    });
-                    if (count > 0 && currentSymbol !== '-') {
-                        rowText += `(${currentSymbol})x${count}`;
-                    }
-                    wordChartHTML += `<p>${rowText.replace(/, $/,'')}</p>`;
-                    rowCounter++;
-                });
-                allElements.wordChartForPrint.innerHTML = wordChartHTML;
-            }
-
-            function printPattern() {
-                preparePrintArea();
-                window.print();
-            }
-
-            function getFormattedTimestamp() {
-                const d = new Date();
-                const year = d.getFullYear();
-                const month = (d.getMonth() + 1).toString().padStart(2, '0');
-                const day = d.getDate().toString().padStart(2, '0');
-                const hour = d.getHours().toString().padStart(2, '0');
-                const minute = d.getMinutes().toString().padStart(2, '0');
-                return `${year}${month}${day}_${hour}${minute}`;
-            }
-
-            async function saveAsImage() {
-                preparePrintArea();
-                allElements.saveImageBtn.textContent = 'Saving...';
-                allElements.saveImageBtn.disabled = true;
-
-                allElements.printArea.classList.remove('hidden');
-                allElements.printArea.style.position = 'absolute';
-                allElements.printArea.style.left = '-9999px';
-                
-                try {
-                    await new Promise(resolve => setTimeout(resolve, 100));
-
-                    const canvas = await html2canvas(allElements.printArea, {
-                        useCORS: true, 
-                        backgroundColor: '#ffffff',
-                        logging: false
-                    });
-                    
-                    const link = document.createElement('a');
-                    const timestamp = getFormattedTimestamp();
-                    link.download = `bead-pattern_${timestamp}.png`;
-                    link.href = canvas.toDataURL('image/png');
-                    link.click();
-                } catch (error) {
-                    console.error('Error saving image:', error);
-                    showMessage('Sorry, could not save the image.');
-                } finally {
-                    allElements.printArea.classList.add('hidden');
-                    allElements.printArea.style.position = '';
-                    allElements.printArea.style.left = '';
-                    allElements.saveImageBtn.textContent = 'Export as Image';
-                    allElements.saveImageBtn.disabled = false;
-                }
-            }
-            
-            function saveAsSVG() {
-                const beadGrid = allElements.patternContainer.querySelector('.bead-grid-container');
-                if (!beadGrid) return;
-                
-                const beadSize = 20;
-                const beadGap = 2;
-                let svgContent = '';
-                let yOffset = 0;
-                let maxWidth = 0;
-                
-                const rows = beadGrid.querySelectorAll('div[style*="display: flex"]');
-                rows.forEach(row => {
-                    const beads = row.querySelectorAll('.bead-slot');
-                    let xOffset = parseFloat(row.style.marginLeft) || 0;
-                    beads.forEach(bead => {
-                        if (bead.style.visibility !== 'hidden') {
-                             const color = bead.style.backgroundColor;
-                             if (color && color !== 'white' && color !== whiteRgb && color !== 'transparent') {
-                                const shape = allElements.beadShapeSelect.value;
-                                if (shape === 'round') {
-                                    svgContent += `<circle cx="${xOffset + beadSize / 2}" cy="${yOffset + beadSize / 2}" r="${beadSize / 2 - 1}" fill="${rgbToHex(color)}" stroke="#d1d5db" stroke-width="1" />\n`;
-                                } else {
-                                    svgContent += `<rect x="${xOffset + 1}" y="${yOffset + 1}" width="${beadSize - 2}" height="${beadSize - 2}" rx="4" ry="4" fill="${rgbToHex(color)}" stroke="#d1d5db" stroke-width="1" />\n`;
-                                }
-                             }
-                        }
-                        xOffset += beadSize + beadGap;
-                    });
-                    if (xOffset > maxWidth) maxWidth = xOffset;
-                    yOffset += beadSize + beadGap;
-                });
-                
-                const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${maxWidth}" height="${yOffset}">${svgContent}</svg>`;
-                const dataBlob = new Blob([svg], {type: 'image/svg+xml'});
-                const url = URL.createObjectURL(dataBlob);
-                const link = document.createElement('a');
-                link.download = `bead-pattern_${getFormattedTimestamp()}.svg`;
-                link.href = url;
-                link.click();
-                URL.revokeObjectURL(url);
-            }
-
-            function handleStitchTypeChange() {
-                const stitchType = allElements.stitchTypeSelect.value;
-                const isLoom = stitchType === 'loom';
-                const isBrick = stitchType.includes('brick');
-                
-                allElements.loomShapeContainer.classList.toggle('hidden', !isLoom);
-                allElements.fringeShapeContainer.classList.toggle('hidden', !isBrick);
-                allElements.widthLabel.textContent = isBrick ? 'Top Width (beads)' : 'Width (beads)';
-            }
-
-            function handleLengthUnitChange() {
-                const unit = allElements.lengthUnitSelect.value;
-                allElements.beadSizeContainer.classList.toggle('hidden', unit === 'beads');
-                if (unit === 'inches') {
-                    allElements.lengthLabel.textContent = 'Length (inches)';
-                    allElements.lengthInput.step = '0.1';
-                    allElements.lengthInput.value = '2';
-                } else { // beads
-                    allElements.lengthLabel.textContent = 'Length (beads)';
-                    allElements.lengthInput.step = '1';
-                    allElements.lengthInput.value = '30';
-                }
-            }
-            
-            function rgbToHex(rgb) {
-                if (!rgb || !rgb.startsWith('rgb')) return rgb;
-                let match = rgb.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
-                if (!match) return rgb;
-                let [, r, g, b] = match.map(Number);
-                return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
-            }
-
-            function sampleColorFromImage(e) {
-                const img = allElements.imagePreview;
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                
-                canvas.width = img.width;
-                canvas.height = img.height;
-                ctx.drawImage(img, 0, 0, img.width, img.height);
-                
-                const rect = img.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                const pixel = ctx.getImageData(x, y, 1, 1).data;
-                const color = `rgb(${pixel[0]}, ${pixel[1]}, ${pixel[2]})`;
-                
-                allElements.colorPicker.value = rgbToHex(color);
-                addCustomColor(allElements.colorPicker.value);
-                setActiveTool('paint');
-            }
-            
-            function generatePaletteFromImage() {
-                if (!uploadedImageSrc) return;
-                const img = new Image();
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d');
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    ctx.drawImage(img, 0, 0);
-                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    const data = imageData.data;
-                    const colorCounts = {};
-                    
-                    // Simple color bucketing to quantize colors
-                    for (let i = 0; i < data.length; i += 4) {
-                        const r = Math.round(data[i] / 32) * 32;
-                        const g = Math.round(data[i + 1] / 32) * 32;
-                        const b = Math.round(data[i + 2] / 32) * 32;
-                        const key = `${r},${g},${b}`;
-                        colorCounts[key] = (colorCounts[key] || 0) + 1;
-                    }
-                    
-                    const sortedColors = Object.keys(colorCounts).sort((a, b) => colorCounts[b] - colorCounts[a]);
-                    const topColors = sortedColors.slice(0, 10); // Get top 10 colors
-                    
-                    topColors.forEach(key => {
-                        const [r, g, b] = key.split(',');
-                        addCustomColor(rgbToHex(`rgb(${r}, ${g}, ${b})`));
-                    });
-                    showMessage('Palette generated from image!', false);
-                };
-                img.src = uploadedImageSrc;
-            }
-
-            function getProjectData() {
-                 return {
-                    settings: {
-                        stitchType: allElements.stitchTypeSelect.value,
-                        loomShape: allElements.loomShapeSelect.value,
-                        beadSize: allElements.beadSizeSelect.value,
-                        width: allElements.widthInput.value,
-                        lengthUnit: allElements.lengthUnitSelect.value,
-                        length: allElements.lengthInput.value,
-                        fringeShape: allElements.fringeShapeSelect.value,
-                        beadShape: allElements.beadShapeSelect.value,
-                    },
-                    beadColors: getExistingPatternData(),
-                    customColors: Array.from(customColors)
-                };
-            }
-
-            function saveProject() {
-                const projectData = getProjectData();
-                const dataStr = JSON.stringify(projectData);
-                const dataBlob = new Blob([dataStr], {type: 'application/json'});
-                const url = URL.createObjectURL(dataBlob);
-                const link = document.createElement('a');
-                link.download = `my-pattern_${getFormattedTimestamp()}.beadpattern`;
-                link.href = url;
-                link.click();
-                URL.revokeObjectURL(url);
-            }
-
-            function loadProject(projectData) {
-                try {
-                    // Restore settings
-                    allElements.stitchTypeSelect.value = projectData.settings.stitchType;
-                    allElements.loomShapeSelect.value = projectData.settings.loomShape;
-                    allElements.beadSizeSelect.value = projectData.settings.beadSize;
-                    allElements.widthInput.value = projectData.settings.width;
-                    allElements.lengthUnitSelect.value = projectData.settings.lengthUnit;
-                    allElements.lengthInput.value = projectData.settings.length;
-                    allElements.fringeShapeSelect.value = projectData.settings.fringeShape;
-                    allElements.beadShapeSelect.value = projectData.settings.beadShape || 'round';
-
-                    // Restore custom colors
-                    customColors = new Set(projectData.customColors || []);
-                    populatePalette();
-
-                    // Update UI based on restored settings
-                    handleStitchTypeChange();
-                    handleLengthUnitChange();
-
-                    // Generate the grid and apply colors
-                    generatePattern(projectData.beadColors);
-                    history = [];
-                    updateUndoButtonState();
-
-                } catch (err) {
-                    showMessage('Could not load file. It might be invalid.');
-                    console.error("Error loading project:", err);
-                }
-            }
-
-            function shareProject() {
-                const projectData = getProjectData();
-                const dataStr = JSON.stringify(projectData);
-                const base64Str = btoa(dataStr);
-                const url = new URL(window.location.href);
-                url.hash = base64Str;
-                
-                try {
-                    const tempInput = document.createElement('textarea');
-                    tempInput.value = url.toString();
-                    document.body.appendChild(tempInput);
-                    tempInput.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(tempInput);
-                    showMessage('Share link copied to clipboard!', false);
-                } catch (err) {
-                     showMessage('Could not copy link to clipboard.');
-                     console.error('Clipboard error:', err);
-                }
-            }
-
-            function loadFromURL() {
-                if (window.location.hash) {
-                    try {
-                        const base64Str = window.location.hash.substring(1);
-                        const dataStr = atob(base64Str);
-                        const projectData = JSON.parse(dataStr);
-                        loadProject(projectData);
-                    } catch (e) {
-                        console.error("Could not load project from URL hash:", e);
-                        generatePattern();
-                    }
-                } else {
-                     generatePattern();
-                }
-            }
-            
-            function updateZoom() {
-                allElements.patternWrapper.style.transform = `scale(${zoomState.scale}) translate(${zoomState.panX}px, ${zoomState.panY}px)`;
-            }
-
-            // --- EVENT LISTENERS ---
-            allElements.applySettingsBtn.addEventListener('click', () => generatePattern());
-            allElements.clearBtn.addEventListener('click', clearPattern);
-            allElements.undoBtn.addEventListener('click', handleUndo);
-            allElements.trimBtn.addEventListener('click', trimEmptyRows);
-            allElements.beadCountBtn.addEventListener('click', () => allElements.costModal.classList.remove('hidden'));
-            allElements.craftChartBtn.addEventListener('click', () => allElements.craftChartModal.classList.remove('hidden'));
-            
-            allElements.costModalClose.addEventListener('click', () => allElements.costModal.classList.add('hidden'));
-            allElements.craftChartModalClose.addEventListener('click', () => allElements.craftChartModal.classList.add('hidden'));
-
-            allElements.printBtn.addEventListener('click', printPattern);
-            allElements.saveImageBtn.addEventListener('click', saveAsImage);
-            allElements.saveSvgBtn.addEventListener('click', saveAsSVG);
-            allElements.saveProjectBtn.addEventListener('click', saveProject);
-            allElements.shareBtn.addEventListener('click', shareProject);
-            allElements.loadProjectInput.addEventListener('change', (e) => {
-                 const file = e.target.files[0];
-                 if (!file) return;
-                 const reader = new FileReader();
-                 reader.onload = (event) => loadProject(JSON.parse(event.target.result));
-                 reader.readAsText(file);
-                 e.target.value = null;
-            });
-            allElements.stitchTypeSelect.addEventListener('change', handleStitchTypeChange);
-            allElements.lengthUnitSelect.addEventListener('change', handleLengthUnitChange);
-            allElements.paletteSelect.addEventListener('change', populatePalette);
-            allElements.beadShapeSelect.addEventListener('change', () => {
-                document.querySelectorAll('.bead').forEach(b => {
-                    b.classList.remove('bead-round', 'bead-cylinder');
-                    b.classList.add(`bead-${allElements.beadShapeSelect.value}`);
-                });
-            });
-
-            allElements.imageUploader.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (event) => {
-                        uploadedImageSrc = event.target.result;
-                        allElements.imagePreview.src = uploadedImageSrc;
-                        allElements.imagePreviewContainer.classList.remove('hidden');
-                        allElements.generatePaletteBtn.classList.remove('hidden');
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-            
-            allElements.generatePaletteBtn.addEventListener('click', generatePaletteFromImage);
-            
-            allElements.imagePreview.addEventListener('click', (e) => {
-                if (activeTool === 'eyedropper') {
-                    sampleColorFromImage(e);
-                }
-            });
-
-            allElements.colorPicker.addEventListener('change', (e) => {
-                setActiveTool('paint');
-                addCustomColor(e.target.value);
-            });
-            allElements.eraserBtn.addEventListener('click', () => setActiveTool('eraser'));
-            allElements.eyedropperBtn.addEventListener('click', () => setActiveTool('eyedropper'));
-            allElements.replaceColorBtn.addEventListener('click', () => setActiveTool('replace'));
-            allElements.textToolBtn.addEventListener('click', () => setActiveTool(activeTool === 'text' ? 'paint' : 'text'));
-            allElements.shapeToolBtn.addEventListener('click', () => setActiveTool(activeTool === 'shape' ? 'paint' : 'shape'));
-            allElements.mirrorVBtn.addEventListener('click', (e) => e.currentTarget.classList.toggle('selected'));
-            allElements.mirrorHBtn.addEventListener('click', (e) => e.currentTarget.classList.toggle('selected'));
-
-            allElements.paletteContainer.addEventListener('click', (e) => {
-                if(e.target.classList.contains('color-swatch')) {
-                    allElements.colorPicker.value = e.target.dataset.color;
-                    setActiveTool('paint');
-                }
-            });
-
-            allElements.patternContainer.addEventListener('mousedown', e => {
-                isPainting = true;
-                handleBeadInteraction(e);
-            });
-            allElements.patternContainer.addEventListener('mouseover', e => {
-                if (isPainting && activeTool !== 'eyedropper' && activeTool !== 'replace' && activeTool !== 'text' && activeTool !== 'shape') {
-                    handleBeadInteraction(e);
-                }
-            });
-            document.addEventListener('mouseup', () => { isPainting = false; });
-            allElements.patternContainer.addEventListener('dragstart', e => e.preventDefault());
-
-            document.querySelectorAll('[data-menu]').forEach(menuContainer => {
-                const button = menuContainer.querySelector('.menu-button');
-                const menu = menuContainer.querySelector('div');
-
-                button.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const isCurrentlyHidden = menu.classList.contains('hidden');
-                    
-                    document.querySelectorAll('[data-menu] > div').forEach(m => m.classList.add('hidden'));
-
-                    if (isCurrentlyHidden) {
-                        menu.classList.remove('hidden');
-                    }
-                });
-            });
-
-            document.addEventListener('click', () => {
-                 document.querySelectorAll('[data-menu] > div').forEach(m => m.classList.add('hidden'));
-            });
-
-            // Zoom and Pan Listeners
-            allElements.zoomInBtn.addEventListener('click', () => {
-                zoomState.scale = Math.min(3, zoomState.scale + 0.2);
-                updateZoom();
-            });
-            allElements.zoomOutBtn.addEventListener('click', () => {
-                zoomState.scale = Math.max(0.2, zoomState.scale - 0.2);
-                updateZoom();
-            });
-            allElements.zoomResetBtn.addEventListener('click', () => {
-                zoomState.scale = 1;
-                zoomState.panX = 0;
-                zoomState.panY = 0;
-                updateZoom();
-            });
-            allElements.zoomContainer.addEventListener('mousedown', (e) => {
-                if (e.target.closest('.bead')) return;
-                zoomState.isPanning = true;
-                allElements.zoomContainer.style.cursor = 'grabbing';
-                zoomState.startX = e.clientX / zoomState.scale - zoomState.panX;
-                zoomState.startY = e.clientY / zoomState.scale - zoomState.panY;
-            });
-            allElements.zoomContainer.addEventListener('mousemove', (e) => {
-                if (!zoomState.isPanning) return;
-                e.preventDefault();
-                zoomState.panX = e.clientX / zoomState.scale - zoomState.startX;
-                zoomState.panY = e.clientY / zoomState.scale - zoomState.startY;
-                updateZoom();
-            });
-            allElements.zoomContainer.addEventListener('mouseup', () => {
-                zoomState.isPanning = false;
-                allElements.zoomContainer.style.cursor = 'grab';
-            });
-            allElements.zoomContainer.addEventListener('mouseleave', () => {
-                zoomState.isPanning = false;
-                allElements.zoomContainer.style.cursor = 'grab';
-            });
-
-
-            // --- INITIALIZATION ---
-            populatePalette();
-            loadFromURL();
-            handleStitchTypeChange();
-            handleLengthUnitChange();
-            setActiveTool('paint');
-        });
-    </script>
+<header class="no-print bg-white shadow p-3 sticky top-0 z-20">
+  <div class="max-w-7xl mx-auto flex gap-2">
+    <button id="saveProject" class="px-3 py-1 rounded hover:bg-slate-100">Save Project</button>
+    <label class="px-3 py-1 rounded hover:bg-slate-100 cursor-pointer">
+      Load Project
+      <input id="loadProject" type="file" accept=".beadpattern,.json" hidden>
+    </label>
+    <button id="exportImage" class="px-3 py-1 rounded hover:bg-slate-100">Export Image</button>
+    <button id="exportPDF" class="px-3 py-1 rounded hover:bg-slate-100">Export PDF</button>
+    <button id="clearBtn" class="px-3 py-1 rounded hover:bg-slate-100">Clear</button>
+  </div>
+</header>
+
+<div class="no-print max-w-7xl mx-auto p-4">
+  <div class="text-center bg-white/80 rounded-xl shadow p-4 mb-6">
+    <h1 class="text-3xl font-bold">Bead Pattern Designer Pro</h1>
+    <p class="text-slate-500">Diamond earring tops, brick fringe, loom, and simple bead graphing.</p>
+  </div>
+
+  <div class="grid lg:grid-cols-4 gap-6">
+
+    <aside class="bg-white/80 rounded-xl shadow p-4 space-y-4">
+      <h2 class="font-bold text-lg">Pattern Settings</h2>
+
+      <div>
+        <label class="text-sm font-semibold">Pattern Type</label>
+        <select id="patternType" class="w-full border rounded p-2">
+          <option value="diamond" selected>Diamond Earring Top</option>
+          <option value="brick">Brick + Fringe</option>
+          <option value="loom">Loom</option>
+        </select>
+      </div>
+
+      <div>
+        <label id="widthLabel" class="text-sm font-semibold">Widest Point Beads</label>
+        <input id="widthInput" type="number" value="15" min="3" max="51" class="w-full border rounded p-2">
+      </div>
+
+      <div id="lengthWrap">
+        <label class="text-sm font-semibold">Length / Fringe Rows</label>
+        <input id="lengthInput" type="number" value="30" min="1" max="200" class="w-full border rounded p-2">
+      </div>
+
+      <div id="fringeWrap">
+        <label class="text-sm font-semibold">Number of Fringes</label>
+        <input id="fringeInput" type="number" value="17" min="1" max="99" class="w-full border rounded p-2">
+      </div>
+
+      <div>
+        <label class="text-sm font-semibold">Bead Shape</label>
+        <select id="beadShape" class="w-full border rounded p-2">
+          <option value="round" selected>Round Seed Bead</option>
+          <option value="cylinder">Cylinder / Delica</option>
+        </select>
+      </div>
+
+      <button id="applyBtn" class="w-full bg-indigo-600 text-white rounded p-2 font-semibold">Apply Settings</button>
+
+      <div class="text-xs text-slate-500">
+        Diamond top creates 3 loop rows of 2 beads, then increases to the widest point, then decreases to 1 bead.
+      </div>
+    </aside>
+
+    <main class="lg:col-span-2 bg-white/80 rounded-xl shadow p-4 overflow-auto">
+      <div class="flex items-center gap-2 mb-3">
+        <button id="zoomOut" class="border rounded px-2">−</button>
+        <button id="zoomReset" class="border rounded px-2">100%</button>
+        <button id="zoomIn" class="border rounded px-2">+</button>
+      </div>
+
+      <div id="canvasWrap" class="overflow-auto min-h-[550px]">
+        <div id="patternArea" class="inline-block"></div>
+      </div>
+    </main>
+
+    <aside class="bg-white/80 rounded-xl shadow p-4 space-y-4">
+      <h2 class="font-bold text-lg">Color Tools</h2>
+
+      <input id="colorPicker" type="color" value="#000000" class="w-16 h-16">
+
+      <div class="flex gap-2 flex-wrap" id="palette"></div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <button id="paintTool" class="border rounded p-2 selected">Paint</button>
+        <button id="eraseTool" class="border rounded p-2">Erase</button>
+        <button id="pickTool" class="border rounded p-2">Pick</button>
+        <button id="replaceTool" class="border rounded p-2">Replace</button>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <button id="mirrorV" class="border rounded p-2">Mirror V</button>
+        <button id="mirrorH" class="border rounded p-2">Mirror H</button>
+      </div>
+
+      <button id="countBtn" class="w-full border rounded p-2">Bead Count</button>
+      <div id="countBox" class="text-sm space-y-1"></div>
+
+      <hr>
+
+      <h2 class="font-bold text-lg">Image Reference</h2>
+      <input id="imageInput" type="file" accept="image/*" class="text-sm">
+      <img id="imagePreview" class="hidden rounded shadow max-w-full">
+      <button id="paletteFromImage" class="hidden w-full bg-slate-600 text-white rounded p-2">Generate Palette</button>
+    </aside>
+  </div>
+</div>
+
+<div id="printArea" class="hidden bg-white p-6">
+  <h1 style="font-size:24px;font-weight:bold;margin-bottom:16px;">Bead Pattern</h1>
+  <div id="printPattern"></div>
+  <h2 style="font-size:18px;font-weight:bold;margin-top:20px;">Color Key</h2>
+  <div id="printKey"></div>
+  <h2 style="font-size:18px;font-weight:bold;margin-top:20px;">Word Chart</h2>
+  <div id="wordChart" style="font-size:12px;"></div>
+</div>
+
+<script>
+let activeTool="paint";
+let isDown=false;
+let zoom=1;
+let uploadedImage=null;
+
+const colors=[
+"#000000","#FFFFFF","#FF0000","#FFA500","#FFFF00","#008000","#0000FF",
+"#800080","#FFC0CB","#964B00","#40E0D0","#FFD700","#C0C0C0","#A9A9A9"
+];
+
+const $=id=>document.getElementById(id);
+
+function hexFromRgb(rgb){
+  if(!rgb)return "#FFFFFF";
+  if(rgb.startsWith("#"))return rgb.toUpperCase();
+  const m=rgb.match(/\d+/g);
+  if(!m)return "#FFFFFF";
+  return "#"+m.slice(0,3).map(x=>(+x).toString(16).padStart(2,"0")).join("").toUpperCase();
+}
+
+function setTool(tool){
+  activeTool=tool;
+  ["paintTool","eraseTool","pickTool","replaceTool"].forEach(id=>$(id).classList.remove("selected"));
+  if(tool==="paint")$("paintTool").classList.add("selected");
+  if(tool==="erase")$("eraseTool").classList.add("selected");
+  if(tool==="pick")$("pickTool").classList.add("selected");
+  if(tool==="replace")$("replaceTool").classList.add("selected");
+}
+
+function makeBead(){
+  const b=document.createElement("div");
+  b.className="bead "+($("beadShape").value==="round"?"round":"cylinder");
+  b.dataset.color="#FFFFFF";
+  b.style.backgroundColor="#FFFFFF";
+  return b;
+}
+
+function makeRow(count,label=""){
+  const wrap=document.createElement("div");
+  wrap.style.display="flex";
+  wrap.style.alignItems="center";
+  wrap.style.marginBottom="2px";
+
+  const ruler=document.createElement("div");
+  ruler.className="ruler";
+  ruler.textContent=label;
+  wrap.appendChild(ruler);
+
+  const row=document.createElement("div");
+  row.className="row beadRow";
+
+  for(let i=0;i<count;i++)row.appendChild(makeBead());
+
+  wrap.appendChild(row);
+  return wrap;
+}
+
+function makeAnchorRow(fringeCount){
+  const wrap=document.createElement("div");
+  wrap.style.display="flex";
+  wrap.style.alignItems="center";
+  wrap.style.marginTop="10px";
+
+  const ruler=document.createElement("div");
+  ruler.className="ruler";
+  ruler.textContent="fringe";
+  wrap.appendChild(ruler);
+
+  const row=document.createElement("div");
+  row.className="row";
+
+  const center=Math.ceil(fringeCount/2);
+
+  for(let i=1;i<=fringeCount;i++){
+    const a=document.createElement("div");
+    a.className="bead round";
+    a.style.background="#f8fafc";
+    a.style.border="1px dashed #94a3b8";
+    a.style.fontSize="9px";
+    a.style.display="flex";
+    a.style.alignItems="center";
+    a.style.justifyContent="center";
+    a.dataset.anchor="true";
+    a.textContent=i===center?"C":(i===1||i===fringeCount?"S":i);
+    a.title=i===center?"Center fringe starts at final single bead":"Side pieces start at final increase/widest row";
+    row.appendChild(a);
+  }
+
+  wrap.appendChild(row);
+  return wrap;
+}
+
+function generatePattern(){
+  const area=$("patternArea");
+  area.innerHTML="";
+
+  let type=$("patternType").value;
+  let width=parseInt($("widthInput").value)||15;
+  let length=parseInt($("lengthInput").value)||30;
+  let fringeCount=parseInt($("fringeInput").value)||17;
+
+  if(type==="diamond"){
+    if(width%2===0)width++;
+    $("widthInput").value=width;
+
+    area.appendChild(makeRow(2,"loop"));
+    area.appendChild(makeRow(2,"loop"));
+    area.appendChild(makeRow(2,"loop"));
+
+    for(let i=1;i<=width;i++){
+      area.appendChild(makeRow(i,i===width?"side start":""));
+    }
+
+    for(let i=width-1;i>=1;i--){
+      area.appendChild(makeRow(i,i===1?"center start":""));
+    }
+
+    area.appendChild(makeAnchorRow(fringeCount));
+
+    const note=document.createElement("div");
+    note.className="text-xs text-slate-500 mt-2 text-center";
+    note.innerHTML="<b>C</b> = middle fringe starts at final single bead. <b>S</b> = side pieces start at final increase / widest row.";
+    area.appendChild(note);
+  }
+
+  if(type==="brick"){
+    for(let i=2;i<=width;i++)area.appendChild(makeRow(i,"top"));
+    for(let i=1;i<=length;i++)area.appendChild(makeRow(width,i%5===0?i:"-"));
+  }
+
+  if(type==="loom"){
+    for(let i=1;i<=length;i++)area.appendChild(makeRow(width,i%5===0?i:"-"));
+  }
+}
+
+function applyBead(bead,color){
+  bead.dataset.color=color;
+  bead.style.backgroundColor=color;
+}
+
+function handleBead(bead){
+  if(!bead || bead.dataset.anchor==="true")return;
+
+  if(activeTool==="pick"){
+    const c=hexFromRgb(bead.style.backgroundColor);
+    $("colorPicker").value=c;
+    setTool("paint");
+    return;
+  }
+
+  if(activeTool==="replace"){
+    const old=hexFromRgb(bead.style.backgroundColor);
+    const next=$("colorPicker").value.toUpperCase();
+    document.querySelectorAll(".bead").forEach(b=>{
+      if(b.dataset.anchor!=="true" && hexFromRgb(b.style.backgroundColor)===old)applyBead(b,next);
+    });
+    setTool("paint");
+    return;
+  }
+
+  const color=activeTool==="erase"?"#FFFFFF":$("colorPicker").value.toUpperCase();
+  applyBead(bead,color);
+
+  const row=bead.parentElement;
+  const rows=[...document.querySelectorAll(".beadRow")];
+  const beads=[...row.children];
+  const rowIndex=rows.indexOf(row);
+  const beadIndex=beads.indexOf(bead);
+
+  if($("mirrorV").classList.contains("selected")){
+    const mirror=beads[beads.length-1-beadIndex];
+    if(mirror)applyBead(mirror,color);
+  }
+
+  if($("mirrorH").classList.contains("selected")){
+    const mirrorRow=rows[rows.length-1-rowIndex];
+    if(mirrorRow && mirrorRow.children[beadIndex])applyBead(mirrorRow.children[beadIndex],color);
+  }
+}
+
+function setupPalette(){
+  const p=$("palette");
+  p.innerHTML="";
+  colors.forEach(c=>{
+    const s=document.createElement("div");
+    s.className="swatch";
+    s.style.backgroundColor=c;
+    s.title=c;
+    s.onclick=()=>{$("colorPicker").value=c;setTool("paint")};
+    p.appendChild(s);
+  });
+}
+
+function getProjectData(){
+  return {
+    settings:{
+      patternType:$("patternType").value,
+      width:$("widthInput").value,
+      length:$("lengthInput").value,
+      fringe:$("fringeInput").value,
+      shape:$("beadShape").value
+    },
+    beads:[...document.querySelectorAll(".beadRow")].map(row=>
+      [...row.children].map(b=>hexFromRgb(b.style.backgroundColor))
+    )
+  };
+}
+
+function loadProjectData(data){
+  $("patternType").value=data.settings.patternType||"diamond";
+  $("widthInput").value=data.settings.width||15;
+  $("lengthInput").value=data.settings.length||30;
+  $("fringeInput").value=data.settings.fringe||17;
+  $("beadShape").value=data.settings.shape||"round";
+  updateControls();
+  generatePattern();
+
+  const rows=[...document.querySelectorAll(".beadRow")];
+  data.beads.forEach((r,i)=>{
+    if(!rows[i])return;
+    r.forEach((c,j)=>{
+      if(rows[i].children[j])applyBead(rows[i].children[j],c);
+    });
+  });
+}
+
+function saveProject(){
+  const blob=new Blob([JSON.stringify(getProjectData())],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="bead-pattern.beadpattern";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function preparePrint(){
+  $("printPattern").innerHTML=$("patternArea").innerHTML;
+
+  const used=new Map();
+  document.querySelectorAll("#patternArea .bead").forEach(b=>{
+    if(b.dataset.anchor==="true")return;
+    const c=hexFromRgb(b.style.backgroundColor);
+    if(c!=="#FFFFFF"&&!used.has(c))used.set(c,String.fromCharCode(65+used.size));
+  });
+
+  $("printKey").innerHTML=[...used.entries()].map(([c,l])=>
+    `<div style="display:flex;align-items:center;gap:8px;margin:4px 0;">
+      <div style="width:20px;height:20px;border-radius:50%;background:${c};border:1px solid #ccc"></div>
+      <span>(${l}) ${c}</span>
+    </div>`
+  ).join("") || "No colors used.";
+
+  let html="";
+  [...document.querySelectorAll("#patternArea .beadRow")].forEach((row,i)=>{
+    let parts=[];
+    let last=null,count=0;
+    [...row.children].forEach(b=>{
+      const c=hexFromRgb(b.style.backgroundColor);
+      const sym=c==="#FFFFFF"?"-":used.get(c);
+      if(sym!==last){
+        if(count&&last!=="-")parts.push(`(${last})x${count}`);
+        last=sym;count=1;
+      }else count++;
+    });
+    if(count&&last!=="-")parts.push(`(${last})x${count}`);
+    html+=`<div><b>Row ${i+1}:</b> ${parts.join(", ")||"blank"}</div>`;
+  });
+  $("wordChart").innerHTML=html;
+}
+
+async function exportPDF(){
+  preparePrint();
+  $("printArea").classList.remove("hidden");
+  $("printArea").style.position="absolute";
+  $("printArea").style.left="-9999px";
+  $("printArea").style.width="900px";
+
+  const canvas=await html2canvas($("printArea"),{scale:2,backgroundColor:"#ffffff"});
+  const img=canvas.toDataURL("image/png");
+  const {jsPDF}=window.jspdf;
+  const pdf=new jsPDF("p","pt","letter");
+
+  const pw=pdf.internal.pageSize.getWidth();
+  const ph=pdf.internal.pageSize.getHeight();
+  const margin=30;
+  const ratio=Math.min((pw-margin*2)/canvas.width,(ph-margin*2)/canvas.height);
+  const w=canvas.width*ratio;
+  const h=canvas.height*ratio;
+
+  pdf.addImage(img,"PNG",(pw-w)/2,margin,w,h);
+  pdf.save("bead-pattern.pdf");
+
+  $("printArea").classList.add("hidden");
+}
+
+async function exportImage(){
+  preparePrint();
+  $("printArea").classList.remove("hidden");
+  $("printArea").style.position="absolute";
+  $("printArea").style.left="-9999px";
+  $("printArea").style.width="900px";
+
+  const canvas=await html2canvas($("printArea"),{scale:2,backgroundColor:"#ffffff"});
+  const a=document.createElement("a");
+  a.href=canvas.toDataURL("image/png");
+  a.download="bead-pattern.png";
+  a.click();
+
+  $("printArea").classList.add("hidden");
+}
+
+function beadCount(){
+  const counts={};
+  document.querySelectorAll("#patternArea .bead").forEach(b=>{
+    if(b.dataset.anchor==="true")return;
+    const c=hexFromRgb(b.style.backgroundColor);
+    if(c==="#FFFFFF")return;
+    counts[c]=(counts[c]||0)+1;
+  });
+
+  $("countBox").innerHTML=Object.keys(counts).length
+    ? Object.entries(counts).map(([c,n])=>`<div><span style="display:inline-block;width:14px;height:14px;background:${c};border:1px solid #ccc"></span> ${c}: ${n}</div>`).join("")
+    : "No colored beads yet.";
+}
+
+function updateControls(){
+  const isDiamond=$("patternType").value==="diamond";
+  $("widthLabel").textContent=isDiamond?"Widest Point Beads":"Width Beads";
+  $("lengthWrap").style.display=isDiamond?"none":"block";
+  $("fringeWrap").style.display=isDiamond?"block":"none";
+}
+
+function generatePaletteFromImage(){
+  if(!uploadedImage)return;
+  const img=new Image();
+  img.onload=()=>{
+    const canvas=document.createElement("canvas");
+    const ctx=canvas.getContext("2d");
+    canvas.width=150;canvas.height=150;
+    ctx.drawImage(img,0,0,150,150);
+    const data=ctx.getImageData(0,0,150,150).data;
+    const buckets={};
+    for(let i=0;i<data.length;i+=16){
+      const r=Math.round(data[i]/32)*32;
+      const g=Math.round(data[i+1]/32)*32;
+      const b=Math.round(data[i+2]/32)*32;
+      const c="#"+[r,g,b].map(x=>Math.min(255,x).toString(16).padStart(2,"0")).join("").toUpperCase();
+      buckets[c]=(buckets[c]||0)+1;
+    }
+    Object.entries(buckets).sort((a,b)=>b[1]-a[1]).slice(0,10).forEach(([c])=>{
+      if(!colors.includes(c))colors.push(c);
+    });
+    setupPalette();
+  };
+  img.src=uploadedImage;
+}
+
+$("patternArea").addEventListener("mousedown",e=>{isDown=true;if(e.target.classList.contains("bead"))handleBead(e.target)});
+$("patternArea").addEventListener("mouseover",e=>{if(isDown&&e.target.classList.contains("bead")&&!["pick","replace"].includes(activeTool))handleBead(e.target)});
+document.addEventListener("mouseup",()=>isDown=false);
+
+$("applyBtn").onclick=generatePattern;
+$("clearBtn").onclick=()=>document.querySelectorAll("#patternArea .bead").forEach(b=>{if(b.dataset.anchor!=="true")applyBead(b,"#FFFFFF")});
+$("paintTool").onclick=()=>setTool("paint");
+$("eraseTool").onclick=()=>setTool("erase");
+$("pickTool").onclick=()=>setTool("pick");
+$("replaceTool").onclick=()=>setTool("replace");
+$("mirrorV").onclick=()=>$("mirrorV").classList.toggle("selected");
+$("mirrorH").onclick=()=>$("mirrorH").classList.toggle("selected");
+$("saveProject").onclick=saveProject;
+$("exportPDF").onclick=exportPDF;
+$("exportImage").onclick=exportImage;
+$("countBtn").onclick=beadCount;
+
+$("loadProject").onchange=e=>{
+  const file=e.target.files[0];
+  if(!file)return;
+  const r=new FileReader();
+  r.onload=()=>loadProjectData(JSON.parse(r.result));
+  r.readAsText(file);
+};
+
+$("patternType").onchange=()=>{updateControls();generatePattern()};
+$("beadShape").onchange=generatePattern;
+
+$("zoomIn").onclick=()=>{zoom=Math.min(3,zoom+.2);$("patternArea").style.transform=`scale(${zoom})`;$("patternArea").style.transformOrigin="top left"};
+$("zoomOut").onclick=()=>{zoom=Math.max(.3,zoom-.2);$("patternArea").style.transform=`scale(${zoom})`;$("patternArea").style.transformOrigin="top left"};
+$("zoomReset").onclick=()=>{zoom=1;$("patternArea").style.transform="scale(1)"};
+
+$("imageInput").onchange=e=>{
+  const file=e.target.files[0];
+  if(!file)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    uploadedImage=r.result;
+    $("imagePreview").src=uploadedImage;
+    $("imagePreview").classList.remove("hidden");
+    $("paletteFromImage").classList.remove("hidden");
+  };
+  r.readAsDataURL(file);
+};
+
+$("paletteFromImage").onclick=generatePaletteFromImage;
+
+$("imagePreview").onclick=e=>{
+  if(activeTool!=="pick")return;
+  const img=$("imagePreview");
+  const canvas=document.createElement("canvas");
+  const ctx=canvas.getContext("2d");
+  canvas.width=img.naturalWidth;
+  canvas.height=img.naturalHeight;
+  ctx.drawImage(img,0,0);
+  const rect=img.getBoundingClientRect();
+  const x=Math.floor((e.clientX-rect.left)*(img.naturalWidth/rect.width));
+  const y=Math.floor((e.clientY-rect.top)*(img.naturalHeight/rect.height));
+  const p=ctx.getImageData(x,y,1,1).data;
+  $("colorPicker").value=hexFromRgb(`rgb(${p[0]},${p[1]},${p[2]})`);
+  setTool("paint");
+};
+
+setupPalette();
+updateControls();
+generatePattern();
+</script>
+
 </body>
 </html>
