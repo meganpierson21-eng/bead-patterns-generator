@@ -1,57 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bead Pattern Designer</title>
-</head>
-<body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bead Pattern Designer</title>
 
-<h1>Bead Pattern Designer</h1>
-<p>If you see this, your GitHub Pages is working.</p>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+    padding: 20px;
+}
 
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bead Pattern Designer</title>
+h1 {
+    text-align: center;
+}
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
-            padding: 20px;
-        }
+.card {
+    background: white;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 16px;
+    max-width: 700px;
+    margin: 20px auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    overflow-x: auto;
+}
 
-        h1 {
-            text-align: center;
-        }
+.controls {
+    max-width: 400px;
+    margin: 0 auto 20px auto;
+}
 
-        .card {
-            background: white;
-            border: 1px solid #cbd5e1;
-            border-radius: 12px;
-            padding: 16px;
-            max-width: 500px;
-            margin: 20px auto;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
 
-        button {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background: #4f46e5;
-            color: white;
-            font-size: 16px;
-        }
-    </style>
+input, button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+}
+
+input {
+    border: 1px solid #cbd5e1;
+}
+
+button {
+    border: none;
+    background: #4f46e5;
+    color: white;
+}
+
+.pattern-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2px;
+}
+
+.label {
+    width: 80px;
+    text-align: right;
+    padding-right: 8px;
+    font-size: 12px;
+    color: #64748b;
+    flex-shrink: 0;
+}
+
+.beads {
+    display: flex;
+    gap: 2px;
+}
+
+.bead {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #cbd5e1;
+    border-radius: 50%;
+    background: white;
+    flex-shrink: 0;
+}
+</style>
 </head>
 
 <body>
@@ -59,9 +95,68 @@
 <h1>Bead Pattern Designer</h1>
 
 <div class="card">
-    <p>If you see this styled card and button, CSS is working.</p>
-    <button onclick="alert('JavaScript is working!')">Test JavaScript</button>
+    <div class="controls">
+        <label for="widthInput">Widest Point Beads</label>
+        <input id="widthInput" type="number" value="15" min="3" max="51">
+        <button onclick="generatePattern()">Generate Diamond Top</button>
+    </div>
+
+    <div id="patternArea"></div>
 </div>
+
+<script>
+function makeRow(count, labelText) {
+    var rowWrap = document.createElement("div");
+    rowWrap.className = "pattern-row";
+
+    var label = document.createElement("div");
+    label.className = "label";
+    label.textContent = labelText || "";
+    rowWrap.appendChild(label);
+
+    var beads = document.createElement("div");
+    beads.className = "beads";
+
+    for (var i = 0; i < count; i++) {
+        var bead = document.createElement("div");
+        bead.className = "bead";
+        beads.appendChild(bead);
+    }
+
+    rowWrap.appendChild(beads);
+    return rowWrap;
+}
+
+function generatePattern() {
+    var area = document.getElementById("patternArea");
+    area.innerHTML = "";
+
+    var width = parseInt(document.getElementById("widthInput").value, 10);
+
+    if (isNaN(width) || width < 3) {
+        width = 15;
+    }
+
+    if (width % 2 === 0) {
+        width = width + 1;
+        document.getElementById("widthInput").value = width;
+    }
+
+    area.appendChild(makeRow(2, "loop"));
+    area.appendChild(makeRow(2, "loop"));
+    area.appendChild(makeRow(2, "loop"));
+
+    for (var up = 3; up <= width; up++) {
+        area.appendChild(makeRow(up, up === width ? "side start" : ""));
+    }
+
+    for (var down = width - 1; down >= 1; down--) {
+        area.appendChild(makeRow(down, down === 1 ? "center start" : ""));
+    }
+}
+
+generatePattern();
+</script>
 
 </body>
 </html>
