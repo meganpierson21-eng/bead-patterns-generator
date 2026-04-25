@@ -3,18 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
 <title>Bead Pattern Designer</title>
 
 <style>
 * { box-sizing: border-box; }
 
-body {
+html, body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #f8fafc;
-    color: #1e293b;
-    padding-bottom: 120px;
+    touch-action: manipulation;
     -webkit-user-select: none;
     user-select: none;
 }
@@ -23,36 +21,46 @@ header {
     background: white;
     padding: 12px;
     text-align: center;
+    font-size: 22px;
     font-weight: bold;
     border-bottom: 1px solid #cbd5e1;
 }
 
 .card {
     background: white;
-    margin: 10px;
+    margin: 12px;
     padding: 12px;
     border-radius: 12px;
     border: 1px solid #cbd5e1;
 }
 
-.palette {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
+label { display: block; margin-top: 6px; }
+
+input, select, button {
+    width: 100%;
+    margin-top: 6px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    font-size: 16px;
 }
 
-.swatch {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    border: 2px solid #cbd5e1;
+button {
+    background: #4f46e5;
+    color: white;
+    border: none;
+}
+
+.zoom-controls {
+    display: flex;
+    gap: 8px;
 }
 
 .pattern-scroll {
     overflow: auto;
     border: 1px solid #cbd5e1;
     border-radius: 12px;
-    padding: 10px;
+    height: 420px;
 }
 
 #patternArea {
@@ -62,81 +70,76 @@ header {
 
 .pattern-row {
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
 .label {
-    width: 80px;
+    width: 90px;
     font-size: 12px;
+    color: #64748b;
+}
+
+.beads {
+    display: flex;
+    gap: 4px;
 }
 
 .bead {
-    width: 22px;
-    height: 22px;
-    border: 1px solid #cbd5e1;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    margin: 2px;
+    border: 1px solid #cbd5e1;
     background: white;
 }
 
-.fringe-guide {
+.palette {
     display: flex;
-    justify-content: center;
-    margin-top: 10px;
+    overflow-x: auto;
+    gap: 8px;
 }
 
-.fringe-dot {
-    width: 22px;
-    text-align: center;
-    font-size: 10px;
+.swatch {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
 }
 
 .bottom-tools {
     position: fixed;
     bottom: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
     background: white;
-    padding: 10px;
     border-top: 1px solid #cbd5e1;
+    padding: 10px;
 }
 
 .tool-grid {
     display: flex;
-    gap: 10px;
+    gap: 8px;
 }
 
-button {
+.tool-grid button {
     flex: 1;
-    padding: 12px;
-    border-radius: 10px;
-    border: none;
-    background: #4f46e5;
-    color: white;
 }
 
-button.danger { background: #dc2626; }
-
-#beadCount {
+.fringe-row {
     display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 4px;
 }
 
-.count-item {
+.fringe-dot {
+    width: 20px;
+    height: 20px;
+    border: 1px dashed #94a3b8;
+    border-radius: 50%;
+    font-size: 10px;
     display: flex;
     align-items: center;
-    gap: 4px;
-    background: #eef2ff;
-    padding: 4px 6px;
-    border-radius: 6px;
-    font-size: 12px;
-}
-
-.count-color {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
+    justify-content: center;
 }
 </style>
 </head>
@@ -146,7 +149,9 @@ button.danger { background: #dc2626; }
 <header>Bead Pattern Designer</header>
 
 <div class="card">
-<label>Pattern Type</<select id="patternType" onchange="updateControls()">="diamond">Diamond Earring Top</option>
+<label>Pattern Type</label>
+<select id="patternType" onchange="updateControls(); generatePattern();">
+<option value="diamond">Diamond Earring Top</option>
 <option value="brick">Brick Stitch Fringe</option>
 <option value="loom">Loom Rectangle</option>
 </select>
@@ -155,8 +160,8 @@ button.danger { background: #dc2626; }
 <input id="widthInput" type="number" value="15">
 
 <div id="lengthSection">
-  <label id="lengthLabel">Length</label>
-  <input id="lengthInput" type="number" value="10">
+<label>Length</label>
+<input id="lengthInput" type="number" value="10">
 </div>
 
 <button onclick="generatePattern()">Generate</button>
@@ -168,9 +173,11 @@ button.danger { background: #dc2626; }
 </div>
 
 <div class="card">
+<div class="zoom-controls">
 <button onclick="zoomGraph(-0.1)">Zoom -</button>
-<button onclick="resetGraphZoom()">Reset</button>
+<button onclick="resetZoom()">Reset</button>
 <button onclick="zoomGraph(0.1)">Zoom +</button>
+</div>
 </div>
 
 <div class="card">
@@ -180,213 +187,162 @@ button.danger { background: #dc2626; }
 </div>
 
 <div class="card">
-<label>Bead Count</label>
+<h3>Bead Count</h3>
 <div id="beadCount"></div>
 </div>
 
 <div class="bottom-tools">
 <div class="tool-grid">
 <input type="color" id="colorPicker" value="#000000">
-<button onclick="setTool('paint')">Paint</button>
-<button onclick="setTool('erase')">Erase</button>
-<button class="danger" onclick="clearPattern()">Clear</button>
+<button onclick="setTool('paint')" id="paintBtn">Paint</button>
+<button onclick="setTool('erase')" id="eraseBtn">Erase</button>
+<button onclick="clearPattern()">Clear</button>
 </div>
 </div>
 
 <script>
-
 let currentTool = "paint";
-let graphScale = 1;
+let zoom = 1;
 
 const paletteColors = [
 "#000000","#FFFFFF","#FF0000","#FFA500","#FFFF00",
 "#008000","#0000FF","#800080","#FFC0CB"
 ];
 
-  function updateControls() {
-    const type = document.getElementById("patternType").value;
-    const lengthSection = document.getElementById("lengthSection");
-
-    if (type === "diamond") {
-        lengthSection.style.display = "none";
-    } else {
-        lengthSection.style.display = "block";
-    }
-}  
 function buildPalette(){
-    let p = document.getElementById("palette");
-    p.innerHTML = "";
+    const p = document.getElementById("palette");
+    p.innerHTML="";
     paletteColors.forEach(c=>{
-        let d=document.createElement("div");
-        d.className="swatch";
-        d.style.background=c;
-        d.onclick=()=>document.getElementById("colorPicker").value=c;
-        p.appendChild(d);
+        const s=document.createElement("div");
+        s.className="swatch";
+        s.style.background=c;
+        s.onclick=()=>document.getElementById("colorPicker").value=c;
+        p.appendChild(s);
     });
 }
 
-function makeRow(count,label){
-    let row=document.createElement("div");
+function setTool(t){ currentTool=t; }
+
+function zoomGraph(d){
+    zoom+=d;
+    document.getElementById("patternArea").style.transform=`scale(${zoom})`;
+}
+function resetZoom(){
+    zoom=1;
+    document.getElementById("patternArea").style.transform="scale(1)";
+}
+
+function updateControls(){
+    const type=document.getElementById("patternType").value;
+    document.getElementById("lengthSection").style.display =
+        type==="diamond" ? "none":"block";
+}
+
+function makeRow(count,labelText){
+    const row=document.createElement("div");
     row.className="pattern-row";
 
-    let lab=document.createElement("div");
-    lab.className="label";
-    lab.innerText=label||"";
-    row.appendChild(lab);
+    const label=document.createElement("div");
+    label.className="label";
+    label.textContent=labelText||"";
+    row.appendChild(label);
+
+    const beads=document.createElement("div");
+    beads.className="beads";
 
     for(let i=0;i<count;i++){
-        let b=document.createElement("div");
+        const b=document.createElement("div");
         b.className="bead";
-        b.dataset.color="#FFFFFF";
         b.onclick=()=>colorBead(b);
-        row.appendChild(b);
+        beads.appendChild(b);
+    }
+
+    row.appendChild(beads);
+    return row;
+}
+
+function makeFringeGuide(width){
+    const row=document.createElement("div");
+    row.className="fringe-row";
+
+    const center=Math.ceil(width/2);
+
+    for(let i=1;i<=width;i++){
+        const d=document.createElement("div");
+        d.className="fringe-dot";
+        d.textContent = i===center ? "C" : (i===1||i===width ? "S" : i);
+        row.appendChild(d);
     }
     return row;
 }
 
 function generatePattern(){
-    let type=document.getElementById("patternType").value;
-    let width=parseInt(document.getElementById("widthInput").value);
-    let length=parseInt(document.getElementById("lengthInput").value);
-
-    let area=document.getElementById("patternArea");
+    const area=document.getElementById("patternArea");
     area.innerHTML="";
 
+    const type=document.getElementById("patternType").value;
+    let width=parseInt(widthInput.value);
+    let length=parseInt(lengthInput.value);
+
     if(type==="diamond"){
-        for(let i=3;i<=width;i++){
-            area.appendChild(makeRow(i,i===width?"side start":""));
-        }
-        for(let i=width-1;i>=1;i--){
-            area.appendChild(makeRow(i,i===1?"center start":""));
-        }
-        makeFringe(width);
+        for(let i=1;i<=width;i++)
+            area.appendChild(makeRow(i, i===width?"side start":""));
+        for(let i=width-1;i>=1;i--)
+            area.appendChild(makeRow(i, i===1?"center start":""));
+
+        area.appendChild(makeFringeGuide(width));
     }
 
     if(type==="brick"){
-        for(let i=2;i<=width;i++){
+        for(let i=1;i<=width;i++)
             area.appendChild(makeRow(i));
-        }
-        for(let i=0;i<length;i++){
+        for(let i=0;i<length;i++)
             area.appendChild(makeRow(width));
-        }
     }
 
     if(type==="loom"){
-        for(let i=0;i<length;i++){
+        for(let i=0;i<length;i++)
             area.appendChild(makeRow(width));
-        }
     }
 
-    updateBeadCount();
-}
-
-function makeFringe(n){
-    let wrap=document.createElement("div");
-    wrap.className="fringe-guide";
-
-    for(let i=1;i<=n;i++){
-        let d=document.createElement("div");
-        d.className="fringe-dot";
-        d.innerText=i;
-        wrap.appendChild(d);
-    }
-
-    document.getElementById("patternArea").appendChild(wrap);
+    updateCount();
 }
 
 function colorBead(b){
-    let color = currentTool==="erase" ? "#FFFFFF" : document.getElementById("colorPicker").value;
-    b.style.background=color;
-    b.dataset.color=color;
-    updateBeadCount();
+    b.style.background =
+        currentTool==="erase" ? "#FFFFFF" :
+        document.getElementById("colorPicker").value;
+    updateCount();
 }
 
 function clearPattern(){
+    document.querySelectorAll(".bead")
+        .forEach(b=>b.style.background="#FFFFFF");
+    updateCount();
+}
+
+function updateCount(){
+    const counts={};
     document.querySelectorAll(".bead").forEach(b=>{
-        b.style.background="#FFFFFF";
-        b.dataset.color="#FFFFFF";
-    });
-    updateBeadCount();
-}
-
-function setTool(t){ currentTool=t; }
-
-function zoomGraph(a){
-    graphScale+=a;
-    if(graphScale<0.4)graphScale=0.4;
-    if(graphScale>2)graphScale=2;
-    applyZoom();
-}
-
-function resetGraphZoom(){
-    graphScale=1;
-    applyZoom();
-}
-
-function applyZoom(){
-    document.getElementById("patternArea").style.transform="scale("+graphScale+")";
-}
-
-function updateBeadCount(){
-    let counts={};
-    document.querySelectorAll(".bead").forEach(b=>{
-        let c=b.dataset.color;
-        if(c==="#FFFFFF") return;
-        counts[c]=(counts[c]||0)+1;
+        const c=b.style.background;
+        if(c && c!=="white"){
+            counts[c]=(counts[c]||0)+1;
+        }
     });
 
-    let container=document.getElementById("beadCount");
-    container.innerHTML="";
-
+    const div=document.getElementById("beadCount");
+    div.innerHTML="";
     for(let c in counts){
-        let d=document.createElement("div");
-        d.className="count-item";
-
-        let s=document.createElement("div");
-        s.className="count-color";
-        s.style.background=c;
-
-        let t=document.createElement("span");
-        t.innerText=counts[c];
-
-        d.appendChild(s);
-        d.appendChild(t);
-        container.appendChild(d);
+        const span=document.createElement("span");
+        span.style.marginRight="10px";
+        span.innerHTML=`<span style="color:${c}">●</span> ${counts[c]}`;
+        div.appendChild(span);
     }
 }
-
-/* PINCH ZOOM */
-let pinchStartDist=0;
-let pinchStartScale=1;
-
-function getDist(t){
-    let dx=t[0].clientX-t[1].clientX;
-    let dy=t[0].clientY-t[1].clientY;
-    return Math.sqrt(dx*dx+dy*dy);
-}
-
-let scroll=document.getElementById("patternScroll");
-
-scroll.addEventListener("touchstart",e=>{
-    if(e.touches.length===2){
-        pinchStartDist=getDist(e.touches);
-        pinchStartScale=graphScale;
-    }
-},{passive:false});
-
-scroll.addEventListener("touchmove",e=>{
-    if(e.touches.length===2){
-        e.preventDefault();
-        let dist=getDist(e.touches);
-        graphScale=pinchStartScale*(dist/pinchStartDist);
-        applyZoom();
-    }
-},{passive:false});
 
 buildPalette();
+updateControls();
 generatePattern();
-    updateControls();
-
 </script>
 
 </body>
