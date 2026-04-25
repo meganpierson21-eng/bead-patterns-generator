@@ -452,7 +452,6 @@ function makeDiamondPattern(width, centerFringeLength, sideFringeLength) {
         rows.push({ count: down, label: down === 1 ? "center start" : "" });
     }
 
-    const widestRowIndex = 3 + (width - 3);
     const finalRowIndex = rows.length - 1;
     const guideRowY = (finalRowIndex + 1) * pitch + topStart;
     const canvasWidth = labelWidth + 20 + (width * pitch) + 80;
@@ -494,8 +493,8 @@ function makeDiamondPattern(width, centerFringeLength, sideFringeLength) {
     for (let i = 1; i <= width; i++) {
         const x = leftStart + ((i - 1) * pitch);
         const distanceFromCenter = Math.abs(i - center);
-        const anchorOffset = maxDistance - distanceFromCenter;
-        const anchorRowIndex = widestRowIndex + anchorOffset;
+
+        const anchorRowIndex = finalRowIndex - distanceFromCenter;
         const anchorY = topStart + anchorRowIndex * pitch;
 
         let strandLength;
