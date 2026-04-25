@@ -172,6 +172,33 @@ button {
     flex-shrink: 0;
 }
 
+.fringe-builder {
+    display: flex;
+    justify-content: center;
+    margin-top: 6px;
+    padding-left: 92px;
+}
+
+.fringe-columns {
+    display: flex;
+    gap: 3px;
+    align-items: flex-start;
+}
+
+.fringe-column {
+    width: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: center;
+}
+
+.fringe-spacer {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+}
+
 .bottom-tools {
     position: fixed;
     left: 0;
@@ -253,12 +280,22 @@ button {
 
         <div>
             <label id="widthLabel">Width</label>
-            <input id="widthInput" class="full" type="number" value="15" min="1" max="99">
+            <input id="widthInput" class="full" type="number" value="17" min="1" max="99">
         </div>
 
         <div id="lengthSection">
             <label id="lengthLabel">Length</label>
             <input id="lengthInput" class="full" type="number" value="10" min="1" max="200">
+        </div>
+
+        <div id="fringeMaxSection">
+            <label>Center Fringe Length</label>
+            <input id="fringeMaxInput" class="full" type="number" value="30" min="1" max="200">
+        </div>
+
+        <div id="fringeMinSection">
+            <label>Side Fringe Length</label>
+            <input id="fringeMinInput" class="full" type="number" value="8" min="1" max="200">
         </div>
 
         <button onclick="generatePattern()">Generate</button>
@@ -399,6 +436,43 @@ function makeFringeGuide(width) {
     return guide;
 }
 
+function makeFringeBuilder(width, centerLength, sideLength) {
+    const wrap = document.createElement("div");
+    wrap.className = "fringe-builder";
+
+    const columns = document.createElement("div");
+    columns.className = "fringe-columns";
+
+    const center = Math.ceil(width / 2);
+    const maxDistance = center - 1;
+
+    for (let i = 1; i <= width; i++) {
+        const column = document.createElement("div");
+        column.className = "fringe-column";
+
+        const distanceFromCenter = Math.abs(i - center);
+        let length;
+
+        if (maxDistance === 0) {
+            length = centerLength;
+        } else {
+            const ratio = distanceFromCenter / maxDistance;
+            length = Math.round(centerLength - ((centerLength - sideLength) * ratio));
+        }
+
+        if (length < 1) length = 1;
+
+        for (let beadIndex = 0; beadIndex < length; beadIndex++) {
+            column.appendChild(makeBead());
+        }
+
+        columns.appendChild(column);
+    }
+
+    wrap.appendChild(columns);
+    return wrap;
+}
+
 function generatePattern() {
     const area = document.getElementById("patternScale");
     area.innerHTML = "";
@@ -406,9 +480,18 @@ function generatePattern() {
     const type = document.getElementById("patternType").value;
     let width = parseInt(document.getElementById("widthInput").value, 10);
     let length = parseInt(document.getElementById("lengthInput").value, 10);
+    let centerFringeLength = parseInt(document.getElementById("fringeMaxInput").value, 10);
+    let sideFringeLength = parseInt(document.getElementById("fringeMinInput").value, 10);
 
-    if (isNaN(width) || width < 1) width = 15;
+    if (isNaN(width) || width < 1) width = 17;
     if (isNaN(length) || length < 1) length = 10;
+    if (isNaN(centerFringeLength) || centerFringeLength < 1) centerFringeLength = 30;
+    if (isNaN(sideFringeLength) || sideFringeLength < 1) sideFringeLength = 8;
+
+    if (sideFringeLength > centerFringeLength) {
+        sideFringeLength = centerFringeLength;
+        document.getElementById("fringeMinInput").value = sideFringeLength;
+    }
 
     if (type === "diamond") {
         if (width < 3) width = 3;
@@ -430,6 +513,7 @@ function generatePattern() {
         }
 
         area.appendChild(makeFringeGuide(width));
+        area.appendChild(makeFringeBuilder(width, centerFringeLength, sideFringeLength));
     }
 
     if (type === "brick") {
@@ -573,18 +657,26 @@ document.addEventListener("touchend", function(event) {
 function updateControls() {
     const type = document.getElementById("patternType").value;
     const lengthSection = document.getElementById("lengthSection");
+    const fringeMaxSection = document.getElementById("fringeMaxSection");
+    const fringeMinSection = document.getElementById("fringeMinSection");
     const widthLabel = document.getElementById("widthLabel");
     const lengthLabel = document.getElementById("lengthLabel");
 
     if (type === "diamond") {
         lengthSection.style.display = "none";
+        fringeMaxSection.style.display = "block";
+        fringeMinSection.style.display = "block";
         widthLabel.textContent = "Widest Point";
     } else if (type === "brick") {
         lengthSection.style.display = "block";
+        fringeMaxSection.style.display = "none";
+        fringeMinSection.style.display = "none";
         widthLabel.textContent = "Top Width";
         lengthLabel.textContent = "Fringe Length";
     } else {
         lengthSection.style.display = "block";
+        fringeMaxSection.style.display = "none";
+        fringeMinSection.style.display = "none";
         widthLabel.textContent = "Width";
         lengthLabel.textContent = "Length";
     }
