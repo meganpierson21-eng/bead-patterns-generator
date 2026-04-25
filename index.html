@@ -518,7 +518,14 @@ function colorBead(bead) {
     bead.dataset.color = color;
     updateBeadCount();
 }
+function savePattern() {
+    const beads = [];
+    document.querySelectorAll(".bead").forEach(function(bead) {
+        beads.push(bead.dataset.color || "#FFFFFF");
+    });
 
+    localStorage.setItem("patternData", JSON.stringify(beads));
+}
 function clearPattern() {
     document.querySelectorAll(".bead").forEach(function(bead) {
         bead.style.backgroundColor = "#FFFFFF";
