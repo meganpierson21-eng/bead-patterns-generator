@@ -7,6 +7,9 @@
 
 <style>
 * { box-sizing: border-box; }
+    html, body {
+    touch-action: manipulation;
+}
 
 body {
     margin: 0;
@@ -126,6 +129,7 @@ button.danger { background: #dc2626; }
     background: white;
     flex-shrink: 0;
     cursor: pointer;
+    touch-action: manipulation;
 }
 
 .palette {
@@ -421,7 +425,17 @@ function updateControls() {
         lengthSection.classList.remove("hidden");
     }
 }
+let lastTouchEnd = 0;
 
+document.addEventListener('touchend', function (event) {
+    const now = Date.now();
+    if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+    }
+    lastTouchEnd = now;
+}, { passive: false });
+
+    
 buildPalette();
 updateControls();
 generatePattern();
