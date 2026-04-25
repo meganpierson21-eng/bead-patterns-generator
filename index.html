@@ -671,22 +671,45 @@ function handlePatternChange() {
 function testExport() {
     const element = document.getElementById("patternScale");
 
-    if (!element) {
-        alert("Pattern not found");
-        return;
-    }
-
     html2canvas(element, {
         backgroundColor: "#ffffff",
-        scale: 2
+        scale: 3,
+        useCORS: true
     }).then(canvas => {
+        // ✂️ Crop to actual content
+        const ctx = canvas.getContext("2d");
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+
+        let top = null, bottom = null, left = null, right = null;
+
+        for (let y = 0; y < canvas.height; y++) {
+            for (let x = 0; x < canvas.width; x++) {
+                const i = (y * canvas.width + x) * 4;
+                const alpha = imageData[i + 3];
+
+                if (alpha > 0) {
+                    if (top === null) top = y;
+                    bottom = y;
+                    if (left === null || x < left) left = x;
+                    if (right === null || x > right) right = x;
+                }
+            }
+        }
+
+        const width = right - left;
+        const height = bottom - top;
+
+        const croppedCanvas = document.createElement("canvas");
+        croppedCanvas.width = width;
+        croppedCanvas.height = height;
+
+        const croppedCtx = croppedCanvas.getContext("2d");
+        croppedCtx.drawImage(canvas, left, top, width, height, 0, 0, width, height);
+
         const link = document.createElement("a");
         link.download = "bead-pattern.png";
-        link.href = canvas.toDataURL("image/png");
+        link.href = croppedCanvas.toDataURL("image/png");
         link.click();
-    }).catch(err => {
-        console.error(err);
-        alert("Export failed");
     });
 }
 
