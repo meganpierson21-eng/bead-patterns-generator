@@ -225,6 +225,13 @@ button {
     gap: 8px;
 }
 
+.undo-redo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+}
+
 .tool-grid input[type="color"] {
     width: 62px;
     height: 50px;
@@ -250,6 +257,7 @@ button {
     margin-top: 10px;
     background: #64748b;
 }
+
 </style>
 </head>
 
@@ -311,10 +319,12 @@ button {
 
 <div class="tool-grid">
     <input type="color" id="colorPicker" value="#000000">
-    <button id="paintBtn" class="selected-tool" onclick="setTool('paint')">Paint</button>
-    <button id="eraseBtn" onclick="setTool('erase')">Erase</button>
-    <button class="danger" onclick="clearPattern()">Clear</button>
-</div>
+   <button id="paintBtn" class="selected-tool" onclick="setTool('paint')">Paint</button>
+<button id="eraseBtn" onclick="setTool('erase')">Erase</button>
+<button class="danger" onclick="clearPattern()">Clear</button>
+
+<button onclick="undoAction()">Undo</button>
+<button onclick="redoAction()">Redo</button>
 
 <button class="full export-btn" onclick="testExport()">Export</button>
 
@@ -324,6 +334,8 @@ button {
 
 <script>
 let currentTool = "paint";
+let undoStack = [];
+let redoStack = [];
 let graphScale = 0.75;
 let pointerStartX = 0;
 let pointerStartY = 0;
@@ -483,12 +495,60 @@ function generatePattern() {
 }
 
 function colorBead(bead) {
-    const color = currentTool === "erase"
+    const oldColor = bead.dataset.color || "#FFFFFF";
+
+    const newColor = currentTool === "erase"
         ? "#FFFFFF"
         : document.getElementById("colorPicker").value.toUpperCase();
 
-    bead.style.backgroundColor = color;
-    bead.dataset.color = color;
+    if (oldColor === newColor) return;
+
+    undoStack.push({
+        beadIndex: Array.from(document.querySelectorAll(".bead")).indexOf(bead),
+        oldColor: oldColor,
+        newColor: newColor
+    });
+
+    redoStack = [];
+
+    bead.style.backgroundColor = newColor;
+    bead.dataset.color = newColor;
+
+    updateBeadCount();
+    savePattern();
+}
+
+function undoAction() {
+    if (undoStack.length === 0) return;
+
+    const action = undoStack.pop();
+    const beads = document.querySelectorAll(".bead");
+    const bead = beads[action.beadIndex];
+
+    if (!bead) return;
+
+    bead.style.backgroundColor = action.oldColor;
+    bead.dataset.color = action.oldColor;
+
+    redoStack.push(action);
+
+    updateBeadCount();
+    savePattern();
+}
+
+function redoAction() {
+    if (redoStack.length === 0) return;
+
+    const action = redoStack.pop();
+    const beads = document.querySelectorAll(".bead");
+    const bead = beads[action.beadIndex];
+
+    if (!bead) return;
+
+    bead.style.backgroundColor = action.newColor;
+    bead.dataset.color = action.newColor;
+
+    undoStack.push(action);
 
     updateBeadCount();
     savePattern();
